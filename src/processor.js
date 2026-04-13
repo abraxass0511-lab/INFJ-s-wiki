@@ -9,7 +9,7 @@ import CONFIG from './config.js';
 import { classify } from './classifier.js';
 import { synthesizeFromRaw } from './template.js';
 import { loadGraph, saveGraph, addNode, autoLink, getGraphConnectivity } from './graph.js';
-import { commitChanges } from './git.js';
+import { syncToGitHub } from './git.js';
 import { computeTotalReward } from './policy.js';
 import { ensureDir, readText, writeText, today, sanitizeFilename, countFilesInDir, parseFrontmatter } from './utils.js';
 
@@ -79,13 +79,16 @@ export async function processDocument(filePath) {
       console.log(`         · ${conn.type}: [[${conn.target}]]`);
     }
 
-    // ── Step 6: Git 커밋 ──
-    console.log('  📦 [6/6] Git 커밋...');
+    // ── Step 6: Git 커밋 + Push ──
+    console.log('  📦 [6/6] Git 커밋 + Push...');
     const commitSummary = `"${classification.categoryName}" 폴더에 "${fileName}" 문서 배치 (신뢰도: ${classification.confidence})`;
-    const gitResult = await commitChanges(commitSummary);
+    const gitResult = await syncToGitHub(commitSummary);
     
     if (gitResult.commitHash) {
       console.log(`       → 커밋: ${gitResult.commitHash}`);
+    }
+    if (gitResult.pushed) {
+      console.log(`       → GitHub Push ✅`);
     }
 
     // ── 원본 백업 이동 ──
