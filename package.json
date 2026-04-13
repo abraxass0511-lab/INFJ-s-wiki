@@ -1,0 +1,29 @@
+{
+  "name": "p-reinforce",
+  "version": "1.0.0",
+  "description": "P-Reinforce: Autonomous Knowledge Wiki Agent powered by RL-based categorization",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "watch": "node src/watcher.js",
+    "process": "node src/process.js",
+    "dashboard": "node src/dashboard/server.js",
+    "init": "node src/init.js",
+    "status": "node src/status.js"
+  },
+  "keywords": ["wiki", "knowledge-management", "reinforcement-learning", "automation"],
+  "author": "P-Reinforce",
+  "license": "MIT",
+  "dependencies": {
+    "chokidar": "^4.0.3",
+    "gray-matter": "^4.0.3",
+    "marked": "^15.0.7",
+    "uuid": "^11.1.0",
+    "glob": "^11.0.1",
+    "chalk": "^5.4.1",
+    "inquirer": "^12.5.0",
+    "ora": "^8.2.0",
+    "natural": "^8.0.1"
+  }
+}
