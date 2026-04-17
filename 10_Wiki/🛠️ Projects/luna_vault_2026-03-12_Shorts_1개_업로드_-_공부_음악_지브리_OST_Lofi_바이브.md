@@ -1,9 +1,9 @@
 ---
-id: "5f076568-0893-4b4d-8c04-e78ea7da66af"
+id: "6686a11c-df46-4808-94a8-e8b79c3589af"
 category: "[[10_Wiki/🛠️ Projects]]"
-confidence_score: 0.55
+confidence_score: 0.49
 tags: ["projects", "project", "shorts", "lofi", "ghibli", "gh", "luna", "vault"]
-last_reinforced: 2026-04-13
+last_reinforced: 2026-04-18
 github_commit: "pending"
 ---
 
@@ -49,4 +49,4 @@ github_commit: "pending"
 ## 🔗 지식 연결 (Graph)
 - **Parent:** [[🛠️ Projects]]
 - **Related:** [[project]]
-- **Raw Source:** [[00_Raw/2026-04-13/luna_vault_2026-03-12_Shorts_1개_업로드_-_공부_음악_지브리_OST_Lofi_바이브]]
+- **Raw Source:** [[00_Raw/2026-04-18/luna_vault_2026-03-12_Shorts_1개_업로드_-_공부_음악_지브리_OST_Lofi_바이브]]

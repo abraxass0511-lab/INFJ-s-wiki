@@ -1,9 +1,9 @@
 ---
-id: "d0585144-a1dd-43fc-a8a1-bda4d9ee0ede"
+id: "1e8c4df4-5eb9-4bdc-8842-7816ce95d768"
 category: "[[10_Wiki/🛠️ Projects]]"
-confidence_score: 0.42
+confidence_score: 0.34
 tags: ["projects", "프로젝트", "진행", "project", "bridge", "경수", "(gyeongsu)"]
-last_reinforced: 2026-04-13
+last_reinforced: 2026-04-18
 github_commit: "pending"
 ---
 
@@ -51,4 +51,4 @@ github_commit: "pending"
 ## 🔗 지식 연결 (Graph)
 - **Parent:** [[🛠️ Projects]]
 - **Related:** [[프로젝트]], [[진행]], [[project]], [[goal]]
-- **Raw Source:** [[00_Raw/2026-04-13/bridge_경수_(Gyeongsu)_SKILL]]
+- **Raw Source:** [[00_Raw/2026-04-18/bridge_경수_(Gyeongsu)_SKILL]]

@@ -1,9 +1,9 @@
 ---
-id: "feed8b88-f9c8-41dd-8aed-9b5f489193aa"
+id: "9235b007-7bb1-48e2-adfc-084d1fae88f5"
 category: "[[10_Wiki/🛠️ Projects]]"
 confidence_score: 0.49
 tags: ["projects", "project", "build", "develop", "lofihiphop", "studybeats", "latenightgrind", "dadlife"]
-last_reinforced: 2026-04-13
+last_reinforced: 2026-04-18
 github_commit: "pending"
 ---
 
@@ -60,4 +60,4 @@ github_commit: "pending"
 ## 🔗 지식 연결 (Graph)
 - **Parent:** [[🛠️ Projects]]
 - **Related:** [[project]], [[build]], [[develop]]
-- **Raw Source:** [[00_Raw/2026-04-13/luna_vault_2026-04-01_롱폼_2개_업로드_-_빗소리_앰비언스_수면새벽_Lofi_바이브]]
+- **Raw Source:** [[00_Raw/2026-04-18/luna_vault_2026-04-01_롱폼_2개_업로드_-_빗소리_앰비언스_수면새벽_Lofi_바이브]]

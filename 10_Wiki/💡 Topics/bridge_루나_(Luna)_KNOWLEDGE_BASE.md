@@ -1,9 +1,9 @@
 ---
-id: "2cdae7ad-7025-4676-aeca-8e196eca2073"
+id: "e69a771a-26ac-4a76-8747-443d59116828"
 category: "[[10_Wiki/💡 Topics]]"
-confidence_score: 0.38
+confidence_score: 0.35
 tags: ["topics", "ai", "정의", "concept", "bridge", "루나", "(luna)"]
-last_reinforced: 2026-04-13
+last_reinforced: 2026-04-18
 github_commit: "pending"
 ---
 
@@ -93,4 +93,4 @@ github_commit: "pending"
 ## 🔗 지식 연결 (Graph)
 - **Parent:** [[💡 Topics]]
 - **Related:** [[AI]], [[정의]], [[concept]], [[코딩]], [[기술]]
-- **Raw Source:** [[00_Raw/2026-04-13/bridge_루나_(Luna)_KNOWLEDGE_BASE]]
+- **Raw Source:** [[00_Raw/2026-04-18/bridge_루나_(Luna)_KNOWLEDGE_BASE]]

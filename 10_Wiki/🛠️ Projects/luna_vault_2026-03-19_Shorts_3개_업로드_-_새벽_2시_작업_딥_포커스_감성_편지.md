@@ -1,9 +1,9 @@
 ---
-id: "b5fd63f9-0d72-44af-8a02-cd3c498d66a9"
+id: "87f41627-96bf-4167-9195-b9fc6a893959"
 category: "[[10_Wiki/🛠️ Projects]]"
-confidence_score: 0.74
+confidence_score: 0.69
 tags: ["projects", "project", "build", "workingdad", "deepwork", "solopreneur", "luna", "vault"]
-last_reinforced: 2026-04-13
+last_reinforced: 2026-04-18
 github_commit: "pending"
 ---
 
@@ -69,4 +69,4 @@ github_commit: "pending"
 ## 🔗 지식 연결 (Graph)
 - **Parent:** [[🛠️ Projects]]
 - **Related:** [[project]], [[build]]
-- **Raw Source:** [[00_Raw/2026-04-13/luna_vault_2026-03-19_Shorts_3개_업로드_-_새벽_2시_작업_딥_포커스_감성_편지]]
+- **Raw Source:** [[00_Raw/2026-04-18/luna_vault_2026-03-19_Shorts_3개_업로드_-_새벽_2시_작업_딥_포커스_감성_편지]]

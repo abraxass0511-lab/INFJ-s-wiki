@@ -1,9 +1,9 @@
 ---
-id: "f84b6389-485a-47c8-98fb-35ef2eb4d5af"
+id: "45187db3-4863-43f9-bd73-dd3b9f026046"
 category: "[[10_Wiki/🚀 Skills]]"
 confidence_score: 0.38
 tags: ["skills", "skill", "프롬프트", "workflow", "bridge", "구글", "광고"]
-last_reinforced: 2026-04-13
+last_reinforced: 2026-04-18
 github_commit: "pending"
 ---
 
@@ -50,4 +50,4 @@ github_commit: "pending"
 ## 🔗 지식 연결 (Graph)
 - **Parent:** [[🚀 Skills]]
 - **Related:** [[skill]], [[프롬프트]], [[workflow]], [[script]]
-- **Raw Source:** [[00_Raw/2026-04-13/bridge_구글_광고_SKILL]]
+- **Raw Source:** [[00_Raw/2026-04-18/bridge_구글_광고_SKILL]]

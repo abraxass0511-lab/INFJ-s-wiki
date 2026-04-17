@@ -1,9 +1,9 @@
 ---
-id: "dc6ba4bd-5328-48e5-916f-e1616c01d72c"
+id: "d959a00e-8740-47c7-aa30-fa5a65ffa252"
 category: "[[10_Wiki/⚖️ Decisions]]"
-confidence_score: 0.39
+confidence_score: 0.38
 tags: ["decisions", "분석", "전략", "이유", "bridge", "레오", "(leo)"]
-last_reinforced: 2026-04-13
+last_reinforced: 2026-04-18
 github_commit: "pending"
 ---
 
@@ -57,4 +57,4 @@ github_commit: "pending"
 ## 🔗 지식 연결 (Graph)
 - **Parent:** [[⚖️ Decisions]]
 - **Related:** [[분석]], [[전략]], [[이유]], [[cons]]
-- **Raw Source:** [[00_Raw/2026-04-13/bridge_레오_(Leo)_SKILL]]
+- **Raw Source:** [[00_Raw/2026-04-18/bridge_레오_(Leo)_SKILL]]

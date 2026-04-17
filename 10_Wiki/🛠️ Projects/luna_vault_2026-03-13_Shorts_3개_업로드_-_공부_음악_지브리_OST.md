@@ -1,9 +1,9 @@
 ---
-id: "d85e58f9-7d38-4b1d-81be-a85020a41a62"
+id: "a4f9fdab-df3f-4c57-8a14-81145195f0b1"
 category: "[[10_Wiki/🛠️ Projects]]"
-confidence_score: 0.72
+confidence_score: 0.61
 tags: ["projects", "project", "luna", "vault", "2026"]
-last_reinforced: 2026-04-13
+last_reinforced: 2026-04-18
 github_commit: "pending"
 ---
 
@@ -68,4 +68,4 @@ github_commit: "pending"
 ## 🔗 지식 연결 (Graph)
 - **Parent:** [[🛠️ Projects]]
 - **Related:** [[project]]
-- **Raw Source:** [[00_Raw/2026-04-13/luna_vault_2026-03-13_Shorts_3개_업로드_-_공부_음악_지브리_OST]]
+- **Raw Source:** [[00_Raw/2026-04-18/luna_vault_2026-03-13_Shorts_3개_업로드_-_공부_음악_지브리_OST]]
