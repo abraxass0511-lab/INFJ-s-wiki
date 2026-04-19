@@ -1,9 +1,9 @@
 ---
-id: "50ccb3a5-e5d8-4c0e-96d7-29aed2e1f56b"
+id: "ae07b9b2-42e0-49c9-ac0a-fccd176b4cea"
 category: "[[10_Wiki/💡 Topics]]"
 confidence_score: 0.55
 tags: ["topics", "ai", "코딩", "science", "introvert", "artificialintelligence", "solopreneur", "futureofwork"]
-last_reinforced: 2026-04-18
+last_reinforced: 2026-04-19
 github_commit: "pending"
 ---
 
@@ -69,4 +69,4 @@ github_commit: "pending"
 ## 🔗 지식 연결 (Graph)
 - **Parent:** [[💡 Topics]]
 - **Related:** [[AI]], [[코딩]], [[science]]
-- **Raw Source:** [[00_Raw/2026-04-18/luna_vault_2026-04-06_Shorts_2_+_롱폼_1_업로드_-_빗소리_앰비언스_커피와_코딩_딥_포커스]]
+- **Raw Source:** [[00_Raw/2026-04-19/luna_vault_2026-04-06_Shorts_2_+_롱폼_1_업로드_-_빗소리_앰비언스_커피와_코딩_딥_포커스]]

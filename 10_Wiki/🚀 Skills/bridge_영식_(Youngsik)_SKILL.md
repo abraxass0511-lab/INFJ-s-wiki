@@ -1,9 +1,9 @@
 ---
-id: "0d0902e7-edee-4294-b94c-f9f2321cf7e2"
+id: "651dd0e0-4149-4a28-9c2e-8c27c2e66359"
 category: "[[10_Wiki/🚀 Skills]]"
 confidence_score: 0.54
 tags: ["skills", "skill", "tool", "프롬프트", "bridge", "영식", "(youngsik)"]
-last_reinforced: 2026-04-18
+last_reinforced: 2026-04-19
 github_commit: "pending"
 ---
 
@@ -44,4 +44,4 @@ github_commit: "pending"
 ## 🔗 지식 연결 (Graph)
 - **Parent:** [[🚀 Skills]]
 - **Related:** [[skill]], [[tool]], [[프롬프트]], [[automation]], [[script]]
-- **Raw Source:** [[00_Raw/2026-04-18/bridge_영식_(Youngsik)_SKILL]]
+- **Raw Source:** [[00_Raw/2026-04-19/bridge_영식_(Youngsik)_SKILL]]

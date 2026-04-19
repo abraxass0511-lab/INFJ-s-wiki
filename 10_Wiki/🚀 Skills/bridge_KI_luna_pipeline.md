@@ -1,9 +1,9 @@
 ---
-id: "2ce7230d-59d8-444d-a6b5-2456d181fbea"
+id: "8f427d31-0ae1-4d11-be3f-c86c53c5d598"
 category: "[[10_Wiki/🚀 Skills]]"
 confidence_score: 0.45
 tags: ["skills", "skill", "스킬", "프롬프트", "bridge", "ki", "luna"]
-last_reinforced: 2026-04-18
+last_reinforced: 2026-04-19
 github_commit: "pending"
 ---
 
@@ -52,4 +52,4 @@ github_commit: "pending"
 ## 🔗 지식 연결 (Graph)
 - **Parent:** [[🚀 Skills]]
 - **Related:** [[skill]], [[스킬]], [[프롬프트]], [[prompt]], [[template]]
-- **Raw Source:** [[00_Raw/2026-04-18/bridge_KI_luna_pipeline]]
+- **Raw Source:** [[00_Raw/2026-04-19/bridge_KI_luna_pipeline]]

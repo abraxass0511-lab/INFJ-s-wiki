@@ -1,9 +1,9 @@
 ---
-id: "0b963505-dbf5-4ef0-b5b6-c50f6298ad2d"
+id: "01845e0e-f7fb-4998-bf0e-0d2c29c9cbcb"
 category: "[[10_Wiki/🚀 Skills]]"
 confidence_score: 0.52
 tags: ["skills", "자동화", "스킬", "패턴", "2026", "04", "13"]
-last_reinforced: 2026-04-18
+last_reinforced: 2026-04-19
 github_commit: "pending"
 ---
 
@@ -47,4 +47,4 @@ github_commit: "pending"
 ## 🔗 지식 연결 (Graph)
 - **Parent:** [[🚀 Skills]]
 - **Related:** [[자동화]], [[스킬]], [[패턴]], [[skill]], [[템플릿]]
-- **Raw Source:** [[00_Raw/2026-04-18/2026-04-13_chat_P-Reinforce_자율형_위키_에이전트_구축]]
+- **Raw Source:** [[00_Raw/2026-04-19/2026-04-13_chat_P-Reinforce_자율형_위키_에이전트_구축]]

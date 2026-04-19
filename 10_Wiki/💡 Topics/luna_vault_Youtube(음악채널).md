@@ -1,9 +1,9 @@
 ---
-id: "2ab82dfc-a938-4562-8ba6-b07092564fd6"
+id: "2bd2b576-b644-485e-8560-5c1233c91331"
 category: "[[10_Wiki/💡 Topics]]"
 confidence_score: 0.56
 tags: ["topics", "코딩", "ai", "s", "luna", "vault", "youtube(음악채널)"]
-last_reinforced: 2026-04-18
+last_reinforced: 2026-04-19
 github_commit: "pending"
 ---
 
@@ -41,4 +41,4 @@ github_commit: "pending"
 ## 🔗 지식 연결 (Graph)
 - **Parent:** [[💡 Topics]]
 - **Related:** [[코딩]], [[AI]]
-- **Raw Source:** [[00_Raw/2026-04-18/luna_vault_Youtube(음악채널)]]
+- **Raw Source:** [[00_Raw/2026-04-19/luna_vault_Youtube(음악채널)]]

@@ -1,9 +1,9 @@
 ---
-id: "6605cc25-8ef0-4a13-b5a5-4a7e9bc325d2"
+id: "fbc8d9c7-c6f8-4fd5-80ab-9644409c0bcf"
 category: "[[10_Wiki/💡 Topics]]"
-confidence_score: 0.41
+confidence_score: 0.4
 tags: ["topics", "ai", "개념", "자동화", "파이프라인"]
-last_reinforced: 2026-04-18
+last_reinforced: 2026-04-19
 github_commit: "pending"
 ---
 
@@ -43,4 +43,4 @@ github_commit: "pending"
 ## 🔗 지식 연결 (Graph)
 - **Parent:** [[💡 Topics]]
 - **Related:** [[AI]], [[개념]]
-- **Raw Source:** [[00_Raw/2026-04-18/AI_자동화_파이프라인_설계]]
+- **Raw Source:** [[00_Raw/2026-04-19/AI_자동화_파이프라인_설계]]

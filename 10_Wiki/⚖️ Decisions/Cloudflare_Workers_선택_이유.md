@@ -1,9 +1,9 @@
 ---
-id: "34df1e59-02a8-47c9-88d7-969750ee2184"
+id: "ad76eb7b-9e45-4a42-9318-8ad707da380b"
 category: "[[10_Wiki/⚖️ Decisions]]"
 confidence_score: 0.81
 tags: ["decisions", "선택", "이유", "비교", "cloudflare", "workers"]
-last_reinforced: 2026-04-18
+last_reinforced: 2026-04-19
 github_commit: "pending"
 ---
 
@@ -40,4 +40,4 @@ github_commit: "pending"
 ## 🔗 지식 연결 (Graph)
 - **Parent:** [[⚖️ Decisions]]
 - **Related:** [[선택]], [[이유]], [[비교]], [[결정]], [[결론]]
-- **Raw Source:** [[00_Raw/2026-04-18/Cloudflare_Workers_선택_이유]]
+- **Raw Source:** [[00_Raw/2026-04-19/Cloudflare_Workers_선택_이유]]

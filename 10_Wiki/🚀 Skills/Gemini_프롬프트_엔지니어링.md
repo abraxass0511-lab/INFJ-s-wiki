@@ -1,9 +1,9 @@
 ---
-id: "7cc050a9-fd02-4bfa-823d-8c0ddff9bb0b"
+id: "930f2672-6dbc-4783-81d7-4a0a15ce23ed"
 category: "[[10_Wiki/🚀 Skills]]"
 confidence_score: 0.51
 tags: ["skills", "프롬프트", "워크플로우", "템플릿", "gemini", "엔지니어링"]
-last_reinforced: 2026-04-18
+last_reinforced: 2026-04-19
 github_commit: "pending"
 ---
 
@@ -40,4 +40,4 @@ github_commit: "pending"
 ## 🔗 지식 연결 (Graph)
 - **Parent:** [[🚀 Skills]]
 - **Related:** [[프롬프트]], [[워크플로우]], [[템플릿]], [[자동화]]
-- **Raw Source:** [[00_Raw/2026-04-18/Gemini_프롬프트_엔지니어링]]
+- **Raw Source:** [[00_Raw/2026-04-19/Gemini_프롬프트_엔지니어링]]

@@ -1,9 +1,9 @@
 ---
-id: "f0bca003-1d33-4f38-ba1f-472005c3748e"
+id: "c0b40378-3b7c-4a02-a714-3492500d572c"
 category: "[[10_Wiki/🚀 Skills]]"
 confidence_score: 0.46
 tags: ["skills", "skill", "script", "tool", "bridge", "알파", "(alpha)"]
-last_reinforced: 2026-04-18
+last_reinforced: 2026-04-19
 github_commit: "pending"
 ---
 
@@ -73,4 +73,4 @@ github_commit: "pending"
 ## 🔗 지식 연결 (Graph)
 - **Parent:** [[🚀 Skills]]
 - **Related:** [[skill]], [[script]], [[tool]], [[워크플로우]], [[자동화]]
-- **Raw Source:** [[00_Raw/2026-04-18/bridge_알파_(Alpha)_SKILL]]
+- **Raw Source:** [[00_Raw/2026-04-19/bridge_알파_(Alpha)_SKILL]]

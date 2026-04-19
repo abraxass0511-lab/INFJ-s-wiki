@@ -1,9 +1,9 @@
 ---
-id: "07c91466-2aa1-49ad-895f-5de1924bea99"
+id: "2f9dfece-b408-49cb-8095-3b4492cb136a"
 category: "[[10_Wiki/⚖️ Decisions]]"
 confidence_score: 0.36
 tags: ["decisions", "strategy", "전략", "vs", "cozysprite", "activefocusproject", "freedomgrind", "bridge"]
-last_reinforced: 2026-04-18
+last_reinforced: 2026-04-19
 github_commit: "pending"
 ---
 
@@ -129,4 +129,4 @@ github_commit: "pending"
 ## 🔗 지식 연결 (Graph)
 - **Parent:** [[⚖️ Decisions]]
 - **Related:** [[strategy]], [[전략]], [[vs]], [[분석]], [[why]]
-- **Raw Source:** [[00_Raw/2026-04-18/bridge_KI_channel_content_vault]]
+- **Raw Source:** [[00_Raw/2026-04-19/bridge_KI_channel_content_vault]]

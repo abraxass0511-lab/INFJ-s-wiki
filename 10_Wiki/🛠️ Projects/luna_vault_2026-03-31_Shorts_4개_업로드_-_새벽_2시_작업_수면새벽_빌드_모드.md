@@ -1,9 +1,9 @@
 ---
-id: "da683389-b93f-4cd9-9ae3-ba13b26bbd13"
+id: "a0167d9c-f8d7-446a-8448-dd3e2375cbe7"
 category: "[[10_Wiki/🛠️ Projects]]"
 confidence_score: 0.64
 tags: ["projects", "build", "project", "deepwork", "solopren", "luna", "vault", "2026"]
-last_reinforced: 2026-04-18
+last_reinforced: 2026-04-19
 github_commit: "pending"
 ---
 
@@ -77,4 +77,4 @@ github_commit: "pending"
 ## 🔗 지식 연결 (Graph)
 - **Parent:** [[🛠️ Projects]]
 - **Related:** [[build]], [[project]]
-- **Raw Source:** [[00_Raw/2026-04-18/luna_vault_2026-03-31_Shorts_4개_업로드_-_새벽_2시_작업_수면새벽_빌드_모드]]
+- **Raw Source:** [[00_Raw/2026-04-19/luna_vault_2026-03-31_Shorts_4개_업로드_-_새벽_2시_작업_수면새벽_빌드_모드]]

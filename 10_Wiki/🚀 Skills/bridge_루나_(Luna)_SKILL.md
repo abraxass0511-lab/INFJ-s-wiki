@@ -1,9 +1,9 @@
 ---
-id: "f5efca15-d058-49f8-9e4d-cb3b2dad649c"
+id: "7cda01fd-1031-47e6-816e-09a4eb94c447"
 category: "[[10_Wiki/🚀 Skills]]"
 confidence_score: 0.45
 tags: ["skills", "프롬프트", "skill", "script", "shorts", "bridge", "루나", "(luna)"]
-last_reinforced: 2026-04-18
+last_reinforced: 2026-04-19
 github_commit: "pending"
 ---
 
@@ -90,4 +90,4 @@ github_commit: "pending"
 ## 🔗 지식 연결 (Graph)
 - **Parent:** [[🚀 Skills]]
 - **Related:** [[프롬프트]], [[skill]], [[script]], [[자동화]], [[도구]]
-- **Raw Source:** [[00_Raw/2026-04-18/bridge_루나_(Luna)_SKILL]]
+- **Raw Source:** [[00_Raw/2026-04-19/bridge_루나_(Luna)_SKILL]]

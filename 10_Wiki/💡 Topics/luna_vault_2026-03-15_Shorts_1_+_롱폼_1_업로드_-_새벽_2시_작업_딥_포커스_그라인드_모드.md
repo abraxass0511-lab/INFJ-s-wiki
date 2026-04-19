@@ -1,9 +1,9 @@
 ---
-id: "b44822cf-98ce-47ed-a12b-15bfb39c5b0f"
+id: "7f59686b-b327-456c-9daf-d771030ef8c5"
 category: "[[10_Wiki/💡 Topics]]"
 confidence_score: 0.52
 tags: ["topics", "ai", "luna", "vault", "2026"]
-last_reinforced: 2026-04-18
+last_reinforced: 2026-04-19
 github_commit: "pending"
 ---
 
@@ -60,4 +60,4 @@ github_commit: "pending"
 ## 🔗 지식 연결 (Graph)
 - **Parent:** [[💡 Topics]]
 - **Related:** [[AI]]
-- **Raw Source:** [[00_Raw/2026-04-18/luna_vault_2026-03-15_Shorts_1_+_롱폼_1_업로드_-_새벽_2시_작업_딥_포커스_그라인드_모드]]
+- **Raw Source:** [[00_Raw/2026-04-19/luna_vault_2026-03-15_Shorts_1_+_롱폼_1_업로드_-_새벽_2시_작업_딥_포커스_그라인드_모드]]
