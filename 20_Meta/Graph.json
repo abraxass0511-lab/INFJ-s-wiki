@@ -3179,6 +3179,21 @@
       "created": "2026-04-19T06:28:42.399Z",
       "lastUpdated": "2026-04-19T06:28:42.399Z",
       "accessCount": 0
+    },
+    "8af89acd-374b-42a8-8752-11245448ca73": {
+      "title": "README",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\⚖️ Decisions\\README.md",
+      "category": "⚖️ Decisions",
+      "tags": [
+        "decisions",
+        "결정",
+        "분석",
+        "readme"
+      ],
+      "confidence": 0.63,
+      "created": "2026-04-22T02:30:12.367Z",
+      "lastUpdated": "2026-04-22T02:30:12.367Z",
+      "accessCount": 0
     }
   },
   "edges": [
@@ -9439,6 +9454,41 @@
       "type": "similarity",
       "weight": 0.14285714285714285,
       "created": "2026-04-19T06:28:42.399Z"
+    },
+    {
+      "source": "8af89acd-374b-42a8-8752-11245448ca73",
+      "target": "7079c2bf-d098-426e-a20d-9d6e3cb181bf",
+      "type": "similarity",
+      "weight": 0.75,
+      "created": "2026-04-22T02:30:12.368Z"
+    },
+    {
+      "source": "8af89acd-374b-42a8-8752-11245448ca73",
+      "target": "f4c9e240-a1c0-4526-8a4c-d51e7e852595",
+      "type": "similarity",
+      "weight": 0.75,
+      "created": "2026-04-22T02:30:12.368Z"
+    },
+    {
+      "source": "8af89acd-374b-42a8-8752-11245448ca73",
+      "target": "89eddf85-557b-4136-af75-51eecc83e04c",
+      "type": "similarity",
+      "weight": 0.75,
+      "created": "2026-04-22T02:30:12.368Z"
+    },
+    {
+      "source": "8af89acd-374b-42a8-8752-11245448ca73",
+      "target": "562356ea-ea7f-4787-8fad-b57be359c0a7",
+      "type": "similarity",
+      "weight": 0.75,
+      "created": "2026-04-22T02:30:12.368Z"
+    },
+    {
+      "source": "8af89acd-374b-42a8-8752-11245448ca73",
+      "target": "68c4d277-8a7b-42a2-9bd1-5395b6007019",
+      "type": "similarity",
+      "weight": 0.75,
+      "created": "2026-04-22T02:30:12.368Z"
     }
   ]
 }
