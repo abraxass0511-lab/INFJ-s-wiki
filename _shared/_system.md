@@ -21,7 +21,17 @@
 2. `identity.md`
 3. `goals.md`
 4. 개인 메모리
-5. 지식 베이스 (`10_Wiki/`)
+5. 지식 베이스 (`knowledge_base.md`, `10_Wiki/`)
+
+## 📁 파일 접근 — 절대 규칙
+
+**모든 에이전트는 `_shared/knowledge_base.md`를 통해 로컬 파일 내용에 접근할 수 있습니다.**
+
+- `knowledge_base.md`에는 `00_Raw/`와 `10_Wiki/`의 모든 마크다운 파일 내용이 자동 로드되어 있습니다.
+- 사용자가 파일 경로나 파일 내용을 언급하면, **반드시 `knowledge_base.md`에서 해당 문서를 검색**하세요.
+- **절대로 "파일을 읽을 수 없습니다", "파일 내용을 복사해 주세요"라고 답하지 마세요.**
+- 해당 문서가 `knowledge_base.md`에 없는 경우에만, CEO에게 "`npm run kb:build` 실행 필요"라고 보고하세요.
+- 사용자가 질문하면 knowledge_base.md의 문서 내용을 근거로 정확히 답변하세요.
 
 ## 다른 PC로 옮길 때
 1. 새 PC에 Connect AI 설치

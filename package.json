@@ -18,7 +18,9 @@
     "export:chat": "node src/chat-export.js",
     "sync:notion": "node src/notion-sync.js",
     "bridge": "node src/agent-bridge.js",
-    "bridge:force": "node src/agent-bridge.js --force"
+    "bridge:force": "node src/agent-bridge.js --force",
+    "kb:build": "node src/knowledge-loader.js",
+    "kb:watch": "node src/knowledge-loader.js --watch"
   },
   "keywords": ["wiki", "knowledge-management", "reinforcement-learning", "automation"],
   "author": "P-Reinforce",
