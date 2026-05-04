@@ -20,7 +20,8 @@
     "bridge": "node src/agent-bridge.js",
     "bridge:force": "node src/agent-bridge.js --force",
     "kb:build": "node src/knowledge-loader.js",
-    "kb:watch": "node src/knowledge-loader.js --watch"
+    "kb:watch": "node src/knowledge-loader.js --watch",
+    "proxy": "node src/knowledge-proxy.js"
   },
   "keywords": ["wiki", "knowledge-management", "reinforcement-learning", "automation"],
   "author": "P-Reinforce",
