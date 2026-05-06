@@ -3194,6 +3194,53 @@
       "created": "2026-04-22T02:30:12.367Z",
       "lastUpdated": "2026-04-22T02:30:12.367Z",
       "accessCount": 0
+    },
+    "5bf8941f-faee-4c83-ad31-92d1281b63bd": {
+      "title": "README",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\⚖️ Decisions\\README.md",
+      "category": "⚖️ Decisions",
+      "tags": [
+        "decisions",
+        "결정",
+        "분석",
+        "readme"
+      ],
+      "confidence": 0.63,
+      "created": "2026-05-06T04:07:16.669Z",
+      "lastUpdated": "2026-05-06T04:07:16.669Z",
+      "accessCount": 0
+    },
+    "8925109b-eb2f-41be-909d-8705bad82861": {
+      "title": "README",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\⚖️ Decisions\\README.md",
+      "category": "⚖️ Decisions",
+      "tags": [
+        "decisions",
+        "결정",
+        "분석",
+        "readme"
+      ],
+      "confidence": 0.63,
+      "created": "2026-05-06T04:07:29.671Z",
+      "lastUpdated": "2026-05-06T04:07:29.671Z",
+      "accessCount": 0
+    },
+    "c203ef36-27df-406d-bfb4-a2380c8e1ad1": {
+      "title": "AI이미지_부분수정_JSON프롬프트기법",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\🚀 Skills\\AI이미지_부분수정_JSON프롬프트기법.md",
+      "category": "🚀 Skills",
+      "tags": [
+        "skills",
+        "프롬프트",
+        "방법",
+        "ai이미지",
+        "부분수정",
+        "json프롬프트기법"
+      ],
+      "confidence": 0.47,
+      "created": "2026-05-06T04:08:24.158Z",
+      "lastUpdated": "2026-05-06T04:08:24.158Z",
+      "accessCount": 0
     }
   },
   "edges": [
@@ -9489,6 +9536,111 @@
       "type": "similarity",
       "weight": 0.75,
       "created": "2026-04-22T02:30:12.368Z"
+    },
+    {
+      "source": "5bf8941f-faee-4c83-ad31-92d1281b63bd",
+      "target": "7079c2bf-d098-426e-a20d-9d6e3cb181bf",
+      "type": "similarity",
+      "weight": 0.75,
+      "created": "2026-05-06T04:07:16.670Z"
+    },
+    {
+      "source": "5bf8941f-faee-4c83-ad31-92d1281b63bd",
+      "target": "f4c9e240-a1c0-4526-8a4c-d51e7e852595",
+      "type": "similarity",
+      "weight": 0.75,
+      "created": "2026-05-06T04:07:16.670Z"
+    },
+    {
+      "source": "5bf8941f-faee-4c83-ad31-92d1281b63bd",
+      "target": "89eddf85-557b-4136-af75-51eecc83e04c",
+      "type": "similarity",
+      "weight": 0.75,
+      "created": "2026-05-06T04:07:16.670Z"
+    },
+    {
+      "source": "5bf8941f-faee-4c83-ad31-92d1281b63bd",
+      "target": "562356ea-ea7f-4787-8fad-b57be359c0a7",
+      "type": "similarity",
+      "weight": 0.75,
+      "created": "2026-05-06T04:07:16.670Z"
+    },
+    {
+      "source": "5bf8941f-faee-4c83-ad31-92d1281b63bd",
+      "target": "68c4d277-8a7b-42a2-9bd1-5395b6007019",
+      "type": "similarity",
+      "weight": 0.75,
+      "created": "2026-05-06T04:07:16.670Z"
+    },
+    {
+      "source": "8925109b-eb2f-41be-909d-8705bad82861",
+      "target": "7079c2bf-d098-426e-a20d-9d6e3cb181bf",
+      "type": "similarity",
+      "weight": 0.75,
+      "created": "2026-05-06T04:07:29.672Z"
+    },
+    {
+      "source": "8925109b-eb2f-41be-909d-8705bad82861",
+      "target": "f4c9e240-a1c0-4526-8a4c-d51e7e852595",
+      "type": "similarity",
+      "weight": 0.75,
+      "created": "2026-05-06T04:07:29.673Z"
+    },
+    {
+      "source": "8925109b-eb2f-41be-909d-8705bad82861",
+      "target": "89eddf85-557b-4136-af75-51eecc83e04c",
+      "type": "similarity",
+      "weight": 0.75,
+      "created": "2026-05-06T04:07:29.673Z"
+    },
+    {
+      "source": "8925109b-eb2f-41be-909d-8705bad82861",
+      "target": "562356ea-ea7f-4787-8fad-b57be359c0a7",
+      "type": "similarity",
+      "weight": 0.75,
+      "created": "2026-05-06T04:07:29.673Z"
+    },
+    {
+      "source": "8925109b-eb2f-41be-909d-8705bad82861",
+      "target": "68c4d277-8a7b-42a2-9bd1-5395b6007019",
+      "type": "similarity",
+      "weight": 0.75,
+      "created": "2026-05-06T04:07:29.673Z"
+    },
+    {
+      "source": "c203ef36-27df-406d-bfb4-a2380c8e1ad1",
+      "target": "4c8d7880-2a35-42c5-9166-5236b0d3cb67",
+      "type": "similarity",
+      "weight": 0.2,
+      "created": "2026-05-06T04:08:24.160Z"
+    },
+    {
+      "source": "c203ef36-27df-406d-bfb4-a2380c8e1ad1",
+      "target": "1cd9de14-e6a8-43c3-bc7c-fceaa4ab8194",
+      "type": "similarity",
+      "weight": 0.2,
+      "created": "2026-05-06T04:08:24.160Z"
+    },
+    {
+      "source": "c203ef36-27df-406d-bfb4-a2380c8e1ad1",
+      "target": "d9816760-6ca4-4516-9577-2e5f8502ccf3",
+      "type": "similarity",
+      "weight": 0.2,
+      "created": "2026-05-06T04:08:24.160Z"
+    },
+    {
+      "source": "c203ef36-27df-406d-bfb4-a2380c8e1ad1",
+      "target": "7cc050a9-fd02-4bfa-823d-8c0ddff9bb0b",
+      "type": "similarity",
+      "weight": 0.2,
+      "created": "2026-05-06T04:08:24.160Z"
+    },
+    {
+      "source": "c203ef36-27df-406d-bfb4-a2380c8e1ad1",
+      "target": "930f2672-6dbc-4783-81d7-4a0a15ce23ed",
+      "type": "similarity",
+      "weight": 0.2,
+      "created": "2026-05-06T04:08:24.160Z"
     }
   ]
 }
