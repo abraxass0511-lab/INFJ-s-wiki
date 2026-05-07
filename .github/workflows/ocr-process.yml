@@ -1,0 +1,90 @@
+name: "\U0001F4F8 OCR 자동 문서화"
+
+on:
+  push:
+    paths:
+      - '00_Raw/**/*.png'
+      - '00_Raw/**/*.jpg'
+      - '00_Raw/**/*.jpeg'
+      - '00_Raw/**/*.webp'
+      - '00_Raw/**/*.bmp'
+
+jobs:
+  ocr-and-document:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: "\U0001F4E5 Checkout"
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: "\U0001F527 Install Tesseract OCR"
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y tesseract-ocr tesseract-ocr-kor
+
+      - name: "\U0001F50D OCR 처리 및 마크다운 생성"
+        shell: bash
+        run: |
+          shopt -s nocasematch
+          
+          for img in $(find 00_Raw -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.webp" -o -iname "*.bmp" \)); do
+            md_file="${img%.*}.md"
+            
+            if [ -f "$md_file" ]; then
+              echo "⏭️  Skip: $(basename "$img")"
+              continue
+            fi
+            
+            echo "🔍 Processing: $img"
+            
+            dir_name=$(basename "$(dirname "$img")")
+            file_base=$(basename "${img%.*}")
+            img_basename=$(basename "$img")
+            timestamp=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+            
+            ocr_text=$(tesseract "$img" stdout -l kor+eng --psm 3 2>/dev/null || true)
+            
+            if [ -z "$(echo "$ocr_text" | tr -d '[:space:]')" ]; then
+              ocr_text="(이미지에서 텍스트를 추출하지 못했습니다)"
+            fi
+            
+            printf '%s\n' \
+              "---" \
+              "title: \"${file_base}\"" \
+              "date: \"${dir_name}\"" \
+              "source: image-ocr" \
+              "original_image: \"${img_basename}\"" \
+              "created_at: \"${timestamp}\"" \
+              "tags: [ocr, auto-generated]" \
+              "---" \
+              "" \
+              "# ${file_base}" \
+              "" \
+              "> 📷 원본 이미지: \`${img_basename}\`" \
+              "> 🤖 자동 추출 (Tesseract OCR) | ${dir_name}" \
+              "" \
+              "---" \
+              "" > "$md_file"
+            
+            echo "$ocr_text" >> "$md_file"
+            
+            echo "✅ Created: $md_file"
+          done
+
+      - name: "\U0001F680 Commit & Push"
+        run: |
+          git config user.name "P-Reinforce Bot"
+          git config user.email "bot@p-reinforce.local"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "📭 No new documents"
+          else
+            git pull --rebase origin main || true
+            git commit -m "[P-Reinforce] 📸 OCR 자동 문서화"
+            git push
+            echo "🚀 Push complete!"
+          fi

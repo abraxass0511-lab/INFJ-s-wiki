@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P-Reinforce — Knowledge Calendar</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0f; --bg2: #12121a; --card: #1a1a2e; --card-hover: #1e1e35;
+  --border: rgba(255,255,255,0.06); --text: #e8e8f0; --text2: #8888aa; --muted: #55556a;
+  --purple: #7c5cf5; --blue: #4ea8ff; --green: #34d399; --amber: #fbbf24; --rose: #fb7185;
+  --glow-p: rgba(124,92,245,0.15); --glow-b: rgba(78,168,255,0.15);
+  --radius: 16px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
+body::before {
+  content:''; position:fixed; top:-50%; left:-50%; width:200%; height:200%;
+  background: radial-gradient(ellipse at 20% 50%,var(--glow-p),transparent 50%),
+              radial-gradient(ellipse at 80% 20%,var(--glow-b),transparent 50%);
+  animation: drift 20s ease-in-out infinite; z-index:-1; pointer-events:none;
+}
+@keyframes drift { 0%,100%{transform:translate(0,0)} 50%{transform:translate(2%,-1%)} }
+
+/* Header */
+header {
+  padding:20px 28px; display:flex; align-items:center; justify-content:space-between;
+  border-bottom:1px solid var(--border); backdrop-filter:blur(20px);
+  position:sticky; top:0; z-index:100; background:rgba(10,10,15,0.85);
+}
+.logo {
+  width:42px; height:42px; background:linear-gradient(135deg,var(--purple),var(--blue));
+  border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:20px;
+  box-shadow:0 4px 20px rgba(124,92,245,0.3);
+}
+.header-left { display:flex; align-items:center; gap:14px; }
+.header-left h1 { font-size:20px; font-weight:800; background:linear-gradient(90deg,#fff,var(--blue)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.header-left h1 span { font-size:12px; font-weight:400; display:block; background:none; -webkit-text-fill-color:var(--text2); }
+.status { display:flex; align-items:center; gap:8px; }
+.dot { width:8px; height:8px; border-radius:50%; animation:pulse 2s infinite; }
+.dot.on { background:var(--green); box-shadow:0 0 8px var(--green); }
+.dot.off { background:var(--rose); box-shadow:0 0 8px var(--rose); }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+.btn { padding:8px 16px; border-radius:10px; border:1px solid var(--border); background:var(--card); color:var(--text); cursor:pointer; font-size:13px; transition:all .2s; }
+.btn:hover { background:var(--card-hover); border-color:rgba(124,92,245,.3); }
+.btn-primary { background:linear-gradient(135deg,var(--purple),var(--blue)); border:none; font-weight:600; }
+.btn-primary:hover { opacity:.9; transform:translateY(-1px); }
+
+/* Main Layout */
+main { display:grid; grid-template-columns:1fr 360px; gap:24px; padding:28px; max-width:1200px; margin:0 auto; }
+@media(max-width:900px) { main { grid-template-columns:1fr; } }
+
+/* Calendar */
+.cal-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:24px; }
+.cal-nav { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; }
+.cal-nav h2 { font-size:18px; font-weight:700; }
+.cal-nav button { width:36px; height:36px; border-radius:10px; border:1px solid var(--border); background:var(--bg2); color:var(--text); cursor:pointer; font-size:16px; transition:all .2s; }
+.cal-nav button:hover { background:var(--card-hover); border-color:var(--purple); }
+.cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
+.cal-day { text-align:center; padding:8px 0; font-size:11px; font-weight:600; color:var(--muted); text-transform:uppercase; }
+.cal-cell {
+  aspect-ratio:1; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  border-radius:12px; cursor:pointer; font-size:14px; font-weight:500; transition:all .2s; position:relative; gap:4px;
+}
+.cal-cell:hover { background:rgba(124,92,245,.1); }
+.cal-cell.today { background:rgba(124,92,245,.15); color:var(--purple); font-weight:700; }
+.cal-cell.selected { background:var(--purple); color:#fff; box-shadow:0 4px 16px rgba(124,92,245,.4); }
+.cal-cell.has-data::after { content:''; width:6px; height:6px; border-radius:50%; background:var(--green); position:absolute; bottom:6px; }
+.cal-cell.other { opacity:.25; }
+.cal-cell.selected.has-data::after { background:#fff; }
+
+/* Sidebar */
+.sidebar { display:flex; flex-direction:column; gap:16px; }
+.side-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:20px; }
+.side-card h3 { font-size:12px; text-transform:uppercase; letter-spacing:1.5px; color:var(--muted); margin-bottom:14px; font-weight:600; }
+.selected-date { font-size:22px; font-weight:800; font-family:'JetBrains Mono',monospace; color:var(--purple); margin-bottom:4px; }
+
+/* Dropzone */
+.dropzone {
+  border:2px dashed rgba(124,92,245,.3); border-radius:14px; padding:32px 16px; text-align:center;
+  cursor:pointer; transition:all .3s; background:rgba(124,92,245,.03);
+}
+.dropzone:hover, .dropzone.dragover { border-color:var(--purple); background:rgba(124,92,245,.08); }
+.dropzone .icon { font-size:36px; margin-bottom:8px; }
+.dropzone p { font-size:13px; color:var(--text2); }
+.dropzone input { display:none; }
+
+/* File list */
+.file-list { display:flex; flex-direction:column; gap:8px; }
+.file-item {
+  display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:10px;
+  background:rgba(255,255,255,.02); border:1px solid var(--border); font-size:13px;
+}
+.file-item .thumb { width:36px; height:36px; border-radius:8px; object-fit:cover; background:var(--bg2); }
+.file-item .name { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.file-item .badge { font-size:10px; padding:2px 8px; border-radius:6px; font-weight:600; }
+.badge-img { background:rgba(78,168,255,.15); color:var(--blue); }
+.badge-md { background:rgba(52,211,153,.15); color:var(--green); }
+
+/* Toast */
+.toast-container { position:fixed; bottom:24px; right:24px; z-index:999; display:flex; flex-direction:column; gap:8px; }
+.toast {
+  padding:14px 20px; border-radius:12px; font-size:13px; font-weight:500;
+  backdrop-filter:blur(20px); animation:slideIn .3s ease; min-width:280px;
+  border:1px solid var(--border); box-shadow:0 8px 32px rgba(0,0,0,.4);
+}
+.toast-success { background:rgba(52,211,153,.15); border-color:rgba(52,211,153,.3); color:var(--green); }
+.toast-error { background:rgba(251,113,133,.15); border-color:rgba(251,113,133,.3); color:var(--rose); }
+.toast-info { background:rgba(124,92,245,.15); border-color:rgba(124,92,245,.3); color:var(--purple); }
+@keyframes slideIn { from{transform:translateX(100px);opacity:0} to{transform:translateX(0);opacity:1} }
+
+/* Modal */
+.modal-overlay {
+  display:none; position:fixed; inset:0; background:rgba(0,0,0,.6); backdrop-filter:blur(4px);
+  z-index:200; align-items:center; justify-content:center;
+}
+.modal-overlay.active { display:flex; }
+.modal {
+  background:var(--card); border:1px solid var(--border); border-radius:20px;
+  padding:32px; width:90%; max-width:440px; animation:modalIn .3s ease;
+}
+@keyframes modalIn { from{transform:scale(.95);opacity:0} to{transform:scale(1);opacity:1} }
+.modal h2 { font-size:18px; font-weight:700; margin-bottom:20px; }
+.modal label { font-size:12px; color:var(--text2); font-weight:600; text-transform:uppercase; letter-spacing:1px; display:block; margin-bottom:6px; margin-top:16px; }
+.modal input {
+  width:100%; padding:10px 14px; border-radius:10px; border:1px solid var(--border);
+  background:var(--bg2); color:var(--text); font-size:14px; font-family:'JetBrains Mono',monospace;
+}
+.modal input:focus { outline:none; border-color:var(--purple); }
+.modal-actions { display:flex; gap:10px; margin-top:24px; justify-content:flex-end; }
+
+/* Upload progress */
+.progress-bar { height:4px; background:var(--bg2); border-radius:2px; margin-top:12px; overflow:hidden; display:none; }
+.progress-bar.active { display:block; }
+.progress-fill { height:100%; background:linear-gradient(90deg,var(--purple),var(--blue)); border-radius:2px; width:0; transition:width .3s; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <div class="logo">🧠</div>
+    <h1>Knowledge Calendar<span>P-Reinforce — 이미지 업로드 & OCR 자동 문서화</span></h1>
+  </div>
+  <div class="status">
+    <div class="dot" id="statusDot"></div>
+    <span id="statusText" style="font-size:12px;color:var(--text2)"></span>
+    <button class="btn" onclick="openSettings()">⚙️</button>
+  </div>
+</header>
+
+<main>
+  <div class="cal-card">
+    <div class="cal-nav">
+      <button onclick="prevMonth()">◀</button>
+      <h2 id="calTitle"></h2>
+      <button onclick="nextMonth()">▶</button>
+    </div>
+    <div class="cal-grid" id="calGrid"></div>
+  </div>
+
+  <div class="sidebar">
+    <div class="side-card">
+      <h3>📅 선택된 날짜</h3>
+      <div class="selected-date" id="selDate">날짜를 선택하세요</div>
+      <div id="uploadSection" style="display:none;margin-top:16px;">
+        <div class="dropzone" id="dropzone" onclick="document.getElementById('fileInput').click()">
+          <div class="icon">📸</div>
+          <p>이미지를 드래그하거나 클릭하여 업로드</p>
+          <input type="file" id="fileInput" accept="image/*" multiple>
+        </div>
+        <div class="progress-bar" id="progressBar"><div class="progress-fill" id="progressFill"></div></div>
+      </div>
+    </div>
+
+    <div class="side-card">
+      <h3>📁 파일 목록</h3>
+      <div class="file-list" id="fileList">
+        <p style="font-size:13px;color:var(--muted)">날짜를 선택하면 파일이 표시됩니다</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Settings Modal -->
+<div class="modal-overlay" id="settingsModal">
+  <div class="modal">
+    <h2>⚙️ 설정</h2>
+    <label>GitHub Personal Access Token</label>
+    <input type="password" id="inputToken" placeholder="ghp_xxxxxxxxxxxx">
+    <label>Repository Owner</label>
+    <input type="text" id="inputOwner" placeholder="abraxass0511-lab">
+    <label>Repository Name</label>
+    <input type="text" id="inputRepo" placeholder="INFJ-s-wiki">
+    <p style="font-size:11px;color:var(--muted);margin-top:12px;">
+      💡 Token은 브라우저 로컬에만 저장됩니다. repo 권한이 필요합니다.<br>
+      GitHub → Settings → Developer settings → Personal access tokens
+    </p>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeSettings()">취소</button>
+      <button class="btn btn-primary" onclick="saveSettings()">저장</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container" id="toasts"></div>
+
+<script>
+// ── Config ──
+const CFG = {
+  get owner() { return localStorage.getItem('gh_owner') || 'abraxass0511-lab'; },
+  get repo()  { return localStorage.getItem('gh_repo')  || 'INFJ-s-wiki'; },
+  get token() { return localStorage.getItem('gh_token') || ''; },
+  branch: 'main',
+  base: '00_Raw'
+};
+
+// ── State ──
+let curYear, curMonth, selectedDate = null;
+const existingDates = new Set();
+
+// ── Init ──
+(async function init() {
+  const now = new Date();
+  curYear = now.getFullYear();
+  curMonth = now.getMonth();
+  updateStatus();
+  if (CFG.token) await fetchExistingDates();
+  renderCalendar();
+  if (!CFG.token) openSettings();
+})();
+
+// ── GitHub API ──
+async function ghAPI(endpoint, opts = {}) {
+  const res = await fetch(`https://api.github.com${endpoint}`, {
+    headers: { 'Authorization': `token ${CFG.token}`, 'Accept': 'application/vnd.github.v3+json', ...opts.headers },
+    ...opts
+  });
+  if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+  return res.json();
+}
+
+async function fetchExistingDates() {
+  try {
+    const items = await ghAPI(`/repos/${CFG.owner}/${CFG.repo}/contents/${CFG.base}?ref=${CFG.branch}`);
+    existingDates.clear();
+    items.filter(i => i.type === 'dir').forEach(i => existingDates.add(i.name));
+  } catch(e) { console.warn('fetchDates:', e); }
+}
+
+async function fetchFilesForDate(dateStr) {
+  try {
+    const items = await ghAPI(`/repos/${CFG.owner}/${CFG.repo}/contents/${CFG.base}/${dateStr}?ref=${CFG.branch}`);
+    return items.filter(i => i.type === 'file');
+  } catch(e) { return []; }
+}
+
+async function uploadFile(file, dateStr) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = async () => {
+      try {
+        const b64 = reader.result.split(',')[1];
+        const path = `${CFG.base}/${dateStr}/${file.name}`;
+        const result = await ghAPI(`/repos/${CFG.owner}/${CFG.repo}/contents/${path}`, {
+          method: 'PUT',
+          body: JSON.stringify({ message: `[P-Reinforce] 📸 ${file.name}`, content: b64, branch: CFG.branch })
+        });
+        resolve(result);
+      } catch(e) { reject(e); }
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+// ── Calendar ──
+function renderCalendar() {
+  const months = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+  document.getElementById('calTitle').textContent = `${curYear}년 ${months[curMonth]}`;
+
+  const grid = document.getElementById('calGrid');
+  const days = ['일','월','화','수','목','금','토'];
+  let html = days.map(d => `<div class="cal-day">${d}</div>`).join('');
+
+  const first = new Date(curYear, curMonth, 1);
+  const last = new Date(curYear, curMonth + 1, 0);
+  const today = new Date();
+  const todayStr = fmt(today);
+
+  // Previous month padding
+  const prevLast = new Date(curYear, curMonth, 0);
+  for (let i = first.getDay() - 1; i >= 0; i--) {
+    const d = prevLast.getDate() - i;
+    html += `<div class="cal-cell other">${d}</div>`;
+  }
+
+  // Current month
+  for (let d = 1; d <= last.getDate(); d++) {
+    const dateStr = fmt(new Date(curYear, curMonth, d));
+    const isToday = dateStr === todayStr;
+    const isSel = dateStr === selectedDate;
+    const hasData = existingDates.has(dateStr);
+    let cls = 'cal-cell';
+    if (isToday) cls += ' today';
+    if (isSel) cls += ' selected';
+    if (hasData) cls += ' has-data';
+    html += `<div class="${cls}" onclick="selectDate('${dateStr}')">${d}</div>`;
+  }
+
+  // Next month padding
+  const remaining = 7 - ((first.getDay() + last.getDate()) % 7);
+  if (remaining < 7) {
+    for (let d = 1; d <= remaining; d++) {
+      html += `<div class="cal-cell other">${d}</div>`;
+    }
+  }
+
+  grid.innerHTML = html;
+}
+
+function fmt(d) {
+  const y = d.getFullYear();
+  const m = String(d.getMonth()+1).padStart(2,'0');
+  const dd = String(d.getDate()).padStart(2,'0');
+  return `${y}-${m}-${dd}`;
+}
+
+function prevMonth() { curMonth--; if(curMonth<0){curMonth=11;curYear--;} renderCalendar(); }
+function nextMonth() { curMonth++; if(curMonth>11){curMonth=0;curYear++;} renderCalendar(); }
+
+async function selectDate(dateStr) {
+  selectedDate = dateStr;
+  document.getElementById('selDate').textContent = dateStr;
+  document.getElementById('uploadSection').style.display = 'block';
+  renderCalendar();
+  await loadFiles(dateStr);
+}
+
+async function loadFiles(dateStr) {
+  const list = document.getElementById('fileList');
+  list.innerHTML = '<p style="font-size:13px;color:var(--muted)">로딩 중...</p>';
+  const files = await fetchFilesForDate(dateStr);
+  if (files.length === 0) {
+    list.innerHTML = '<p style="font-size:13px;color:var(--muted)">파일 없음</p>';
+    return;
+  }
+  list.innerHTML = files.map(f => {
+    const isImg = /\.(png|jpg|jpeg|webp|bmp)$/i.test(f.name);
+    const isMd = /\.md$/i.test(f.name);
+    const badge = isImg ? '<span class="badge badge-img">IMG</span>' : isMd ? '<span class="badge badge-md">MD</span>' : '';
+    const thumb = isImg ? `<img class="thumb" src="${f.download_url}" alt="">` : `<div class="thumb" style="display:flex;align-items:center;justify-content:center;font-size:16px">${isMd?'📄':'📎'}</div>`;
+    return `<div class="file-item">${thumb}<span class="name">${f.name}</span>${badge}</div>`;
+  }).join('');
+}
+
+// ── Upload ──
+const dropzone = document.getElementById('dropzone');
+const fileInput = document.getElementById('fileInput');
+
+dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('dragover'); });
+dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+dropzone.addEventListener('drop', e => { e.preventDefault(); dropzone.classList.remove('dragover'); handleFiles(e.dataTransfer.files); });
+fileInput.addEventListener('change', e => handleFiles(e.target.files));
+
+async function handleFiles(files) {
+  if (!selectedDate) { toast('날짜를 먼저 선택하세요', 'error'); return; }
+  if (!CFG.token) { toast('설정에서 GitHub Token을 입력하세요', 'error'); openSettings(); return; }
+
+  const bar = document.getElementById('progressBar');
+  const fill = document.getElementById('progressFill');
+  bar.classList.add('active');
+
+  const total = files.length;
+  let done = 0;
+
+  for (const file of files) {
+    try {
+      toast(`📤 업로드 중: ${file.name}`, 'info');
+      await uploadFile(file, selectedDate);
+      done++;
+      fill.style.width = `${(done/total)*100}%`;
+      toast(`✅ ${file.name} 업로드 완료!`, 'success');
+    } catch(e) {
+      toast(`❌ ${file.name} 실패: ${e.message}`, 'error');
+    }
+  }
+
+  existingDates.add(selectedDate);
+  renderCalendar();
+  await loadFiles(selectedDate);
+
+  setTimeout(() => { bar.classList.remove('active'); fill.style.width = '0'; }, 2000);
+  toast('🤖 GitHub Actions가 OCR 처리를 시작합니다. 잠시 후 MD 파일이 생성됩니다.', 'info');
+}
+
+// ── Settings ──
+function openSettings() {
+  document.getElementById('inputToken').value = CFG.token;
+  document.getElementById('inputOwner').value = CFG.owner;
+  document.getElementById('inputRepo').value = CFG.repo;
+  document.getElementById('settingsModal').classList.add('active');
+}
+function closeSettings() { document.getElementById('settingsModal').classList.remove('active'); }
+async function saveSettings() {
+  localStorage.setItem('gh_token', document.getElementById('inputToken').value.trim());
+  localStorage.setItem('gh_owner', document.getElementById('inputOwner').value.trim());
+  localStorage.setItem('gh_repo', document.getElementById('inputRepo').value.trim());
+  closeSettings();
+  updateStatus();
+  await fetchExistingDates();
+  renderCalendar();
+  toast('✅ 설정 저장 완료', 'success');
+}
+
+function updateStatus() {
+  const dot = document.getElementById('statusDot');
+  const txt = document.getElementById('statusText');
+  if (CFG.token) { dot.className='dot on'; txt.textContent='Connected'; }
+  else { dot.className='dot off'; txt.textContent='Token 필요'; }
+}
+
+// ── Toast ──
+function toast(msg, type='info') {
+  const el = document.createElement('div');
+  el.className = `toast toast-${type}`;
+  el.textContent = msg;
+  document.getElementById('toasts').appendChild(el);
+  setTimeout(() => el.remove(), 4000);
+}
+</script>
+</body>
+</html>
