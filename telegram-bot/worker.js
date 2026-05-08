@@ -40,11 +40,23 @@ export default {
     if (request.method === 'POST' && url.pathname === '/webhook') {
       try {
         const update = await request.json();
+        console.log('📨 Incoming update:', JSON.stringify(update).substring(0, 500));
         await handleTelegramUpdate(update, env);
         return new Response('OK', { status: 200 });
       } catch (e) {
-        console.error('Webhook error:', e);
-        return new Response('Error', { status: 500 });
+        console.error('Webhook error:', e.message, e.stack);
+        // 에러 발생 시 텔레그램으로 에러 메시지 전송 시도
+        try {
+          const chatId = e.chatId || '0';
+          if (chatId !== '0') {
+            await fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ chat_id: chatId, text: '❌ 오류: ' + e.message })
+            });
+          }
+        } catch (e2) { /* ignore */ }
+        return new Response('Error: ' + e.message, { status: 200 }); // Return 200 to prevent Telegram retry
       }
     }
 
@@ -59,7 +71,37 @@ export default {
       });
     }
 
-    // POST /notify  → OCR 워크플로우에서 호출하는 알림 엔드포인트
+    
+    // GET /webhook-info  → 웹훅 상태 조회
+    if (request.method === 'GET' && url.pathname === '/webhook-info') {
+      const res = await fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/getWebhookInfo`);
+      const data = await res.json();
+      return new Response(JSON.stringify(data, null, 2), {
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
+    // GET /test?chat_id=xxx  → 테스트 메시지 전송
+    if (request.method === 'GET' && url.pathname === '/test') {
+      const chatId = url.searchParams.get('chat_id');
+      if (!chatId) {
+        return new Response('chat_id parameter required', { status: 400 });
+      }
+      const res = await fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: '✅ 위키봇 테스트 성공! 이미지를 보내보세요.'
+        })
+      });
+      const data = await res.json();
+      return new Response(JSON.stringify(data, null, 2), {
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
+// POST /notify  → OCR 워크플로우에서 호출하는 알림 엔드포인트
     if (request.method === 'POST' && url.pathname === '/notify') {
       try {
         const body = await request.json();
@@ -112,16 +154,15 @@ async function handleTelegramUpdate(update, env) {
   // /start 명령어
   if (text === '/start') {
     await sendTelegram(env, chatId, 
-      '🧠 *위키 에이전트 봇*\n\n' +
+      '🧠 위키 에이전트 봇\n\n' +
       '📸 이미지를 보내면 자동으로:\n' +
-      '  1\\. 카테고리 선택 버튼 표시\n' +
-      '  2\\. GitHub에 업로드\n' +
-      '  3\\. Gemini AI가 분석\n' +
-      '  4\\. MD 문서 생성\n' +
-      '  5\\. 캘린더에 반영\n\n' +
-      '📝 *각 단계별 진행상황을 실시간 알림\\!*\n\n' +
-      '🆔 Chat ID: `' + chatId + '`',
-      'MarkdownV2'
+      '  1. 카테고리 선택 버튼 표시\n' +
+      '  2. GitHub에 업로드\n' +
+      '  3. Gemini AI가 분석\n' +
+      '  4. MD 문서 생성\n' +
+      '  5. 캘린더에 반영\n\n' +
+      '📝 각 단계별 진행상황을 실시간 알림!\n\n' +
+      '🆔 Chat ID: ' + chatId
     );
     return;
   }
@@ -198,26 +239,33 @@ async function askCategorySelection(message, env, chatId) {
 
   // 이미지 정보를 포함한 메시지 전송
   // file_id를 텍스트에 숨겨서 나중에 callback에서 추출
-  const msgText = `📂 *카테고리를 선택하세요*\n\n` +
-    `📄 파일: ${escapeMarkdown(fileName)}\n` +
-    `📅 날짜: ${getKSTDate()}\n\n` +
-    `아래 버튼을 눌러 카테고리를 지정하세요:`;
+  const msgText = '📂 카테고리를 선택하세요\n\n' +
+    '📄 파일: ' + fileName + '\n' +
+    '📅 날짜: ' + getKSTDate() + '\n\n' +
+    '아래 버튼을 눌러 카테고리를 지정하세요:';
 
   const body = {
     chat_id: chatId,
     text: msgText,
-    parse_mode: 'MarkdownV2',
     reply_to_message_id: message.message_id,
     reply_markup: {
       inline_keyboard: keyboard
     }
   };
 
-  await fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+  const sendRes = await fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body)
   });
+  
+  // 전송 실패 시 디버그 메시지
+  if (!sendRes.ok) {
+    const errBody = await sendRes.text();
+    console.error('sendMessage failed:', sendRes.status, errBody);
+    // 일반 텍스트로 재시도
+    await sendTelegram(env, chatId, '📂 카테고리를 선택하세요 (이미지: ' + fileName + ')');
+  }
 }
 
 // ── Callback Query 처리 (카테고리 선택 완료) ──
@@ -344,7 +392,8 @@ async function saveNotifyInfo(env, dateStr, chatId, fileName, category) {
     const res = await fetch(url + '?ref=main', {
       headers: {
         'Authorization': `token ${env.GITHUB_TOKEN}`,
-        'Accept': 'application/vnd.github.v3+json'
+        'Accept': 'application/vnd.github.v3+json',
+        'User-Agent': 'wiki-telegram-bot'
       }
     }).then(r => r.json());
 
@@ -377,7 +426,8 @@ async function saveNotifyInfo(env, dateStr, chatId, fileName, category) {
     method: 'PUT',
     headers: {
       'Authorization': `token ${env.GITHUB_TOKEN}`,
-      'Accept': 'application/vnd.github.v3+json',
+      'Accept': 'application/vnd.github.v3+json',
+        'User-Agent': 'wiki-telegram-bot',
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(body)
@@ -449,7 +499,8 @@ async function uploadToGitHub(env, path, fileData, message) {
     const existing = await fetch(url, {
       headers: {
         'Authorization': `token ${env.GITHUB_TOKEN}`,
-        'Accept': 'application/vnd.github.v3+json'
+        'Accept': 'application/vnd.github.v3+json',
+        'User-Agent': 'wiki-telegram-bot'
       }
     }).then(r => r.json());
     if (existing.sha) sha = existing.sha;
@@ -466,7 +517,8 @@ async function uploadToGitHub(env, path, fileData, message) {
     method: 'PUT',
     headers: {
       'Authorization': `token ${env.GITHUB_TOKEN}`,
-      'Accept': 'application/vnd.github.v3+json',
+      'Accept': 'application/vnd.github.v3+json',
+        'User-Agent': 'wiki-telegram-bot',
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(body)
@@ -490,7 +542,8 @@ async function updateCategories(env, dateStr, category, fileName) {
     const res = await fetch(url + '?ref=main', {
       headers: {
         'Authorization': `token ${env.GITHUB_TOKEN}`,
-        'Accept': 'application/vnd.github.v3+json'
+        'Accept': 'application/vnd.github.v3+json',
+        'User-Agent': 'wiki-telegram-bot'
       }
     }).then(r => r.json());
 
@@ -518,7 +571,8 @@ async function updateCategories(env, dateStr, category, fileName) {
     method: 'PUT',
     headers: {
       'Authorization': `token ${env.GITHUB_TOKEN}`,
-      'Accept': 'application/vnd.github.v3+json',
+      'Accept': 'application/vnd.github.v3+json',
+        'User-Agent': 'wiki-telegram-bot',
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(body)
@@ -535,7 +589,8 @@ async function getGitHubFiles(env, dateStr) {
     const res = await fetch(url, {
       headers: {
         'Authorization': `token ${env.GITHUB_TOKEN}`,
-        'Accept': 'application/vnd.github.v3+json'
+        'Accept': 'application/vnd.github.v3+json',
+        'User-Agent': 'wiki-telegram-bot'
       }
     }).then(r => r.json());
     return Array.isArray(res) ? res.filter(f => f.type === 'file') : [];
