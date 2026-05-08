@@ -113,6 +113,33 @@ main { display:grid; grid-template-columns:1fr 360px; gap:24px; padding:28px; ma
 .file-item .badge { font-size:10px; padding:2px 8px; border-radius:6px; font-weight:600; }
 .badge-img { background:rgba(78,168,255,.15); color:var(--blue); }
 .badge-md { background:rgba(52,211,153,.15); color:var(--green); }
+.btn-del {
+  width:28px; height:28px; border-radius:8px; border:none; cursor:pointer;
+  background:transparent; color:var(--muted); font-size:14px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center; transition:all .2s;
+}
+.btn-del:hover { background:rgba(239,68,68,.12); color:#ef4444; }
+/* Delete Confirm Modal */
+.del-overlay {
+  display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); backdrop-filter:blur(4px);
+  z-index:400; align-items:center; justify-content:center; padding:20px;
+}
+.del-overlay.active { display:flex; }
+.del-modal {
+  background:var(--card); border:1px solid var(--border); border-radius:16px;
+  padding:24px; width:90%; max-width:360px; text-align:center; animation:modalIn .25s ease;
+}
+.del-modal h3 { margin:0 0 8px; font-size:16px; }
+.del-modal p { font-size:13px; color:var(--muted); margin:0 0 20px; word-break:break-all; }
+.del-btns { display:flex; gap:10px; justify-content:center; }
+.del-btns button {
+  padding:10px 24px; border-radius:10px; border:none; cursor:pointer;
+  font-size:13px; font-weight:600; transition:all .2s;
+}
+.del-cancel { background:var(--bg2); color:var(--text); }
+.del-cancel:hover { background:var(--border); }
+.del-confirm { background:#ef4444; color:#fff; }
+.del-confirm:hover { background:#dc2626; }
 
 /* Preview Modal */
 .preview-overlay {
@@ -267,6 +294,18 @@ main { display:grid; grid-template-columns:1fr 360px; gap:24px; padding:28px; ma
     </div>
     <div class="preview-body" id="previewBody">
       <div class="preview-loading">로딩 중...</div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Confirm Modal -->
+<div class="del-overlay" id="delOverlay" onclick="if(event.target===this)cancelDelete()">
+  <div class="del-modal">
+    <h3>🗑️ 파일 삭제</h3>
+    <p><strong id="delFileName"></strong><br>이 파일을 삭제하시겠습니까?<br>삭제 후 다시 업로드할 수 있습니다.</p>
+    <div class="del-btns">
+      <button class="del-cancel" onclick="cancelDelete()">취소</button>
+      <button class="del-confirm" onclick="executeDelete()">삭제</button>
     </div>
   </div>
 </div>
@@ -508,7 +547,8 @@ async function loadFiles(dateStr) {
       const badge = isImg ? '<span class="badge badge-img">IMG</span>' : isMd ? '<span class="badge badge-md">MD</span>' : '';
       const thumb = isImg ? `<img class="thumb" src="${f.download_url}" alt="">` : `<div class="thumb" style="display:flex;align-items:center;justify-content:center;font-size:16px">${isMd?'📄':'📎'}</div>`;
       const clickData = JSON.stringify({name:f.name, url:f.download_url, isImg, isMd}).replace(/'/g,'&#39;').replace(/"/g,'&quot;');
-      return `<div class="file-item" onclick="previewFile(${clickData})">${thumb}<span class="name">${f.name}</span>${badge}</div>`;
+      const delBtn = `<button class="btn-del" onclick="event.stopPropagation();confirmDelete('${dateStr}','${f.name.replace(/'/g,"\\'")}')">🗑️</button>`;
+      return `<div class="file-item" onclick="previewFile(${clickData})">${thumb}<span class="name">${f.name}</span>${badge}${delBtn}</div>`;
     }).join('');
     html += '</div>';
   }
@@ -573,6 +613,53 @@ async function handleFiles(files) {
 
   setTimeout(() => { bar.classList.remove('active'); fill.style.width = '0'; }, 2000);
   toast('🤖 GitHub Actions가 OCR 처리를 시작합니다. 잠시 후 MD 파일이 생성됩니다.', 'info');
+}
+
+// ── Delete ──
+let pendingDelete = null;
+function confirmDelete(dateStr, fileName) {
+  pendingDelete = { dateStr, fileName };
+  document.getElementById('delFileName').textContent = fileName;
+  document.getElementById('delOverlay').classList.add('active');
+}
+function cancelDelete() {
+  pendingDelete = null;
+  document.getElementById('delOverlay').classList.remove('active');
+}
+async function executeDelete() {
+  if (!pendingDelete) return;
+  const { dateStr, fileName } = pendingDelete;
+  document.getElementById('delOverlay').classList.remove('active');
+  toast(`🗑️ 삭제 중: ${fileName}`, 'info');
+  try {
+    const path = `${CFG.base}/${dateStr}/${fileName}`;
+    // Get file SHA first
+    const meta = await fetch(`https://api.github.com/repos/${CFG.owner}/${CFG.repo}/contents/${encodeURIComponent(path)}?ref=${CFG.branch}`, {
+      headers: { Authorization: `token ${CFG.token}` }
+    }).then(r => r.json());
+    if (!meta.sha) throw new Error('파일을 찾을 수 없습니다');
+    // Delete file
+    await fetch(`https://api.github.com/repos/${CFG.owner}/${CFG.repo}/contents/${encodeURIComponent(path)}`, {
+      method: 'DELETE',
+      headers: { Authorization: `token ${CFG.token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: `[P-Reinforce] 🗑️ ${fileName} 삭제`, sha: meta.sha, branch: CFG.branch })
+    });
+    // Remove from categoryData
+    if (categoryData[dateStr] && typeof categoryData[dateStr] === 'object') {
+      for (const cat in categoryData[dateStr]) {
+        categoryData[dateStr][cat] = categoryData[dateStr][cat].filter(n => n !== fileName);
+        if (categoryData[dateStr][cat].length === 0) delete categoryData[dateStr][cat];
+      }
+      if (Object.keys(categoryData[dateStr]).length === 0) delete categoryData[dateStr];
+      try { await saveCategoryData(); } catch(e) { console.warn('cat save:', e); }
+    }
+    toast(`✅ ${fileName} 삭제 완료`, 'success');
+    renderCalendar();
+    await loadFiles(dateStr);
+  } catch(e) {
+    toast(`❌ 삭제 실패: ${e.message}`, 'error');
+  }
+  pendingDelete = null;
 }
 
 // ── Settings ──
