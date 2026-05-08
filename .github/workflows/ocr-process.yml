@@ -273,6 +273,81 @@ jobs:
 
           print(f"\n✅ 총 {processed}개 이미지 문서화 완료")
 
+      - name: "📱 텔레그램 알림 - MD 생성 완료"
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          GIT_TOKEN_SECRET: ${{ secrets.GIT_PERSONAL_ACCESS_TOKEN }}
+        shell: python3 {0}
+        run: |
+          import os, json, glob
+          from urllib.request import Request, urlopen
+
+          BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN', '')
+          GH_SECRET = os.environ.get('GIT_TOKEN_SECRET', '')[:8]
+          WORKER_URL = 'https://wiki-telegram-bot.abraxass0511.workers.dev/notify'
+
+          if not BOT_TOKEN:
+              print('⏭️ TELEGRAM_BOT_TOKEN 없음 — 알림 건너뜀')
+              exit(0)
+
+          # _notify.json 읽기
+          notify_path = '00_Raw/_notify.json'
+          if not os.path.exists(notify_path):
+              print('⏭️ _notify.json 없음 — 알림 건너뜀')
+              exit(0)
+
+          with open(notify_path, 'r') as f:
+              notify_data = json.load(f)
+
+          pending = notify_data.get('pending', [])
+          if not pending:
+              print('⏭️ 대기 중인 알림 없음')
+              exit(0)
+
+          # 생성된 MD 파일 목록 수집
+          new_mds = []
+          for md in glob.glob('00_Raw/**/*.md', recursive=True):
+              if '_categories' not in md and 'README' not in md and '_notify' not in md:
+                  new_mds.append(os.path.basename(md))
+
+          def send_telegram(chat_id, text):
+              """Send message via Telegram Bot API directly."""
+              import urllib.parse
+              url = f'https://api.telegram.org/bot{BOT_TOKEN}/sendMessage'
+              payload = json.dumps({'chat_id': chat_id, 'text': text}).encode('utf-8')
+              req = Request(url, data=payload, headers={'Content-Type': 'application/json'}, method='POST')
+              try:
+                  with urlopen(req, timeout=10) as r:
+                      return r.status == 200
+              except Exception as e:
+                  print(f'  ⚠️ 알림 전송 실패: {e}')
+                  return False
+
+          for item in pending:
+              chat_id = item.get('chat_id')
+              fname = item.get('file', '')
+              category = item.get('category', '')
+              date = item.get('date', '')
+              if not chat_id:
+                  continue
+
+              # 해당 이미지의 MD 파일 찾기
+              matched_mds = [md for md in new_mds if fname.split('.')[0].lower() in md.lower()] if fname else []
+              md_list = ', '.join(new_mds[:5]) if new_mds else '처리 중...'
+
+              msg = f'🤖 [4/5] Gemini AI 문서화 완료!\n\n'
+              msg += f'📄 생성된 MD 파일:\n'
+              for md in new_mds[:5]:
+                  msg += f'  • {md}\n'
+              if len(new_mds) > 5:
+                  msg += f'  ... 외 {len(new_mds)-5}개\n'
+              msg += f'\n🏷️ 카테고리 분류 진행 중...'
+
+              send_telegram(chat_id, msg)
+              print(f'  📱 알림 전송: chat_id={chat_id}')
+
+          print(f'✅ {len(pending)}건 MD 생성 알림 전송 완료')
+
       - name: "🏷️ 파일별 자동 카테고리 분류"
         shell: python3 {0}
         run: |
@@ -408,6 +483,57 @@ jobs:
               for c, files in cats.items():
                   print(f"  {date} [{c}] → {', '.join(files)}")
 
+      - name: "📱 텔레그램 알림 - 카테고리 분류 완료"
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        shell: python3 {0}
+        run: |
+          import os, json
+          from urllib.request import Request, urlopen
+
+          BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN', '')
+          if not BOT_TOKEN:
+              exit(0)
+
+          notify_path = '00_Raw/_notify.json'
+          if not os.path.exists(notify_path):
+              exit(0)
+
+          with open(notify_path, 'r') as f:
+              notify_data = json.load(f)
+
+          # 카테고리 데이터 읽기
+          cat_data = {}
+          cat_path = '00_Raw/_categories.json'
+          if os.path.exists(cat_path):
+              with open(cat_path, 'r') as f:
+                  cat_data = json.load(f)
+
+          def send_telegram(chat_id, text):
+              url = f'https://api.telegram.org/bot{BOT_TOKEN}/sendMessage'
+              payload = json.dumps({'chat_id': chat_id, 'text': text}).encode('utf-8')
+              req = Request(url, data=payload, headers={'Content-Type': 'application/json'}, method='POST')
+              try:
+                  with urlopen(req, timeout=10) as r:
+                      pass
+              except Exception as e:
+                  print(f'  ⚠️ 알림 실패: {e}')
+
+          for item in notify_data.get('pending', []):
+              chat_id = item.get('chat_id')
+              if not chat_id:
+                  continue
+
+              msg = '🏷️ [4.5/5] 카테고리 분류 완료!\n\n'
+              # 최신 날짜의 카테고리 보여주기
+              for date in sorted(cat_data.keys())[-2:]:
+                  for cat, files in cat_data[date].items():
+                      msg += f'  📂 {date}/{cat}: {len(files)}개 파일\n'
+              msg += '\n🚀 GitHub Push 진행 중...'
+              send_telegram(chat_id, msg)
+
+          print('✅ 카테고리 분류 알림 전송 완료')
+
       - name: "🚀 Commit & Push"
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -493,6 +619,74 @@ jobs:
             git pull --no-rebase origin main --strategy-option=ours || true
             sleep 2
           done
+
+      - name: "📱 텔레그램 알림 - 최종 완료"
+        if: success()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        shell: python3 {0}
+        run: |
+          import os, json
+          from urllib.request import Request, urlopen
+
+          BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN', '')
+          if not BOT_TOKEN:
+              print('⏭️ TELEGRAM_BOT_TOKEN 없음')
+              exit(0)
+
+          notify_path = '00_Raw/_notify.json'
+          if not os.path.exists(notify_path):
+              print('⏭️ _notify.json 없음')
+              exit(0)
+
+          with open(notify_path, 'r') as f:
+              notify_data = json.load(f)
+
+          def send_telegram(chat_id, text):
+              url = f'https://api.telegram.org/bot{BOT_TOKEN}/sendMessage'
+              payload = json.dumps({'chat_id': chat_id, 'text': text}).encode('utf-8')
+              req = Request(url, data=payload, headers={'Content-Type': 'application/json'}, method='POST')
+              try:
+                  with urlopen(req, timeout=10) as r:
+                      pass
+              except Exception as e:
+                  print(f'  ⚠️ 알림 실패: {e}')
+
+          for item in notify_data.get('pending', []):
+              chat_id = item.get('chat_id')
+              fname = item.get('file', '')
+              category = item.get('category', '')
+              date = item.get('date', '')
+              if not chat_id:
+                  continue
+
+              msg = '🎉 [5/5] 모든 처리 완료!\n\n'
+              msg += f'📸 이미지: {fname}\n'
+              msg += f'📂 카테고리: {category}\n'
+              msg += f'📅 날짜: {date}\n\n'
+              msg += '✅ GitHub Push 완료\n'
+              msg += '✅ MD 문서 생성 완료\n'
+              msg += '✅ 카테고리 분류 완료\n'
+              msg += '✅ 캘린더 자동 반영 완료\n\n'
+              msg += '🌐 캘린더 확인:\nhttps://abraxass0511-lab.github.io/INFJ-s-wiki/'
+              send_telegram(chat_id, msg)
+              print(f'  📱 최종 완료 알림: chat_id={chat_id}')
+
+          # pending 비우기
+          notify_data['pending'] = []
+          notify_data['last_completed'] = notify_data.get('last_completed', [])
+          with open(notify_path, 'w') as f:
+              json.dump(notify_data, f, ensure_ascii=False, indent=2)
+          print('✅ 최종 완료 알림 전송 + _notify.json 초기화')
+
+      - name: "📋 알림 메타 커밋"
+        if: success()
+        run: |
+          git add 00_Raw/_notify.json 2>/dev/null || true
+          git diff --cached --quiet || {
+            git commit -m "[P-Reinforce] 📱 알림 메타 초기화"
+            git push || true
+          }
 
       - name: "🔔 실패 알림"
         if: failure()
