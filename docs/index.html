@@ -590,9 +590,26 @@ async function loadFiles(dateStr) {
   list.innerHTML = '<p style="font-size:13px;color:var(--muted)">로딩 중...</p>';
   const files = await fetchFilesForDate(dateStr);
   if (files.length === 0) {
+    // If no token, show file list from categoryData instead
+    if (!CFG.token && categoryData[dateStr]) {
+      const dateCats = categoryData[dateStr];
+      let html = '';
+      for (const [cat, fnames] of Object.entries(dateCats)) {
+        if (!Array.isArray(fnames)) continue;
+        html += `<div style="margin-bottom:8px"><strong style="color:var(--primary)">${cat}</strong> (${fnames.length}개)</div>`;
+        html += '<ul style="margin:0 0 12px 0;padding-left:18px;list-style:disc">';
+        for (const fn of fnames) {
+          const rawUrl = `https://raw.githubusercontent.com/${CFG.owner}/${CFG.repo}/${CFG.branch}/${CFG.base}/${dateStr}/${encodeURIComponent(fn)}`;
+          html += `<li style="margin:2px 0;font-size:13px"><a href="${rawUrl}" target="_blank" style="color:var(--text);text-decoration:none">${fn}</a></li>`;
+        }
+        html += '</ul>';
+      }
+      list.innerHTML = html || '<p style="font-size:13px;color:var(--muted)">파일 없음</p>';
+      return;
+    }
     list.innerHTML = '<p style="font-size:13px;color:var(--muted)">파일 없음</p>';
-    // Clean orphaned categoryData for this date
-    if (categoryData[dateStr]) {
+    // Clean orphaned categoryData for this date (only when we have token and can verify)
+    if (CFG.token && categoryData[dateStr]) {
       delete categoryData[dateStr];
       renderCalendar();
       saveCategoryData().catch(()=>{});
