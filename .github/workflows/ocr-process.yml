@@ -1,4 +1,4 @@
-name: "\U0001F4F8 OCR 자동 문서화"
+name: "📸 OCR 자동 문서화 & 카테고리 분류"
 
 on:
   push:
@@ -8,6 +8,7 @@ on:
       - '00_Raw/**/*.jpeg'
       - '00_Raw/**/*.webp'
       - '00_Raw/**/*.bmp'
+  workflow_dispatch:
 
 jobs:
   ocr-and-document:
@@ -16,17 +17,17 @@ jobs:
       contents: write
 
     steps:
-      - name: "\U0001F4E5 Checkout"
+      - name: "📥 Checkout"
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: "\U0001F527 Install Tesseract OCR"
+      - name: "🔧 Install Tesseract OCR"
         run: |
           sudo apt-get update
           sudo apt-get install -y tesseract-ocr tesseract-ocr-kor
 
-      - name: "\U0001F50D OCR 처리 및 마크다운 생성"
+      - name: "🔍 OCR 처리 및 마크다운 생성"
         shell: bash
         run: |
           shopt -s nocasematch
@@ -75,7 +76,91 @@ jobs:
             echo "✅ Created: $md_file"
           done
 
-      - name: "\U0001F680 Commit & Push"
+      - name: "🏷️ 자동 카테고리 분류"
+        shell: python3 {0}
+        run: |
+          import os, json, re
+
+          CATEGORIES = {
+              'AI공부': [
+                  'ai', '프롬프트', 'gpt', '모델', '딥러닝', '머신러닝', 'llm',
+                  'json', '이미지생성', 'ocr', '인공지능', '자연어', '트랜스포머',
+                  '파인튜닝', '학습', '신경망', 'prompt', 'gemini', 'claude',
+                  'chatgpt', '벡터', '임베딩', 'rag', '에이전트', 'agent',
+                  '파이썬', 'python', '텐서', 'tensor', '뉴럴', 'neural'
+              ],
+              '회사': [
+                  '회사', '업무', '회의', '보고', '기획', '매출', '인사',
+                  '출근', '퇴근', '부서', '사업', '계약', '급여', '근무',
+                  '클라이언트', '미팅', '제안서', '발표', '성과', '팀장',
+                  '새마을금고', '금고', '은행', '금융', '대출', '예금'
+              ],
+              '좋은글': [
+                  '명언', '동기부여', '마음', '행복', '글귀', '인생', '성공',
+                  '노력', '꿈', '희망', '감사', '사랑', '지혜', '용기',
+                  '긍정', '성장', '자기계발', '습관', '독서', '책'
+              ],
+              '프로젝트': [
+                  '개발', '코드', 'github', '배포', '서버', '프로젝트',
+                  '프론트', '백엔드', '데이터', '웹', '앱', '프레임워크',
+                  '라이브러리', 'api', 'html', 'css', 'javascript',
+                  'react', 'node', '인포그래픽', '디자인', '위키'
+              ],
+              '일상': [
+                  '일기', '오늘', '점심', '카페', '여행', '운동', '맛집',
+                  '영화', '음악', '취미', '요리', '쇼핑', '산책', '가족',
+                  '친구', '주말', '휴일', '날씨'
+              ],
+          }
+
+          def classify(text):
+              text_lower = text.lower()
+              scores = {}
+              for cat, keywords in CATEGORIES.items():
+                  score = sum(1 for kw in keywords if kw.lower() in text_lower)
+                  if score > 0:
+                      scores[cat] = score
+              if not scores:
+                  return '기타'
+              return max(scores, key=scores.get)
+
+          cat_path = '00_Raw/_categories.json'
+          try:
+              with open(cat_path, 'r', encoding='utf-8') as f:
+                  cat_data = json.load(f)
+          except:
+              cat_data = {}
+
+          raw_dir = '00_Raw'
+          for entry in sorted(os.listdir(raw_dir)):
+              full = os.path.join(raw_dir, entry)
+              if not os.path.isdir(full) or not re.match(r'\d{4}-\d{2}-\d{2}', entry):
+                  continue
+
+              combined = ''
+              for fname in os.listdir(full):
+                  combined += ' ' + fname
+                  if fname.endswith('.md'):
+                      try:
+                          with open(os.path.join(full, fname), 'r', encoding='utf-8') as f:
+                              combined += ' ' + f.read()
+                      except:
+                          pass
+
+              cat = classify(combined)
+              if entry not in cat_data:
+                  cat_data[entry] = []
+              if cat not in cat_data[entry]:
+                  cat_data[entry].append(cat)
+
+          with open(cat_path, 'w', encoding='utf-8') as f:
+              json.dump(cat_data, f, ensure_ascii=False, indent=2)
+
+          print(f"✅ {len(cat_data)}개 날짜 카테고리 분류 완료")
+          for date, cats in sorted(cat_data.items()):
+              print(f"  {date}: {', '.join(cats)}")
+
+      - name: "🚀 Commit & Push"
         run: |
           git config user.name "P-Reinforce Bot"
           git config user.email "bot@p-reinforce.local"
@@ -84,7 +169,7 @@ jobs:
             echo "📭 No new documents"
           else
             git pull --rebase origin main || true
-            git commit -m "[P-Reinforce] 📸 OCR 자동 문서화"
+            git commit -m "[P-Reinforce] 📸 OCR + 🏷️ 자동 카테고리 분류"
             git push
             echo "🚀 Push complete!"
           fi
