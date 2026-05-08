@@ -40,6 +40,12 @@ jobs:
           API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
           API_KEY = os.environ.get("GEMINI_API_KEY", "")
 
+          if API_KEY:
+              print(f"✅ Gemini API 키 감지 (길이: {len(API_KEY)})")
+          else:
+              print("⚠️ GEMINI_API_KEY가 설정되지 않았습니다! Tesseract로 폴백됩니다.")
+              print("  → GitHub 리포지토리 Settings > Secrets > GEMINI_API_KEY를 확인하세요.")
+
           PROMPT = """당신은 지식 정리 전문가입니다. 이 이미지의 내용을 분석하여 아래 형식의 한국어 지식 문서를 만들어주세요.
 
           반드시 아래 형식을 지켜주세요:
@@ -312,7 +318,7 @@ jobs:
                   cat_data[entry] = {}
 
               for fname in os.listdir(full):
-                  if fname.startswith('_') or fname == 'README.md':
+                  if fname.startswith('_') or fname.startswith('.') or fname == 'README.md':
                       continue
                   if not fname.endswith('.md'):
                       continue

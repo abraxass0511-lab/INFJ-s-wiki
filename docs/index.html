@@ -462,7 +462,7 @@ async function saveCategoryData() {
 async function fetchFilesForDate(dateStr) {
   try {
     const items = await ghAPI(`/repos/${CFG.owner}/${CFG.repo}/contents/${CFG.base}/${dateStr}?ref=${CFG.branch}`);
-    return items.filter(i => i.type === 'file');
+    return items.filter(i => i.type === 'file' && !i.name.startsWith('_') && !i.name.startsWith('.') && i.name !== 'README.md');
   } catch(e) { return []; }
 }
 
