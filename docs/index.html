@@ -235,6 +235,7 @@ main { display:grid; grid-template-columns:1fr 360px; gap:24px; padding:28px; ma
 .btn-sync.syncing { pointer-events:none; opacity:.6; }
 .btn-sync.syncing .sync-icon { animation: spin 1s linear infinite; }
 @keyframes spin { to { transform:rotate(360deg); } }
+@keyframes fadeIn { from{opacity:0;transform:translateX(-50%) translateY(20px)} to{opacity:1;transform:translateX(-50%) translateY(0)} }
 </style>
 </head>
 <body>
@@ -738,7 +739,100 @@ async function handleFiles(files) {
   await loadFiles(selectedDate);
 
   setTimeout(() => { bar.classList.remove('active'); fill.style.width = '0'; }, 2000);
-  toast('🤖 GitHub Actions가 OCR 처리를 시작합니다. 잠시 후 MD 파일이 생성됩니다.', 'info');
+  toast('🤖 GitHub Actions가 OCR 처리를 시작합니다...', 'info');
+
+  // Start polling for workflow completion & MD file creation
+  const uploadedImages = [...files].filter(f => /\.(png|jpg|jpeg|webp|bmp)$/i.test(f.name));
+  if (uploadedImages.length > 0) {
+    pollForMDFiles(selectedDate, uploadedImages.map(f => f.name));
+  }
+}
+
+// ── Workflow Polling: MD 파일 생성 감지 ──
+async function pollForMDFiles(dateStr, imageNames) {
+  const maxAttempts = 30; // 최대 5분 (10초 × 30)
+  const interval = 10000; // 10초마다 체크
+  let attempt = 0;
+  const pendingMDs = new Set();
+
+  // 이미지 이름에서 기대되는 MD 파일명 패턴 생성
+  for (const imgName of imageNames) {
+    const baseName = imgName.replace(/\.[^.]+$/, '');
+    pendingMDs.add(baseName);
+  }
+
+  // 현재 파일 목록 스냅샷 (이미 있는 MD 제외)
+  let existingMDs;
+  try {
+    const currentFiles = await fetchFilesForDate(dateStr);
+    existingMDs = new Set(currentFiles.filter(f => f.name.endsWith('.md')).map(f => f.name));
+  } catch(e) {
+    existingMDs = new Set();
+  }
+
+  // 상태 표시 배지 추가
+  const statusBadge = document.createElement('div');
+  statusBadge.id = 'workflowStatus';
+  statusBadge.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;padding:10px 20px;border-radius:12px;font-size:13px;z-index:9999;display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(79,70,229,0.4);animation:fadeIn 0.3s ease';
+  statusBadge.innerHTML = '<span class="sync-icon" style="animation:spin 1s linear infinite;display:inline-block">⚙️</span> <span>OCR 처리 중... 자동으로 반영됩니다</span>';
+  document.body.appendChild(statusBadge);
+
+  const poll = async () => {
+    attempt++;
+    try {
+      const files = await fetchFilesForDate(dateStr);
+      const currentMDs = files.filter(f => f.name.endsWith('.md'));
+      const newMDs = currentMDs.filter(f => !existingMDs.has(f.name));
+
+      if (newMDs.length > 0) {
+        // MD 파일이 생성됨!
+        statusBadge.remove();
+
+        // 각 새 MD 파일에 대해 알림
+        for (const md of newMDs) {
+          toast(`📄 문서 생성 완료: ${md.name}`, 'success');
+        }
+        toast('✅ GitHub에 푸시 완료! 파일 목록을 업데이트합니다.', 'success');
+
+        // 카테고리 데이터 및 파일 목록 자동 새로고침
+        await fetchExistingDates();
+        await fetchCategoryData();
+        renderCalendar();
+        await loadFiles(dateStr);
+        return; // 폴링 종료
+      }
+
+      // 워크플로우 상태 확인
+      if (attempt % 3 === 0) {
+        try {
+          const runs = await ghAPI(`/repos/${CFG.owner}/${CFG.repo}/actions/runs?per_page=1&event=push`);
+          const latest = runs.workflow_runs?.[0];
+          if (latest) {
+            const statusText = statusBadge.querySelector('span:last-child');
+            if (latest.conclusion === 'failure') {
+              statusBadge.remove();
+              toast('❌ 워크플로우 실패! GitHub Actions 로그를 확인하세요.', 'error');
+              return;
+            } else if (latest.status === 'in_progress' || latest.status === 'queued') {
+              statusText.textContent = `OCR 처리 중... (${Math.round(attempt * interval / 1000)}초 경과)`;
+            }
+          }
+        } catch(e) { /* ignore workflow check errors */ }
+      }
+    } catch(e) {
+      console.warn('Poll error:', e);
+    }
+
+    if (attempt < maxAttempts) {
+      setTimeout(poll, interval);
+    } else {
+      statusBadge.remove();
+      toast('⏰ OCR 처리 대기 시간 초과. 수동으로 새로고침해주세요.', 'warning');
+    }
+  };
+
+  // 첫 체크는 20초 후 (워크플로우 시작 대기)
+  setTimeout(poll, 20000);
 }
 
 // ── Delete ──
