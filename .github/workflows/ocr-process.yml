@@ -248,6 +248,8 @@ jobs:
               for fname in os.listdir(full):
                   if fname.startswith('_') or fname == 'README.md':
                       continue
+                  if not fname.endswith('.md'):
+                      continue
                   if fname in existing_files:
                       continue
 
