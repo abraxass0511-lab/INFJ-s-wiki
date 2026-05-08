@@ -351,12 +351,20 @@ jobs:
         run: |
           git config user.name "P-Reinforce Bot"
           git config user.email "bot@p-reinforce.local"
+          # Pull latest first to avoid conflicts
+          git stash || true
+          git pull --rebase origin main || true
+          git stash pop || true
           git add -A
           if git diff --cached --quiet; then
             echo "📭 No new documents"
           else
-            git pull --rebase origin main || true
             git commit -m "[P-Reinforce] 🧠 Gemini 지식 문서화 + 🏷️ 카테고리 분류"
-            git push
-            echo "🚀 Push complete!"
+            # Retry push up to 3 times
+            for i in 1 2 3; do
+              git push && echo "🚀 Push complete!" && break
+              echo "⚠️ Push failed, retrying ($i/3)..."
+              git pull --rebase origin main || true
+              sleep 2
+            done
           fi
