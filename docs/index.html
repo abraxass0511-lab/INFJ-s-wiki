@@ -419,8 +419,11 @@ function autoSetupFromURL() {
 
 // ── GitHub API ──
 async function ghAPI(endpoint, opts = {}) {
-  const res = await fetch(`https://api.github.com${endpoint}`, {
-    headers: { 'Authorization': `token ${CFG.token}`, 'Accept': 'application/vnd.github.v3+json', ...opts.headers },
+  const sep = endpoint.includes('?') ? '&' : '?';
+  const url = `https://api.github.com${endpoint}${sep}_nocache=${Date.now()}`;
+  const res = await fetch(url, {
+    headers: { 'Authorization': `token ${CFG.token}`, 'Accept': 'application/vnd.github.v3+json', 'If-None-Match': '', ...opts.headers },
+    cache: 'no-store',
     ...opts
   });
   if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
