@@ -197,7 +197,9 @@ main { display:grid; grid-template-columns:1fr 360px; gap:24px; padding:28px; ma
       💡 Token은 브라우저 로컬에만 저장됩니다. repo 권한이 필요합니다.<br>
       GitHub → Settings → Developer settings → Personal access tokens
     </p>
-    <div class="modal-actions">
+    <div class="modal-actions" style="flex-wrap:wrap;">
+      <button class="btn" onclick="copyMobileLink()" id="btnCopyLink" style="font-size:12px;">📱 핸드폰 링크 복사</button>
+      <div style="flex:1;"></div>
       <button class="btn" onclick="closeSettings()">취소</button>
       <button class="btn btn-primary" onclick="saveSettings()">저장</button>
     </div>
@@ -220,11 +222,33 @@ const CFG = {
 let curYear, curMonth, selectedDate = null;
 const existingDates = new Set();
 
+// ── URL 파라미터로 자동 토큰 설정 ──
+function autoSetupFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get('token');
+  const owner = params.get('owner');
+  const repo = params.get('repo');
+  let changed = false;
+  if (token && !CFG.token) {
+    localStorage.setItem('gh_token', token);
+    changed = true;
+  }
+  if (owner) { localStorage.setItem('gh_owner', owner); changed = true; }
+  if (repo) { localStorage.setItem('gh_repo', repo); changed = true; }
+  // URL에서 토큰 제거 (보안: 브라우저 히스토리에 남지 않게)
+  if (changed && token) {
+    const clean = window.location.origin + window.location.pathname;
+    window.history.replaceState({}, '', clean);
+    if (changed) toast('✅ 토큰이 자동 설정되었습니다!', 'success');
+  }
+}
+
 // ── Init ──
 (async function init() {
   const now = new Date();
   curYear = now.getFullYear();
   curMonth = now.getMonth();
+  autoSetupFromURL();
   updateStatus();
   if (CFG.token) await fetchExistingDates();
   renderCalendar();
@@ -429,6 +453,24 @@ function toast(msg, type='info') {
   document.getElementById('toasts').appendChild(el);
   setTimeout(() => el.remove(), 4000);
 }
+// ── Copy Mobile Link ──
+function copyMobileLink() {
+  const token = document.getElementById('inputToken').value.trim() || CFG.token;
+  const owner = document.getElementById('inputOwner').value.trim() || CFG.owner;
+  const repo = document.getElementById('inputRepo').value.trim() || CFG.repo;
+  if (!token) { toast('❌ 먼저 토큰을 입력하세요', 'error'); return; }
+  const base = `https://${owner}.github.io/${repo}/`;
+  const url = `${base}?token=${encodeURIComponent(token)}&owner=${encodeURIComponent(owner)}&repo=${encodeURIComponent(repo)}`;
+  navigator.clipboard.writeText(url).then(() => {
+    toast('📱 링크가 복사되었습니다! 카톡 나에게 보내기로 전송하세요', 'success');
+    document.getElementById('btnCopyLink').textContent = '✅ 복사됨!';
+    setTimeout(() => { document.getElementById('btnCopyLink').textContent = '📱 핸드폰 링크 복사'; }, 3000);
+  }).catch(() => {
+    // clipboard API 실패 시 직접 표시
+    prompt('이 링크를 복사하세요:', url);
+  });
+}
+
 </script>
 </body>
 </html>
