@@ -41,7 +41,28 @@ jobs:
           API_KEY = os.environ.get("GEMINI_API_KEY", "")
 
           if API_KEY:
-              print(f"✅ Gemini API 키 감지 (길이: {len(API_KEY)})")
+              masked = API_KEY[:8] + '...' + API_KEY[-4:] if len(API_KEY) > 12 else '***'
+              print(f"✅ Gemini API 키 감지 (길이: {len(API_KEY)}, 시작: {masked})")
+              # Quick validation test
+              try:
+                  test_payload = json.dumps({"contents":[{"parts":[{"text":"test"}]}]}).encode()
+                  test_req = Request(f"{API_URL}?key={API_KEY}", data=test_payload, headers={"Content-Type":"application/json"}, method="POST")
+                  with urlopen(test_req, timeout=10) as r:
+                      print(f"✅ Gemini API 연결 테스트 성공! (HTTP {r.status})")
+              except Exception as te:
+                  err_code = getattr(te, 'code', 'unknown')
+                  err_body = ''
+                  if hasattr(te, 'read'):
+                      try: err_body = te.read().decode()[:300]
+                      except: pass
+                  print(f"❌ Gemini API 연결 테스트 실패! HTTP {err_code}")
+                  print(f"  📋 응답: {err_body}")
+                  if str(err_code) == '400':
+                      print("  → API 키가 유효하지 않습니다. GitHub Secrets > GEMINI_API_KEY를 확인하세요.")
+                  elif str(err_code) == '403':
+                      print("  → API 키 권한 부족 또는 할당량 초과입니다.")
+                  elif str(err_code) == '429':
+                      print("  → 요청 속도 제한입니다. 잠시 후 다시 시도됩니다.")
           else:
               print("⚠️ GEMINI_API_KEY가 설정되지 않았습니다! Tesseract로 폴백됩니다.")
               print("  → GitHub 리포지토리 Settings > Secrets > GEMINI_API_KEY를 확인하세요.")
