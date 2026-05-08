@@ -22,59 +22,159 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: "🔧 Install Tesseract OCR"
+      - name: "🔧 Install Tesseract OCR (fallback)"
         run: |
           sudo apt-get update
           sudo apt-get install -y tesseract-ocr tesseract-ocr-kor
 
-      - name: "🔍 OCR 처리 및 마크다운 생성"
-        shell: bash
+      - name: "🧠 Gemini 지식 문서화 + OCR"
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        shell: python3 {0}
         run: |
-          shopt -s nocasematch
-          
-          for img in $(find 00_Raw -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.webp" -o -iname "*.bmp" \)); do
-            md_file="${img%.*}.md"
-            
-            if [ -f "$md_file" ]; then
-              echo "⏭️  Skip: $(basename "$img")"
-              continue
-            fi
-            
-            echo "🔍 Processing: $img"
-            
-            dir_name=$(basename "$(dirname "$img")")
-            file_base=$(basename "${img%.*}")
-            img_basename=$(basename "$img")
-            timestamp=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-            
-            ocr_text=$(tesseract "$img" stdout -l kor+eng --psm 3 2>/dev/null || true)
-            
-            if [ -z "$(echo "$ocr_text" | tr -d '[:space:]')" ]; then
-              ocr_text="(이미지에서 텍스트를 추출하지 못했습니다)"
-            fi
-            
-            printf '%s\n' \
-              "---" \
-              "title: \"${file_base}\"" \
-              "date: \"${dir_name}\"" \
-              "source: image-ocr" \
-              "original_image: \"${img_basename}\"" \
-              "created_at: \"${timestamp}\"" \
-              "tags: [ocr, auto-generated]" \
-              "---" \
-              "" \
-              "# ${file_base}" \
-              "" \
-              "> 📷 원본 이미지: \`${img_basename}\`" \
-              "> 🤖 자동 추출 (Tesseract OCR) | ${dir_name}" \
-              "" \
-              "---" \
-              "" > "$md_file"
-            
-            echo "$ocr_text" >> "$md_file"
-            
-            echo "✅ Created: $md_file"
-          done
+          import os, json, base64, glob, subprocess, time
+          from urllib.request import Request, urlopen
+          from urllib.error import URLError
+
+          API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
+          API_KEY = os.environ.get("GEMINI_API_KEY", "")
+
+          PROMPT = """당신은 지식 정리 전문가입니다. 이 이미지의 내용을 분석하여 아래 형식의 한국어 지식 문서를 만들어주세요.
+
+          반드시 아래 형식을 지켜주세요:
+
+          ---
+          title: "(내용을 대표하는 제목)"
+          date: "{date}"
+          source: image-ocr-gemini
+          original_image: "{filename}"
+          tags: [자동생성된 태그들]
+          ---
+
+          # (제목)
+
+          > 📷 원본 이미지: `{filename}`
+          > 🤖 Gemini AI 자동 문서화 | {date}
+
+          ---
+
+          ## 📌 Brief Summary
+          (2~3문장으로 핵심 요약)
+
+          ## 📖 Core Content
+
+          ### 문제 상황 / 배경
+          (이미지에서 다루는 문제나 배경 설명)
+
+          ### 핵심 내용 / 해결 방법
+          (주요 내용을 구조적으로 정리)
+
+          ### 키워드
+          (쉼표로 구분된 핵심 키워드 목록)
+
+          ### 참고 자료
+          (이미지에 참고 링크나 출처가 있으면 기재, 없으면 "원본 이미지 참조")
+
+          ## 🔗 Knowledge Connections
+          (관련될 수 있는 지식 주제를 [[위키링크]] 형태로 3~5개 제안)
+
+          중요: 이미지에 텍스트가 있으면 정확히 읽어주세요. 표 형태라면 표 내용을 빠짐없이 포함해주세요.
+          """
+
+          def gemini_process(img_path, date_str, filename):
+              """Send image to Gemini API and get structured document."""
+              with open(img_path, "rb") as f:
+                  img_b64 = base64.b64encode(f.read()).decode()
+
+              ext = os.path.splitext(filename)[1].lower()
+              mime_map = {".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".webp": "image/webp", ".bmp": "image/bmp"}
+              mime = mime_map.get(ext, "image/png")
+
+              prompt = PROMPT.replace("{date}", date_str).replace("{filename}", filename)
+
+              payload = json.dumps({
+                  "contents": [{
+                      "parts": [
+                          {"text": prompt},
+                          {"inline_data": {"mime_type": mime, "data": img_b64}}
+                      ]
+                  }],
+                  "generationConfig": {"temperature": 0.3, "maxOutputTokens": 4096}
+              }).encode()
+
+              req = Request(f"{API_URL}?key={API_KEY}", data=payload, headers={"Content-Type": "application/json"}, method="POST")
+
+              try:
+                  with urlopen(req, timeout=60) as resp:
+                      result = json.loads(resp.read().decode())
+                      return result["candidates"][0]["content"]["parts"][0]["text"]
+              except Exception as e:
+                  print(f"  ⚠️ Gemini API 실패: {e}")
+                  return None
+
+          def tesseract_fallback(img_path, date_str, filename):
+              """Fallback to Tesseract OCR if Gemini fails."""
+              try:
+                  result = subprocess.run(["tesseract", img_path, "stdout", "-l", "kor+eng", "--psm", "3"],
+                                          capture_output=True, text=True, timeout=30)
+                  ocr_text = result.stdout.strip() or "(이미지에서 텍스트를 추출하지 못했습니다)"
+              except:
+                  ocr_text = "(OCR 처리 실패)"
+
+              file_base = os.path.splitext(filename)[0]
+              return f"""---
+          title: "{file_base}"
+          date: "{date_str}"
+          source: image-ocr-tesseract
+          original_image: "{filename}"
+          tags: [ocr, auto-generated]
+          ---
+
+          # {file_base}
+
+          > 📷 원본 이미지: `{filename}`
+          > 🤖 자동 추출 (Tesseract OCR) | {date_str}
+
+          ---
+
+          {ocr_text}
+          """
+
+          # Find all images without corresponding .md files
+          images = []
+          for ext in ["png", "jpg", "jpeg", "webp", "bmp"]:
+              images.extend(glob.glob(f"00_Raw/**/*.{ext}", recursive=True))
+              images.extend(glob.glob(f"00_Raw/**/*.{ext.upper()}", recursive=True))
+
+          processed = 0
+          for img_path in sorted(set(images)):
+              md_path = os.path.splitext(img_path)[0] + ".md"
+              if os.path.exists(md_path):
+                  print(f"⏭️  Skip: {os.path.basename(img_path)}")
+                  continue
+
+              filename = os.path.basename(img_path)
+              date_str = os.path.basename(os.path.dirname(img_path))
+              print(f"🔍 Processing: {img_path}")
+
+              # Try Gemini first, fallback to Tesseract
+              content = None
+              if API_KEY:
+                  content = gemini_process(img_path, date_str, filename)
+                  if content:
+                      print(f"  ✅ Gemini 문서화 완료")
+                  time.sleep(2)  # Rate limit
+
+              if not content:
+                  content = tesseract_fallback(img_path, date_str, filename)
+                  print(f"  ⚠️ Tesseract 폴백 사용")
+
+              with open(md_path, "w", encoding="utf-8") as f:
+                  f.write(content)
+              print(f"  📝 Created: {md_path}")
+              processed += 1
+
+          print(f"\n✅ 총 {processed}개 이미지 문서화 완료")
 
       - name: "🏷️ 파일별 자동 카테고리 분류"
         shell: python3 {0}
@@ -137,7 +237,6 @@ jobs:
               if not os.path.isdir(full) or not re.match(r'\d{4}-\d{2}-\d{2}', entry):
                   continue
 
-              # Collect already-categorized files for this date
               existing_files = set()
               if entry in cat_data and isinstance(cat_data[entry], dict):
                   for files in cat_data[entry].values():
@@ -183,7 +282,7 @@ jobs:
             echo "📭 No new documents"
           else
             git pull --rebase origin main || true
-            git commit -m "[P-Reinforce] 📸 OCR + 🏷️ 파일별 카테고리 분류"
+            git commit -m "[P-Reinforce] 🧠 Gemini 지식 문서화 + 🏷️ 카테고리 분류"
             git push
             echo "🚀 Push complete!"
           fi
