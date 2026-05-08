@@ -8,6 +8,7 @@ on:
       - '00_Raw/**/*.jpeg'
       - '00_Raw/**/*.webp'
       - '00_Raw/**/*.bmp'
+      - '00_Raw/**/.trigger'
   workflow_dispatch:
 
 jobs:
