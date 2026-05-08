@@ -217,14 +217,24 @@ jobs:
               # Check if any MD references this image already
               filename = os.path.basename(img_path)
               already_has_md = False
+              tesseract_md_path = None
               for existing_md in glob.glob(os.path.join(img_dir, '*.md')):
                   try:
                       with open(existing_md, 'r', encoding='utf-8') as _f:
-                          if filename in _f.read(500):
+                          head = _f.read(500)
+                          if filename in head:
                               already_has_md = True
+                              # Check if it was made by Tesseract (low quality)
+                              if 'image-ocr-tesseract' in head and API_KEY:
+                                  tesseract_md_path = existing_md
                               break
                   except:
                       pass
+              # If Tesseract MD exists and we have Gemini key → re-process
+              if tesseract_md_path:
+                  print(f"♻️  Tesseract MD 발견, Gemini로 재처리: {filename}")
+                  os.remove(tesseract_md_path)
+                  already_has_md = False
               if already_has_md:
                   print(f"⏭️  Skip (MD exists): {filename}")
                   continue
