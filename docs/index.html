@@ -577,10 +577,12 @@ async function loadFiles(dateStr) {
       for (const fn of fnames) fileCatMap[fn] = cat;
     }
   }
-  // Group ALL files by category
+  // Group ALL files by category (filter out deleted + system files)
   const groups = {};
   for (const f of files) {
-    if (f.name.startsWith('_') || f.name === 'README.md') continue;
+    if (f.name.startsWith('_') || f.name.startsWith('.') || f.name === 'README.md') continue;
+    // Skip locally deleted files (GitHub API cache delay)
+    if (window._deletedFiles && window._deletedFiles.has(`${dateStr}/${f.name}`)) continue;
     const cat = fileCatMap[f.name] || '기타';
     if (!groups[cat]) groups[cat] = [];
     groups[cat].push(f);
@@ -693,6 +695,9 @@ async function executeDelete() {
       headers: { Authorization: `token ${CFG.token}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({ message: `[P-Reinforce] 🗑️ ${fileName} 삭제`, sha: meta.sha, branch: CFG.branch })
     });
+    // Track locally deleted files (to avoid GitHub API cache showing them)
+    if (!window._deletedFiles) window._deletedFiles = new Set();
+    window._deletedFiles.add(`${dateStr}/${fileName}`);
     // Remove from categoryData
     if (categoryData[dateStr] && typeof categoryData[dateStr] === 'object') {
       for (const cat in categoryData[dateStr]) {
