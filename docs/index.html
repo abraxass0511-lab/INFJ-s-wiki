@@ -567,6 +567,12 @@ async function loadFiles(dateStr) {
   const files = await fetchFilesForDate(dateStr);
   if (files.length === 0) {
     list.innerHTML = '<p style="font-size:13px;color:var(--muted)">파일 없음</p>';
+    // Clean up categoryData for this date (no files left)
+    if (categoryData[dateStr]) {
+      delete categoryData[dateStr];
+      renderCalendar();
+      try { await saveCategoryData(); } catch(e) { console.warn('cat cleanup:', e); }
+    }
     return;
   }
   // Build file-to-category map from categoryData
@@ -586,6 +592,16 @@ async function loadFiles(dateStr) {
     const cat = fileCatMap[f.name] || '기타';
     if (!groups[cat]) groups[cat] = [];
     groups[cat].push(f);
+  }
+  // If all visible files were filtered/deleted, clean up
+  if (Object.keys(groups).length === 0) {
+    list.innerHTML = '<p style="font-size:13px;color:var(--muted)">파일 없음</p>';
+    if (categoryData[dateStr]) {
+      delete categoryData[dateStr];
+      renderCalendar();
+      try { await saveCategoryData(); } catch(e) {}
+    }
+    return;
   }
   const renderItem = (f) => {
     const isImg = /\.(png|jpg|jpeg|webp|bmp)$/i.test(f.name);
