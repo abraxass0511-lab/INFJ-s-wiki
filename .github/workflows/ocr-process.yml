@@ -369,3 +369,50 @@ jobs:
               sleep 2
             done
           fi
+
+      - name: "🔔 실패 알림"
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const now = new Date().toLocaleString('ko-KR', {timeZone:'Asia/Seoul'});
+            const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            
+            // Create a GitHub Issue as notification
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `🚨 [P-Reinforce] OCR 자동 문서화 실패 - ${now}`,
+              body: `## ❌ 워크플로우 실패 알림\n\n` +
+                    `| 항목 | 내용 |\n|------|------|\n` +
+                    `| ⏰ 시간 | ${now} |\n` +
+                    `| 🔗 로그 | [확인하기](${runUrl}) |\n` +
+                    `| 🏃 Run ID | ${context.runId} |\n\n` +
+                    `자동으로 생성된 알림입니다. 로그를 확인하고 문제를 해결해주세요.`,
+              labels: ['bug', 'automated']
+            });
+            
+            // Also update _categories.json with error status
+            const path = '00_Raw/_categories.json';
+            let sha, content;
+            try {
+              const file = await github.rest.repos.getContent({
+                owner: context.repo.owner, repo: context.repo.repo,
+                path, ref: 'main'
+              });
+              sha = file.data.sha;
+              content = JSON.parse(Buffer.from(file.data.content, 'base64').toString());
+            } catch(e) { content = {}; }
+            
+            content._error = {
+              time: now,
+              message: 'OCR 자동 문서화 실패',
+              runUrl: runUrl
+            };
+            
+            const encoded = Buffer.from(JSON.stringify(content, null, 2)).toString('base64');
+            await github.rest.repos.createOrUpdateFileContents({
+              owner: context.repo.owner, repo: context.repo.repo,
+              path, message: '[P-Reinforce] ⚠️ 워크플로우 실패 알림',
+              content: encoded, branch: 'main', ...(sha ? {sha} : {})
+            });

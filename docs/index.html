@@ -436,6 +436,12 @@ async function fetchCategoryData() {
     const raw = atob(res.content.replace(/\n/g,''));
     const bytes = new Uint8Array([...raw].map(c => c.charCodeAt(0)));
     categoryData = JSON.parse(new TextDecoder('utf-8').decode(bytes));
+    // Check for workflow error notification
+    if (categoryData._error) {
+      const err = categoryData._error;
+      toast(`⚠️ 자동 문서화 실패: ${err.message} (${err.time})`, 'error');
+      delete categoryData._error;
+    }
   } catch(e) { categoryData = {}; }
 }
 
