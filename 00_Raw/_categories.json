@@ -124,17 +124,9 @@
       "debug_gaeseori.md",
       "debug_candidate_x334.md",
       "debug_gaeseol.md",
-      "detected_full_qr_area.md"
-    ],
-    "회사": [
-      "result_guide_new_qr.md",
-      "새마을금고_인포그래픽.html"
-    ],
-    "기타": [
+      "detected_full_qr_area.md",
       "debug_candidate_x167.png",
       "debug_zoom_dot.png",
-      "find_qr.py",
-      "find_dot.py",
       "detected_qr_precise.png",
       "debug_gaeseol.png",
       "debug_area1.png",
@@ -144,7 +136,6 @@
       "debug_patched.png",
       "debug_gaeseori.png",
       "debug_full_line.png",
-      "result_guide_new_qr.png",
       "detected_full_qr_area.png",
       "debug_final2.png",
       "debug_clean_patch.png",
@@ -157,8 +148,6 @@
       "debug_final.png",
       "debug_gaesul.png",
       "debug_dot_393_537.png",
-      "replace_qr.py",
-      "remove_dot.py",
       "debug_candidate_x334.png",
       "debug_check_dot.png",
       "debug_candidate_x592.png",
@@ -168,14 +157,23 @@
       "debug_gaesuli_zoom.png",
       "debug_candidate_x76.png",
       "debug_dot_removed.png"
+    ],
+    "회사": [
+      "result_guide_new_qr.md",
+      "새마을금고_인포그래픽.html",
+      "result_guide_new_qr.png"
+    ],
+    "기타": [
+      "find_qr.py",
+      "find_dot.py",
+      "replace_qr.py",
+      "remove_dot.py"
     ]
   },
   "2026-05-08": {
-    "기타": [
-      "샘플.png"
-    ],
     "AI공부": [
-      "샘플.md"
+      "샘플.md",
+      "샘플.png"
     ]
   }
 }
