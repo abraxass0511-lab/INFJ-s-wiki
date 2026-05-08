@@ -437,16 +437,22 @@ async function fetchExistingDates() {
 
 async function fetchCategoryData() {
   try {
+    const cacheBust = `_t=${Date.now()}`;
     if (CFG.token) {
-      const res = await ghAPI(`/repos/${CFG.owner}/${CFG.repo}/contents/${CFG.base}/_categories.json?ref=${CFG.branch}`);
+      const res = await ghAPI(`/repos/${CFG.owner}/${CFG.repo}/contents/${CFG.base}/_categories.json?ref=${CFG.branch}&${cacheBust}`);
       const raw = atob(res.content.replace(/\n/g,''));
       const bytes = new Uint8Array([...raw].map(c => c.charCodeAt(0)));
       categoryData = JSON.parse(new TextDecoder('utf-8').decode(bytes));
     } else {
-      // Fallback: fetch raw file directly (works for public repos)
-      const rawUrl = `https://raw.githubusercontent.com/${CFG.owner}/${CFG.repo}/${CFG.branch}/${CFG.base}/_categories.json`;
-      const res = await fetch(rawUrl);
-      if (res.ok) categoryData = await res.json();
+      // Fallback: GitHub API without auth (public repos, no CDN cache)
+      const apiUrl = `https://api.github.com/repos/${CFG.owner}/${CFG.repo}/contents/${CFG.base}/_categories.json?ref=${CFG.branch}&${cacheBust}`;
+      const res = await fetch(apiUrl, { headers: { 'Accept': 'application/vnd.github.v3+json' }, cache: 'no-store' });
+      if (res.ok) {
+        const data = await res.json();
+        const raw = atob(data.content.replace(/\n/g,''));
+        const bytes = new Uint8Array([...raw].map(c => c.charCodeAt(0)));
+        categoryData = JSON.parse(new TextDecoder('utf-8').decode(bytes));
+      }
     }
     // Check for workflow error notification
     if (categoryData._error) {
