@@ -448,15 +448,27 @@ async function fetchCategoryData() {
 async function saveCategoryData() {
   const content = btoa(unescape(encodeURIComponent(JSON.stringify(categoryData, null, 2))));
   const path = `${CFG.base}/_categories.json`;
-  let sha;
-  try {
-    const existing = await ghAPI(`/repos/${CFG.owner}/${CFG.repo}/contents/${path}?ref=${CFG.branch}`);
-    sha = existing.sha;
-  } catch(e) {}
-  await ghAPI(`/repos/${CFG.owner}/${CFG.repo}/contents/${path}`, {
-    method: 'PUT',
-    body: JSON.stringify({ message: '[P-Reinforce] update categories', content, branch: CFG.branch, ...(sha ? {sha} : {}) })
-  });
+  for (let attempt = 0; attempt < 3; attempt++) {
+    let sha;
+    try {
+      const existing = await ghAPI(`/repos/${CFG.owner}/${CFG.repo}/contents/${path}?ref=${CFG.branch}`);
+      sha = existing.sha;
+    } catch(e) {}
+    try {
+      await ghAPI(`/repos/${CFG.owner}/${CFG.repo}/contents/${path}`, {
+        method: 'PUT',
+        body: JSON.stringify({ message: '[P-Reinforce] update categories', content, branch: CFG.branch, ...(sha ? {sha} : {}) })
+      });
+      return; // success
+    } catch(e) {
+      if (attempt < 2) {
+        console.warn(`saveCategoryData retry ${attempt+1}:`, e);
+        await new Promise(r => setTimeout(r, 1000));
+      } else {
+        throw e;
+      }
+    }
+  }
 }
 
 async function fetchFilesForDate(dateStr) {
@@ -567,6 +579,12 @@ async function loadFiles(dateStr) {
   const files = await fetchFilesForDate(dateStr);
   if (files.length === 0) {
     list.innerHTML = '<p style="font-size:13px;color:var(--muted)">파일 없음</p>';
+    // Clean orphaned categoryData for this date
+    if (categoryData[dateStr]) {
+      delete categoryData[dateStr];
+      renderCalendar();
+      saveCategoryData().catch(()=>{});
+    }
     return;
   }
   // Build file-to-category map from categoryData
