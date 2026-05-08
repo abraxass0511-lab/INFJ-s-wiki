@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>P-Reinforce ??Knowledge Calendar</title>
+<title>P-Reinforce — Knowledge Calendar</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -211,55 +211,48 @@ main { display:grid; grid-template-columns:1fr 360px; gap:24px; padding:28px; ma
 .progress-fill { height:100%; background:linear-gradient(90deg,var(--purple),var(--blue)); border-radius:2px; width:0; transition:width .3s; }
 
 /* Search */
-.search-bar {
-  max-width:900px; margin:0 auto 0; padding:0 16px;
-}
-.search-wrap {
-  display:flex; align-items:center; gap:10px; background:var(--card); border:1px solid var(--border);
-  border-radius:14px; padding:10px 16px; transition:border-color .2s;
-}
+.search-bar { max-width:900px; margin:0 auto; padding:0 16px; }
+.search-wrap { display:flex; align-items:center; gap:10px; background:var(--card); border:1px solid var(--border); border-radius:14px; padding:10px 16px; transition:border-color .2s; }
 .search-wrap:focus-within { border-color:var(--purple); }
-.search-wrap input {
-  flex:1; border:none; background:transparent; color:var(--text); font-size:14px;
-  outline:none; font-family:inherit;
-}
+.search-wrap input { flex:1; border:none; background:transparent; color:var(--text); font-size:14px; outline:none; font-family:inherit; }
 .search-wrap input::placeholder { color:var(--muted); }
-.search-results {
-  margin-top:8px; background:var(--card); border:1px solid var(--border); border-radius:14px;
-  max-height:400px; overflow-y:auto; display:none;
-}
+.search-results { margin-top:8px; background:var(--card); border:1px solid var(--border); border-radius:14px; max-height:400px; overflow-y:auto; display:none; }
 .search-results.active { display:block; }
-.sr-item {
-  display:flex; align-items:center; gap:10px; padding:12px 16px;
-  border-bottom:1px solid var(--border); cursor:pointer; transition:background .15s;
-}
+.sr-item { display:flex; align-items:center; gap:10px; padding:12px 16px; border-bottom:1px solid var(--border); cursor:pointer; transition:background .15s; }
 .sr-item:last-child { border-bottom:none; }
 .sr-item:hover { background:rgba(124,92,245,.06); }
 .sr-date { font-size:11px; color:var(--purple); font-weight:600; white-space:nowrap; }
 .sr-name { flex:1; font-size:13px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .sr-cat { font-size:10px; padding:2px 8px; border-radius:6px; font-weight:600; background:var(--bg2); color:var(--muted); }
 .sr-empty { padding:20px; text-align:center; font-size:13px; color:var(--muted); }
+
+/* Refresh button */
+.btn-sync { display:flex; align-items:center; gap:6px; margin-top:12px; width:100%; justify-content:center; padding:8px; border-radius:10px; border:1px solid var(--border); background:var(--bg2); color:var(--text); font-size:13px; cursor:pointer; transition:all .2s; }
+.btn-sync:hover { border-color:var(--purple); background:rgba(124,92,245,.08); }
+.btn-sync.syncing { pointer-events:none; opacity:.6; }
+.btn-sync.syncing .sync-icon { animation: spin 1s linear infinite; }
+@keyframes spin { to { transform:rotate(360deg); } }
 </style>
 </head>
 <body>
 
 <header>
   <div class="header-left">
-    <div class="logo">?쭬</div>
-    <h1>Knowledge Calendar<span>P-Reinforce ???대?吏 ?낅줈??& OCR ?먮룞 臾몄꽌??/span></h1>
+    <div class="logo">🧠</div>
+    <h1>Knowledge Calendar<span>P-Reinforce — 이미지 업로드 & OCR 자동 문서화</span></h1>
   </div>
   <div class="status">
     <div class="dot" id="statusDot"></div>
     <span id="statusText" style="font-size:12px;color:var(--text2)"></span>
-    <button class="btn" onclick="openSettings()">?숋툘</button>
+    <button class="btn" onclick="openSettings()">⚙️</button>
   </div>
 </header>
 
 <div class="search-bar">
   <div class="search-wrap">
-    <span>?뵇</span>
-    <input type="text" id="searchInput" placeholder="吏??寃??.. (?? ?묒? 蹂묓빀, 怨듭옄 紐낆뼵)" oninput="debounceSearch()">
-    <span id="searchClear" style="cursor:pointer;display:none;color:var(--muted)" onclick="clearSearch()">??/span>
+    <span>🔍</span>
+    <input type="text" id="searchInput" placeholder="지식 검색... (예: 엑셀 병합, 공자 명언)" oninput="debounceSearch()">
+    <span id="searchClear" style="cursor:pointer;display:none;color:var(--muted)" onclick="clearSearch()">✕</span>
   </div>
   <div class="search-results" id="searchResults"></div>
 </div>
@@ -267,25 +260,25 @@ main { display:grid; grid-template-columns:1fr 360px; gap:24px; padding:28px; ma
 <main>
   <div class="cal-card">
     <div class="cal-nav">
-      <button onclick="prevMonth()">?</button>
+      <button onclick="prevMonth()">◀</button>
       <h2 id="calTitle"></h2>
-      <button onclick="nextMonth()">??/button>
+      <button onclick="nextMonth()">▶</button>
     </div>
     <div class="cal-grid" id="calGrid"></div>
   </div>
 
   <div class="sidebar">
     <div class="side-card">
-      <h3>?뱟 ?좏깮???좎쭨</h3>
-      <div class="selected-date" id="selDate">?좎쭨瑜??좏깮?섏꽭??/div>
+      <h3>📅 선택된 날짜</h3>
+      <div class="selected-date" id="selDate">날짜를 선택하세요</div>
       <div id="uploadSection" style="display:none;margin-top:16px;">
         <div class="cat-select">
-          <label>?뱛 移댄뀒怨좊━</label>
+          <label>📂 카테고리</label>
           <div class="cat-btns" id="catBtns"></div>
         </div>
         <div class="dropzone" id="dropzone" onclick="document.getElementById('fileInput').click()" style="margin-top:12px;">
-          <div class="icon">?벝</div>
-          <p>?대?吏瑜??쒕옒洹명븯嫄곕굹 ?대┃?섏뿬 ?낅줈??/p>
+          <div class="icon">📸</div>
+          <p>이미지를 드래그하거나 클릭하여 업로드</p>
           <input type="file" id="fileInput" accept="image/*" multiple>
         </div>
         <div class="progress-bar" id="progressBar"><div class="progress-fill" id="progressFill"></div></div>
@@ -293,10 +286,13 @@ main { display:grid; grid-template-columns:1fr 360px; gap:24px; padding:28px; ma
     </div>
 
     <div class="side-card">
-      <h3>?뱚 ?뚯씪 紐⑸줉</h3>
+      <h3>📁 파일 목록</h3>
       <div class="file-list" id="fileList">
-        <p style="font-size:13px;color:var(--muted)">?좎쭨瑜??좏깮?섎㈃ ?뚯씪???쒖떆?⑸땲??/p>
+        <p style="font-size:13px;color:var(--muted)">날짜를 선택하면 파일이 표시됩니다</p>
       </div>
+      <button class="btn-sync" id="btnSync" onclick="syncData()">
+        <span class="sync-icon">🔄</span> 새로고침
+      </button>
     </div>
   </div>
 </main>
@@ -304,7 +300,7 @@ main { display:grid; grid-template-columns:1fr 360px; gap:24px; padding:28px; ma
 <!-- Settings Modal -->
 <div class="modal-overlay" id="settingsModal">
   <div class="modal">
-    <h2>?숋툘 ?ㅼ젙</h2>
+    <h2>⚙️ 설정</h2>
     <label>GitHub Personal Access Token</label>
     <input type="password" id="inputToken" placeholder="ghp_xxxxxxxxxxxx">
     <label>Repository Owner</label>
@@ -312,14 +308,14 @@ main { display:grid; grid-template-columns:1fr 360px; gap:24px; padding:28px; ma
     <label>Repository Name</label>
     <input type="text" id="inputRepo" placeholder="INFJ-s-wiki">
     <p style="font-size:11px;color:var(--muted);margin-top:12px;">
-      ?뮕 Token? 釉뚮씪?곗? 濡쒖뺄?먮쭔 ??λ맗?덈떎. repo 沅뚰븳???꾩슂?⑸땲??<br>
-      GitHub ??Settings ??Developer settings ??Personal access tokens
+      💡 Token은 브라우저 로컬에만 저장됩니다. repo 권한이 필요합니다.<br>
+      GitHub → Settings → Developer settings → Personal access tokens
     </p>
     <div class="modal-actions" style="flex-wrap:wrap;">
-      <button class="btn" onclick="copyMobileLink()" id="btnCopyLink" style="font-size:12px;">?벑 ?몃뱶??留곹겕 蹂듭궗</button>
+      <button class="btn" onclick="copyMobileLink()" id="btnCopyLink" style="font-size:12px;">📱 핸드폰 링크 복사</button>
       <div style="flex:1;"></div>
-      <button class="btn" onclick="closeSettings()">痍⑥냼</button>
-      <button class="btn btn-primary" onclick="saveSettings()">???/button>
+      <button class="btn" onclick="closeSettings()">취소</button>
+      <button class="btn btn-primary" onclick="saveSettings()">저장</button>
     </div>
   </div>
 </div>
@@ -328,11 +324,11 @@ main { display:grid; grid-template-columns:1fr 360px; gap:24px; padding:28px; ma
 <div class="preview-overlay" id="previewModal" onclick="if(event.target===this)closePreview()">
   <div class="preview-modal">
     <div class="preview-header">
-      <h3 id="previewTitle">?뚯씪紐?/h3>
-      <button class="preview-close" onclick="closePreview()">??/button>
+      <h3 id="previewTitle">파일명</h3>
+      <button class="preview-close" onclick="closePreview()">✕</button>
     </div>
     <div class="preview-body" id="previewBody">
-      <div class="preview-loading">濡쒕뵫 以?..</div>
+      <div class="preview-loading">로딩 중...</div>
     </div>
   </div>
 </div>
@@ -340,11 +336,11 @@ main { display:grid; grid-template-columns:1fr 360px; gap:24px; padding:28px; ma
 <!-- Delete Confirm Modal -->
 <div class="del-overlay" id="delOverlay" onclick="if(event.target===this)cancelDelete()">
   <div class="del-modal">
-    <h3>?뿊截??뚯씪 ??젣</h3>
-    <p><strong id="delFileName"></strong><br>???뚯씪????젣?섏떆寃좎뒿?덇퉴?<br>??젣 ???ㅼ떆 ?낅줈?쒗븷 ???덉뒿?덈떎.</p>
+    <h3>🗑️ 파일 삭제</h3>
+    <p><strong id="delFileName"></strong><br>이 파일을 삭제하시겠습니까?<br>삭제 후 다시 업로드할 수 있습니다.</p>
     <div class="del-btns">
-      <button class="del-cancel" onclick="cancelDelete()">痍⑥냼</button>
-      <button class="del-confirm" onclick="executeDelete()">??젣</button>
+      <button class="del-cancel" onclick="cancelDelete()">취소</button>
+      <button class="del-confirm" onclick="executeDelete()">삭제</button>
     </div>
   </div>
 </div>
@@ -352,7 +348,7 @@ main { display:grid; grid-template-columns:1fr 360px; gap:24px; padding:28px; ma
 <div class="toast-container" id="toasts"></div>
 
 <script>
-// ?? Config ??
+// ── Config ──
 const CFG = {
   get owner() { return localStorage.getItem('gh_owner') || 'abraxass0511-lab'; },
   get repo()  { return localStorage.getItem('gh_repo')  || 'INFJ-s-wiki'; },
@@ -361,21 +357,21 @@ const CFG = {
   base: '00_Raw'
 };
 
-// ?? State ??
+// ── State ──
 let curYear, curMonth, selectedDate = null;
 const existingDates = new Set();
-let categoryData = {}; // { '2026-05-06': ['AI怨듬?'], ... }
+let categoryData = {}; // { '2026-05-06': ['AI공부'], ... }
 let selectedCategory = '';
 const CATEGORIES = [
-  { key:'AI怨듬?', label:'AI怨듬?', cls:'cat-ai' },
-  { key:'?뚯궗', label:'?뚯궗', cls:'cat-company' },
-  { key:'醫뗭?湲', label:'醫뗭?湲', cls:'cat-good' },
-  { key:'?꾨줈?앺듃', label:'?꾨줈?앺듃', cls:'cat-project' },
-  { key:'?쇱긽', label:'?쇱긽', cls:'cat-daily' },
-  { key:'湲고?', label:'湲고?', cls:'cat-etc' }
+  { key:'AI공부', label:'AI공부', cls:'cat-ai' },
+  { key:'회사', label:'회사', cls:'cat-company' },
+  { key:'좋은글', label:'좋은글', cls:'cat-good' },
+  { key:'프로젝트', label:'프로젝트', cls:'cat-project' },
+  { key:'일상', label:'일상', cls:'cat-daily' },
+  { key:'기타', label:'기타', cls:'cat-etc' }
 ];
 
-// ?? URL ?뚮씪誘명꽣濡??먮룞 ?좏겙 ?ㅼ젙 ??
+// ── URL 파라미터로 자동 토큰 설정 ──
 function autoSetupFromURL() {
   const params = new URLSearchParams(window.location.search);
   const token = params.get('token');
@@ -388,15 +384,15 @@ function autoSetupFromURL() {
   }
   if (owner) { localStorage.setItem('gh_owner', owner); changed = true; }
   if (repo) { localStorage.setItem('gh_repo', repo); changed = true; }
-  // URL?먯꽌 ?좏겙 ?쒓굅 (蹂댁븞: 釉뚮씪?곗? ?덉뒪?좊━???⑥? ?딄쾶)
+  // URL에서 토큰 제거 (보안: 브라우저 히스토리에 남지 않게)
   if (changed && token) {
     const clean = window.location.origin + window.location.pathname;
     window.history.replaceState({}, '', clean);
-    if (changed) toast('???좏겙???먮룞 ?ㅼ젙?섏뿀?듬땲??', 'success');
+    if (changed) toast('✅ 토큰이 자동 설정되었습니다!', 'success');
   }
 }
 
-// ?? Init ??
+// ── Init ──
 (async function init() {
   const now = new Date();
   curYear = now.getFullYear();
@@ -411,7 +407,7 @@ function autoSetupFromURL() {
   if (!CFG.token) openSettings();
 })();
 
-// ?? GitHub API ??
+// ── GitHub API ──
 async function ghAPI(endpoint, opts = {}) {
   const res = await fetch(`https://api.github.com${endpoint}`, {
     headers: { 'Authorization': `token ${CFG.token}`, 'Accept': 'application/vnd.github.v3+json', ...opts.headers },
@@ -468,7 +464,7 @@ async function uploadFile(file, dateStr) {
         const path = `${CFG.base}/${dateStr}/${file.name}`;
         const result = await ghAPI(`/repos/${CFG.owner}/${CFG.repo}/contents/${path}`, {
           method: 'PUT',
-          body: JSON.stringify({ message: `[P-Reinforce] ?벝 ${file.name}`, content: b64, branch: CFG.branch })
+          body: JSON.stringify({ message: `[P-Reinforce] 📸 ${file.name}`, content: b64, branch: CFG.branch })
         });
         resolve(result);
       } catch(e) { reject(e); }
@@ -478,13 +474,13 @@ async function uploadFile(file, dateStr) {
   });
 }
 
-// ?? Calendar ??
+// ── Calendar ──
 function renderCalendar() {
-  const months = ['1??,'2??,'3??,'4??,'5??,'6??,'7??,'8??,'9??,'10??,'11??,'12??];
-  document.getElementById('calTitle').textContent = `${curYear}??${months[curMonth]}`;
+  const months = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+  document.getElementById('calTitle').textContent = `${curYear}년 ${months[curMonth]}`;
 
   const grid = document.getElementById('calGrid');
-  const days = ['??,'??,'??,'??,'紐?,'湲?,'??];
+  const days = ['일','월','화','수','목','금','토'];
   let html = days.map(d => `<div class="cal-day">${d}</div>`).join('');
 
   const first = new Date(curYear, curMonth, 1);
@@ -570,20 +566,16 @@ async function loadFiles(dateStr) {
       for (const fn of fnames) fileCatMap[fn] = cat;
     }
   }
-  // Build a map of all files by basename (without extension)
+  // Build a lookup by file name
   const fileMap = {};
   for (const f of files) fileMap[f.name] = f;
-  // Separate MD files and image files
+  // Separate MD and find paired images
   const mdFiles = files.filter(f => /\.md$/i.test(f.name));
-  const imgExts = /\.(png|jpg|jpeg|webp|bmp)$/i;
-  // Track which images are paired with an MD file
   const pairedImages = new Set();
-  // Group MD files by category, and find their original images
   const groups = {};
   for (const f of mdFiles) {
     const cat = fileCatMap[f.name] || '미분류';
     if (!groups[cat]) groups[cat] = [];
-    // Find original image: same basename, image extension
     const baseName = f.name.replace(/\.md$/i, '');
     let origImg = null;
     for (const ext of ['png','jpg','jpeg','webp','bmp']) {
@@ -592,10 +584,10 @@ async function loadFiles(dateStr) {
     }
     groups[cat].push({ md: f, img: origImg });
   }
-  // Remaining files: images not paired + other non-MD files
+  // Remaining non-MD, non-paired files
   const remainFiles = files.filter(f => !/\.md$/i.test(f.name) && !pairedImages.has(f.name));
   const renderItem = (f) => {
-    const isImg = imgExts.test(f.name);
+    const isImg = /\.(png|jpg|jpeg|webp|bmp)$/i.test(f.name);
     const isMd = /\.md$/i.test(f.name);
     const badge = isImg ? '<span class="badge badge-img">IMG</span>' : isMd ? '<span class="badge badge-md">MD</span>' : '';
     const thumb = isImg ? `<img class="thumb" src="${f.download_url}" alt="">` : `<div class="thumb" style="display:flex;align-items:center;justify-content:center;font-size:16px">${isMd?'📄':'📎'}</div>`;
@@ -604,7 +596,6 @@ async function loadFiles(dateStr) {
     return `<div class="file-item" onclick="previewFile(${clickData})">${thumb}<span class="name">${f.name}</span>${badge}${delBtn}</div>`;
   };
   let html = '';
-  // MD groups with paired images
   for (const [cat, pairs] of Object.entries(groups)) {
     const catInfo = CATEGORIES.find(x => x.key === cat) || {cls:'cat-etc'};
     html += `<div class="cat-group"><div class="cat-group-header ${catInfo.cls}">${cat} (${pairs.length})</div>`;
@@ -614,7 +605,6 @@ async function loadFiles(dateStr) {
     }
     html += '</div>';
   }
-  // Remaining attachments
   if (remainFiles.length > 0) {
     html += `<div class="cat-group"><div class="cat-group-header cat-etc">📎 첨부파일 (${remainFiles.length})</div>`;
     html += remainFiles.map(renderItem).join('');
@@ -623,7 +613,7 @@ async function loadFiles(dateStr) {
   list.innerHTML = html;
 }
 
-// ?? Category ??
+// ── Category ──
 function pickCategory(key, btn) {
   document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
   if (selectedCategory === key) { selectedCategory = ''; return; }
@@ -631,7 +621,7 @@ function pickCategory(key, btn) {
   btn.classList.add('active');
 }
 
-// ?? Upload ??
+// ── Upload ──
 const dropzone = document.getElementById('dropzone');
 const fileInput = document.getElementById('fileInput');
 
@@ -641,9 +631,9 @@ dropzone.addEventListener('drop', e => { e.preventDefault(); dropzone.classList.
 fileInput.addEventListener('change', e => handleFiles(e.target.files));
 
 async function handleFiles(files) {
-  if (!selectedDate) { toast('?좎쭨瑜?癒쇱? ?좏깮?섏꽭??, 'error'); return; }
-  if (!CFG.token) { toast('?ㅼ젙?먯꽌 GitHub Token???낅젰?섏꽭??, 'error'); openSettings(); return; }
-  if (!selectedCategory) { toast('移댄뀒怨좊━瑜?癒쇱? ?좏깮?섏꽭??, 'error'); return; }
+  if (!selectedDate) { toast('날짜를 먼저 선택하세요', 'error'); return; }
+  if (!CFG.token) { toast('설정에서 GitHub Token을 입력하세요', 'error'); openSettings(); return; }
+  if (!selectedCategory) { toast('카테고리를 먼저 선택하세요', 'error'); return; }
 
   const bar = document.getElementById('progressBar');
   const fill = document.getElementById('progressFill');
@@ -654,13 +644,13 @@ async function handleFiles(files) {
 
   for (const file of files) {
     try {
-      toast(`?뱾 ?낅줈??以? ${file.name}`, 'info');
+      toast(`📤 업로드 중: ${file.name}`, 'info');
       await uploadFile(file, selectedDate);
       done++;
       fill.style.width = `${(done/total)*100}%`;
-      toast(`??${file.name} ?낅줈???꾨즺!`, 'success');
+      toast(`✅ ${file.name} 업로드 완료!`, 'success');
     } catch(e) {
-      toast(`??${file.name} ?ㅽ뙣: ${e.message}`, 'error');
+      toast(`❌ ${file.name} 실패: ${e.message}`, 'error');
     }
   }
 
@@ -680,10 +670,10 @@ async function handleFiles(files) {
   await loadFiles(selectedDate);
 
   setTimeout(() => { bar.classList.remove('active'); fill.style.width = '0'; }, 2000);
-  toast('?쨼 GitHub Actions媛 OCR 泥섎━瑜??쒖옉?⑸땲?? ?좎떆 ??MD ?뚯씪???앹꽦?⑸땲??', 'info');
+  toast('🤖 GitHub Actions가 OCR 처리를 시작합니다. 잠시 후 MD 파일이 생성됩니다.', 'info');
 }
 
-// ?? Delete ??
+// ── Delete ──
 let pendingDelete = null;
 function confirmDelete(dateStr, fileName) {
   pendingDelete = { dateStr, fileName };
@@ -698,19 +688,19 @@ async function executeDelete() {
   if (!pendingDelete) return;
   const { dateStr, fileName } = pendingDelete;
   document.getElementById('delOverlay').classList.remove('active');
-  toast(`?뿊截???젣 以? ${fileName}`, 'info');
+  toast(`🗑️ 삭제 중: ${fileName}`, 'info');
   try {
     const path = `${CFG.base}/${dateStr}/${fileName}`;
     // Get file SHA first
     const meta = await fetch(`https://api.github.com/repos/${CFG.owner}/${CFG.repo}/contents/${encodeURIComponent(path)}?ref=${CFG.branch}`, {
       headers: { Authorization: `token ${CFG.token}` }
     }).then(r => r.json());
-    if (!meta.sha) throw new Error('?뚯씪??李얠쓣 ???놁뒿?덈떎');
+    if (!meta.sha) throw new Error('파일을 찾을 수 없습니다');
     // Delete file
     await fetch(`https://api.github.com/repos/${CFG.owner}/${CFG.repo}/contents/${encodeURIComponent(path)}`, {
       method: 'DELETE',
       headers: { Authorization: `token ${CFG.token}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: `[P-Reinforce] ?뿊截?${fileName} ??젣`, sha: meta.sha, branch: CFG.branch })
+      body: JSON.stringify({ message: `[P-Reinforce] 🗑️ ${fileName} 삭제`, sha: meta.sha, branch: CFG.branch })
     });
     // Remove from categoryData
     if (categoryData[dateStr] && typeof categoryData[dateStr] === 'object') {
@@ -721,16 +711,16 @@ async function executeDelete() {
       if (Object.keys(categoryData[dateStr]).length === 0) delete categoryData[dateStr];
       try { await saveCategoryData(); } catch(e) { console.warn('cat save:', e); }
     }
-    toast(`??${fileName} ??젣 ?꾨즺`, 'success');
+    toast(`✅ ${fileName} 삭제 완료`, 'success');
     renderCalendar();
     await loadFiles(dateStr);
   } catch(e) {
-    toast(`????젣 ?ㅽ뙣: ${e.message}`, 'error');
+    toast(`❌ 삭제 실패: ${e.message}`, 'error');
   }
   pendingDelete = null;
 }
 
-// ?? Settings ??
+// ── Settings ──
 function openSettings() {
   document.getElementById('inputToken').value = CFG.token;
   document.getElementById('inputOwner').value = CFG.owner;
@@ -746,17 +736,17 @@ async function saveSettings() {
   updateStatus();
   await fetchExistingDates();
   renderCalendar();
-  toast('???ㅼ젙 ????꾨즺', 'success');
+  toast('✅ 설정 저장 완료', 'success');
 }
 
 function updateStatus() {
   const dot = document.getElementById('statusDot');
   const txt = document.getElementById('statusText');
   if (CFG.token) { dot.className='dot on'; txt.textContent='Connected'; }
-  else { dot.className='dot off'; txt.textContent='Token ?꾩슂'; }
+  else { dot.className='dot off'; txt.textContent='Token 필요'; }
 }
 
-// ?? Toast ??
+// ── Toast ──
 function toast(msg, type='info') {
   const el = document.createElement('div');
   el.className = `toast toast-${type}`;
@@ -764,67 +754,86 @@ function toast(msg, type='info') {
   document.getElementById('toasts').appendChild(el);
   setTimeout(() => el.remove(), 4000);
 }
-// ?? Preview ??
+// ── Preview ──
 function previewFile(info) {
   const modal = document.getElementById('previewModal');
   const title = document.getElementById('previewTitle');
   const body = document.getElementById('previewBody');
   title.textContent = info.name;
-  body.innerHTML = '<div class="preview-loading">??濡쒕뵫 以?..</div>';
+  body.innerHTML = '<div class="preview-loading">⏳ 로딩 중...</div>';
   modal.classList.add('active');
 
   if (info.isImg) {
     const img = new Image();
     img.onload = () => { body.innerHTML = ''; body.appendChild(img); };
-    img.onerror = () => { body.innerHTML = '<div class="preview-loading">???대?吏瑜?遺덈윭?????놁뒿?덈떎</div>'; };
+    img.onerror = () => { body.innerHTML = '<div class="preview-loading">❌ 이미지를 불러올 수 없습니다</div>'; };
     img.src = info.url;
     img.style.cssText = 'width:100%;height:auto;border-radius:12px;';
   } else if (info.isMd) {
     fetch(info.url)
       .then(r => r.text())
       .then(text => {
-        // 媛꾨떒??留덊겕?ㅼ슫 ?뚮뜑留?        let html = text
+        // 간단한 마크다운 렌더링
+        let html = text
           .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
           .replace(/^### (.+)$/gm, '<h3>$1</h3>')
           .replace(/^## (.+)$/gm, '<h2>$1</h2>')
           .replace(/^# (.+)$/gm, '<h1>$1</h1>')
           .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
           .replace(/`(.+?)`/g, '<code>$1</code>')
-          .replace(/^- (.+)$/gm, '??$1')
+          .replace(/^- (.+)$/gm, '• $1')
           .replace(/\n/g, '<br>');
         body.innerHTML = `<div class="md-content">${html}</div>`;
       })
-      .catch(() => { body.innerHTML = '<div class="preview-loading">???뚯씪??遺덈윭?????놁뒿?덈떎</div>'; });
+      .catch(() => { body.innerHTML = '<div class="preview-loading">❌ 파일을 불러올 수 없습니다</div>'; });
   } else {
     fetch(info.url)
       .then(r => r.text())
       .then(text => {
         body.innerHTML = `<div class="md-content">${text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>')}</div>`;
       })
-      .catch(() => { body.innerHTML = '<div class="preview-loading">???뚯씪??遺덈윭?????놁뒿?덈떎</div>'; });
+      .catch(() => { body.innerHTML = '<div class="preview-loading">❌ 파일을 불러올 수 없습니다</div>'; });
   }
 }
 function closePreview() { document.getElementById('previewModal').classList.remove('active'); }
 
-// ?? Copy Mobile Link ??
+// ── Copy Mobile Link ──
 function copyMobileLink() {
   const token = document.getElementById('inputToken').value.trim() || CFG.token;
   const owner = document.getElementById('inputOwner').value.trim() || CFG.owner;
   const repo = document.getElementById('inputRepo').value.trim() || CFG.repo;
-  if (!token) { toast('??癒쇱? ?좏겙???낅젰?섏꽭??, 'error'); return; }
+  if (!token) { toast('❌ 먼저 토큰을 입력하세요', 'error'); return; }
   const base = `https://${owner}.github.io/${repo}/`;
   const url = `${base}?token=${encodeURIComponent(token)}&owner=${encodeURIComponent(owner)}&repo=${encodeURIComponent(repo)}`;
   navigator.clipboard.writeText(url).then(() => {
-    toast('?벑 留곹겕媛 蹂듭궗?섏뿀?듬땲?? 移댄넚 ?섏뿉寃?蹂대궡湲곕줈 ?꾩넚?섏꽭??, 'success');
-    document.getElementById('btnCopyLink').textContent = '??蹂듭궗??';
-    setTimeout(() => { document.getElementById('btnCopyLink').textContent = '?벑 ?몃뱶??留곹겕 蹂듭궗'; }, 3000);
+    toast('📱 링크가 복사되었습니다! 카톡 나에게 보내기로 전송하세요', 'success');
+    document.getElementById('btnCopyLink').textContent = '✅ 복사됨!';
+    setTimeout(() => { document.getElementById('btnCopyLink').textContent = '📱 핸드폰 링크 복사'; }, 3000);
   }).catch(() => {
-    // clipboard API ?ㅽ뙣 ??吏곸젒 ?쒖떆
-    prompt('??留곹겕瑜?蹂듭궗?섏꽭??', url);
+    // clipboard API 실패 시 직접 표시
+    prompt('이 링크를 복사하세요:', url);
   });
 }
 
-// ?? Search ??
+// ── Sync / Refresh ──
+async function syncData() {
+  const btn = document.getElementById('btnSync');
+  btn.classList.add('syncing');
+  btn.querySelector('.sync-icon').textContent = '⏳';
+  try {
+    await fetchExistingDates();
+    await fetchCategoryData();
+    renderCalendar();
+    if (selectedDate) await loadFiles(selectedDate);
+    toast('✅ 동기화 완료!', 'success');
+  } catch(e) {
+    toast('❌ 동기화 실패: ' + e.message, 'error');
+  }
+  btn.classList.remove('syncing');
+  btn.querySelector('.sync-icon').textContent = '🔄';
+}
+
+// ── Search ──
 let searchTimer = null;
 function debounceSearch() {
   clearTimeout(searchTimer);
@@ -840,11 +849,11 @@ function clearSearch() {
 }
 async function doSearch(query) {
   const results = document.getElementById('searchResults');
-  results.innerHTML = '<div class="sr-empty">??寃??以?..</div>';
+  results.innerHTML = '<div class="sr-empty">✨ 검색 중...</div>';
   results.classList.add('active');
   const q = query.toLowerCase();
   let items = [];
-  // 1) Search through categoryData (file names + categories)
+  // 1) Search file names & categories in local data
   for (const [date, cats] of Object.entries(categoryData)) {
     if (typeof cats !== 'object') continue;
     for (const [cat, fnames] of Object.entries(cats)) {
@@ -855,7 +864,7 @@ async function doSearch(query) {
       }
     }
   }
-  // 2) Deep search: GitHub Search API (searches inside MD content)
+  // 2) Deep search: GitHub Search API (MD content)
   if (CFG.token && items.length < 10) {
     try {
       const res = await fetch(`https://api.github.com/search/code?q=${encodeURIComponent(query)}+repo:${CFG.owner}/${CFG.repo}+path:00_Raw+extension:md`, {
@@ -865,10 +874,9 @@ async function doSearch(query) {
         for (const item of res.items) {
           const parts = item.path.split('/');
           if (parts.length >= 3) {
-            const date = parts[1];
-            const name = parts.slice(2).join('/');
+            const date = parts[1], name = parts.slice(2).join('/');
             if (!items.find(i => i.date === date && i.name === name)) {
-              items.push({ date, name, cat: '寃?됯껐怨? });
+              items.push({ date, name, cat: '검색결과' });
             }
           }
         }
@@ -876,7 +884,7 @@ async function doSearch(query) {
     } catch(e) { console.warn('search api:', e); }
   }
   if (items.length === 0) {
-    results.innerHTML = '<div class="sr-empty">占?ude45 寃??寃곌낵媛 ?놁뒿?덈떎</div>';
+    results.innerHTML = '<div class="sr-empty">검색 결과가 없습니다</div>';
     return;
   }
   results.innerHTML = items.slice(0, 30).map(i => {
@@ -900,4 +908,3 @@ function goToDate(dateStr) {
 </script>
 </body>
 </html>
-
