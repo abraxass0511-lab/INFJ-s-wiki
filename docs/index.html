@@ -405,10 +405,11 @@ function autoSetupFromURL() {
   autoSetupFromURL();
   updateStatus();
   // Always load category data (works without token for public repos)
-  await fetchCategoryData();
   if (CFG.token) {
     await fetchExistingDates();
-  } else {
+  }
+  await fetchCategoryData();
+  if (!CFG.token) {
     // Derive existing dates from categoryData
     existingDates.clear();
     Object.keys(categoryData).forEach(d => existingDates.add(d));
@@ -462,6 +463,19 @@ async function fetchCategoryData() {
       const err = categoryData._error;
       toast(`⚠️ 자동 문서화 실패: ${err.message} (${err.time})`, 'error');
       delete categoryData._error;
+    }
+    // Cross-validate: remove categoryData entries for dates that no longer have folders
+    if (existingDates.size > 0) {
+      let cleaned = false;
+      for (const dateKey of Object.keys(categoryData)) {
+        if (/^\d{4}-\d{2}-\d{2}$/.test(dateKey) && !existingDates.has(dateKey)) {
+          delete categoryData[dateKey];
+          cleaned = true;
+        }
+      }
+      if (cleaned && CFG.token) {
+        saveCategoryData().catch(() => {});
+      }
     }
   } catch(e) { console.warn('fetchCategoryData:', e); categoryData = {}; }
 }
