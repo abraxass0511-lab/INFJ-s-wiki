@@ -83,9 +83,9 @@
   "2026-05-06": {
     "AI공부": [
       "AI이미지_부분수정_JSON프롬프트기법.md",
-      "ChatGPT Image 2026년 5월 7일 오후 12_58_43.md",
       "ChatGPT.md",
       "Gemini_Generated_Image_42mwsi42mwsi42mw.md",
+      "SK하이닉스_새마을금고_금융_서비스_가이드.md",
       "debug_area1.md",
       "debug_area2.md",
       "debug_area3.md",
@@ -163,12 +163,6 @@
     "기타": [
       "find_dot.py",
       "remove_dot.py"
-    ]
-  },
-  "2026-05-08": {
-    "AI공부": [
-      "테스트.md",
-      "테스트.png"
     ]
   }
 }
