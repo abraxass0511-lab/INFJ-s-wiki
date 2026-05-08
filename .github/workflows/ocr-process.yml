@@ -118,9 +118,24 @@ jobs:
               try:
                   with urlopen(req, timeout=60) as resp:
                       result = json.loads(resp.read().decode())
-                      return result["candidates"][0]["content"]["parts"][0]["text"]
+                      text = result["candidates"][0]["content"]["parts"][0]["text"]
+                      # Strip markdown code fences if Gemini wraps output
+                      if text.startswith("```"):
+                          lines = text.split("\n")
+                          if lines[0].strip().startswith("```"):
+                              lines = lines[1:]
+                          if lines and lines[-1].strip() == "```":
+                              lines = lines[:-1]
+                          text = "\n".join(lines)
+                      return text
               except Exception as e:
+                  err_body = ''
+                  if hasattr(e, 'read'):
+                      try: err_body = e.read().decode()[:500]
+                      except: pass
                   print(f"  ⚠️ Gemini API 실패: {e}")
+                  if err_body:
+                      print(f"  📋 응답: {err_body}")
                   return None
 
           def tesseract_fallback(img_path, date_str, filename):
@@ -358,10 +373,32 @@ jobs:
         run: |
           git config user.name "P-Reinforce Bot"
           git config user.email "bot@p-reinforce.local"
-          # Pull latest first to avoid conflicts
+          # Pull latest - accept ours for _categories.json conflicts
           git stash || true
-          git pull --rebase origin main || true
-          git stash pop || true
+          if ! git pull --rebase origin main; then
+            echo "⚠️ Rebase conflict detected, resolving..."
+            # For _categories.json conflicts, keep our version (just re-generated)
+            git checkout --theirs 00_Raw/_categories.json 2>/dev/null || true
+            git add 00_Raw/_categories.json
+            git rebase --continue || git rebase --abort
+            git stash pop || true
+            # Re-run category classification to ensure clean JSON
+            python3 -c "
+          import os, json, re
+          cat_path = '00_Raw/_categories.json'
+          try:
+              with open(cat_path, 'r', encoding='utf-8') as f:
+                  json.load(f)
+              print('✅ _categories.json is valid JSON')
+          except:
+              print('⚠️ _categories.json is corrupted, regenerating...')
+              os.remove(cat_path)
+              with open(cat_path, 'w', encoding='utf-8') as f:
+                  json.dump({}, f)
+          "
+          else
+            git stash pop || true
+          fi
           git add -A
           if git diff --cached --quiet; then
             echo "📭 No new documents"

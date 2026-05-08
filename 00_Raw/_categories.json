@@ -55,10 +55,8 @@
     "AI공부": [
       "2026-04-22_루나_Freedom_Grind_v5_렌더링_댓글API.md",
       "4월21일_이미지생성.md",
+      "MrBeast_Premium_10.md",
       "MrBeast_유튜브_전략.md"
-    ],
-    "유튜브": [
-      "MrBeast_Premium_10.md"
     ]
   },
   "2026-04-23": {
@@ -85,6 +83,8 @@
   "2026-05-06": {
     "AI공부": [
       "AI이미지_부분수정_JSON프롬프트기법.md",
+      "ChatGPT Image 2026년 5월 7일 오후 12_58_43.md",
+      "ChatGPT Image 2026년 5월 7일 오후 12_58_43.png",
       "ChatGPT.md",
       "debug_area1.md",
       "debug_area1.png",
@@ -145,34 +145,31 @@
       "debug_zoom_i.md",
       "debug_zoom_i.png",
       "detected_full_qr_area.md",
-      "detected_full_qr_area.png",
       "detected_qr_precise.md",
-      "detected_qr_precise.png",
       "detected_qr_region.md",
-      "detected_qr_region.png",
-      "Gemini_Generated_Image_42mwsi42mwsi42mw.md",
       "Gemini_Generated_Image_42mwsi42mwsi42mw.jpeg",
-      "ChatGPT Image 2026년 5월 7일 오후 12_58_43.png",
-      "새마을금고_인포그래픽.html",
-      "ChatGPT Image 2026년 5월 7일 오후 12_58_43.md"
+      "Gemini_Generated_Image_42mwsi42mwsi42mw.md"
     ],
     "회사": [
+      "detected_full_qr_area.png",
+      "detected_qr_precise.png",
+      "detected_qr_region.png",
+      "find_qr.py",
+      "replace_qr.py",
       "result_guide_new_qr.md",
-      "result_guide_new_qr.png"
+      "result_guide_new_qr.png",
+      "새마을금고_인포그래픽.html"
     ],
     "기타": [
       "find_dot.py",
-      "find_qr.py",
-      "remove_dot.py",
-      "replace_qr.py"
+      "remove_dot.py"
     ]
   },
   "2026-05-08": {
     "AI공부": [
-<<<<<<< Updated upstream
-=======
-      "KakaoTalk_20260508_095131056.md",
->>>>>>> Stashed changes
+      "KakaoTalk_20260508_095131056.md"
+    ],
+    "기타": [
       "KakaoTalk_20260508_095131056.png"
     ]
   }
