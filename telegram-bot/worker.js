@@ -392,13 +392,16 @@ async function saveNotifyInfo(env, dateStr, chatId, fileName, category) {
     const res = await fetch(url + '?ref=main', {
       headers: {
         'Authorization': `token ${env.GITHUB_TOKEN}`,
-        'Accept': 'application/vnd.github.v3+json',
+        'Accept': 'application/vnd.github.v3+json',
+
         'User-Agent': 'wiki-telegram-bot'
       }
     }).then(r => r.json());
 
     if (res.content) {
-      notifyData = JSON.parse(atob(res.content.replace(/\n/g, '')));
+      const rawN = atob(res.content.replace(/\n/g, ''));
+      const bytesN = new Uint8Array([...rawN].map(c => c.charCodeAt(0)));
+      notifyData = JSON.parse(new TextDecoder('utf-8').decode(bytesN));
       sha = res.sha;
     }
   } catch (e) { /* 새 파일 */ }
@@ -426,7 +429,8 @@ async function saveNotifyInfo(env, dateStr, chatId, fileName, category) {
     method: 'PUT',
     headers: {
       'Authorization': `token ${env.GITHUB_TOKEN}`,
-      'Accept': 'application/vnd.github.v3+json',
+      'Accept': 'application/vnd.github.v3+json',
+
         'User-Agent': 'wiki-telegram-bot',
       'Content-Type': 'application/json'
     },
@@ -499,7 +503,8 @@ async function uploadToGitHub(env, path, fileData, message) {
     const existing = await fetch(url, {
       headers: {
         'Authorization': `token ${env.GITHUB_TOKEN}`,
-        'Accept': 'application/vnd.github.v3+json',
+        'Accept': 'application/vnd.github.v3+json',
+
         'User-Agent': 'wiki-telegram-bot'
       }
     }).then(r => r.json());
@@ -517,7 +522,8 @@ async function uploadToGitHub(env, path, fileData, message) {
     method: 'PUT',
     headers: {
       'Authorization': `token ${env.GITHUB_TOKEN}`,
-      'Accept': 'application/vnd.github.v3+json',
+      'Accept': 'application/vnd.github.v3+json',
+
         'User-Agent': 'wiki-telegram-bot',
       'Content-Type': 'application/json'
     },
@@ -542,13 +548,16 @@ async function updateCategories(env, dateStr, category, fileName) {
     const res = await fetch(url + '?ref=main', {
       headers: {
         'Authorization': `token ${env.GITHUB_TOKEN}`,
-        'Accept': 'application/vnd.github.v3+json',
+        'Accept': 'application/vnd.github.v3+json',
+
         'User-Agent': 'wiki-telegram-bot'
       }
     }).then(r => r.json());
 
     if (res.content) {
-      categories = JSON.parse(atob(res.content.replace(/\n/g, '')));
+      const raw = atob(res.content.replace(/\n/g, ''));
+      const bytes = new Uint8Array([...raw].map(c => c.charCodeAt(0)));
+      categories = JSON.parse(new TextDecoder('utf-8').decode(bytes));
       sha = res.sha;
     }
   } catch (e) { /* 새 파일 */ }
@@ -571,7 +580,8 @@ async function updateCategories(env, dateStr, category, fileName) {
     method: 'PUT',
     headers: {
       'Authorization': `token ${env.GITHUB_TOKEN}`,
-      'Accept': 'application/vnd.github.v3+json',
+      'Accept': 'application/vnd.github.v3+json',
+
         'User-Agent': 'wiki-telegram-bot',
       'Content-Type': 'application/json'
     },
@@ -589,7 +599,8 @@ async function getGitHubFiles(env, dateStr) {
     const res = await fetch(url, {
       headers: {
         'Authorization': `token ${env.GITHUB_TOKEN}`,
-        'Accept': 'application/vnd.github.v3+json',
+        'Accept': 'application/vnd.github.v3+json',
+
         'User-Agent': 'wiki-telegram-bot'
       }
     }).then(r => r.json());
