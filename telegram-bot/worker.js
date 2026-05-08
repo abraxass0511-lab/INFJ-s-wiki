@@ -316,18 +316,16 @@ async function handleImageUpload(message, env, chatId, category) {
     await saveNotifyInfo(env, today, chatId, fileName, category);
 
     // 📌 Step 5: 최종 안내
-    await sendTelegram(env, chatId,
-      `🚀 *업로드 파이프라인 시작\\!*\n\n` +
-      `📁 파일: \\`${escapeMarkdown(fileName)}\\`\n` +
-      `📂 카테고리: ${escapeMarkdown(category)}\n` +
-      `📅 날짜: ${escapeMarkdown(today)}\n` +
-      `📦 크기: ${fileSize}KB\n\n` +
-      `⏳ *남은 자동 처리:*\n` +
-      `  4\\. 🤖 Gemini AI → MD 문서 생성\n` +
-      `  5\\. 📅 캘린더 자동 반영\n\n` +
-      `완료되면 알림이 옵니다\\! 🔔`,
-      'MarkdownV2'
-    );
+    const summaryMsg = '🚀 업로드 파이프라인 시작!' + '\n\n' +
+      '📁 파일: ' + fileName + '\n' +
+      '📂 카테고리: ' + category + '\n' +
+      '📅 날짜: ' + today + '\n' +
+      '📦 크기: ' + fileSize + 'KB' + '\n\n' +
+      '⏳ 남은 자동 처리:' + '\n' +
+      '  4. 🤖 Gemini AI → MD 문서 생성' + '\n' +
+      '  5. 📅 캘린더 자동 반영' + '\n\n' +
+      '완료되면 알림이 옵니다! 🔔';
+    await sendTelegram(env, chatId, summaryMsg);
 
   } catch (e) {
     console.error('Upload error:', e);
