@@ -91,12 +91,47 @@ main { display:grid; grid-template-columns:1fr 360px; gap:24px; padding:28px; ma
 .file-item {
   display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:10px;
   background:rgba(255,255,255,.02); border:1px solid var(--border); font-size:13px;
+  cursor:pointer; transition:all .2s;
 }
+.file-item:hover { background:rgba(124,92,245,.08); border-color:rgba(124,92,245,.2); }
+.file-item:active { transform:scale(.98); }
 .file-item .thumb { width:36px; height:36px; border-radius:8px; object-fit:cover; background:var(--bg2); }
 .file-item .name { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .file-item .badge { font-size:10px; padding:2px 8px; border-radius:6px; font-weight:600; }
 .badge-img { background:rgba(78,168,255,.15); color:var(--blue); }
 .badge-md { background:rgba(52,211,153,.15); color:var(--green); }
+
+/* Preview Modal */
+.preview-overlay {
+  display:none; position:fixed; inset:0; background:rgba(0,0,0,.75); backdrop-filter:blur(8px);
+  z-index:300; align-items:center; justify-content:center; padding:20px;
+}
+.preview-overlay.active { display:flex; }
+.preview-modal {
+  background:var(--card); border:1px solid var(--border); border-radius:20px;
+  width:95%; max-width:700px; max-height:85vh; display:flex; flex-direction:column;
+  animation:modalIn .3s ease; overflow:hidden;
+}
+.preview-header {
+  display:flex; align-items:center; justify-content:space-between; padding:16px 20px;
+  border-bottom:1px solid var(--border); flex-shrink:0;
+}
+.preview-header h3 { font-size:14px; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; flex:1; margin-right:12px; }
+.preview-close {
+  width:32px; height:32px; border-radius:8px; border:1px solid var(--border); background:var(--bg2);
+  color:var(--text); cursor:pointer; font-size:16px; display:flex; align-items:center; justify-content:center;
+  transition:all .2s; flex-shrink:0;
+}
+.preview-close:hover { background:var(--rose); border-color:var(--rose); color:#fff; }
+.preview-body { padding:20px; overflow-y:auto; flex:1; }
+.preview-body img { width:100%; height:auto; border-radius:12px; }
+.preview-body .md-content {
+  font-size:14px; line-height:1.8; color:var(--text); white-space:pre-wrap; word-break:break-word;
+  font-family:'JetBrains Mono',monospace;
+}
+.preview-body .md-content h1,.preview-body .md-content h2,.preview-body .md-content h3 { color:var(--purple); margin:16px 0 8px; }
+.preview-body .md-content code { background:var(--bg2); padding:2px 6px; border-radius:4px; font-size:13px; }
+.preview-loading { text-align:center; padding:40px; color:var(--muted); font-size:14px; }
 
 /* Toast */
 .toast-container { position:fixed; bottom:24px; right:24px; z-index:999; display:flex; flex-direction:column; gap:8px; }
@@ -202,6 +237,19 @@ main { display:grid; grid-template-columns:1fr 360px; gap:24px; padding:28px; ma
       <div style="flex:1;"></div>
       <button class="btn" onclick="closeSettings()">취소</button>
       <button class="btn btn-primary" onclick="saveSettings()">저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- Preview Modal -->
+<div class="preview-overlay" id="previewModal" onclick="if(event.target===this)closePreview()">
+  <div class="preview-modal">
+    <div class="preview-header">
+      <h3 id="previewTitle">파일명</h3>
+      <button class="preview-close" onclick="closePreview()">✕</button>
+    </div>
+    <div class="preview-body" id="previewBody">
+      <div class="preview-loading">로딩 중...</div>
     </div>
   </div>
 </div>
@@ -375,7 +423,8 @@ async function loadFiles(dateStr) {
     const isMd = /\.md$/i.test(f.name);
     const badge = isImg ? '<span class="badge badge-img">IMG</span>' : isMd ? '<span class="badge badge-md">MD</span>' : '';
     const thumb = isImg ? `<img class="thumb" src="${f.download_url}" alt="">` : `<div class="thumb" style="display:flex;align-items:center;justify-content:center;font-size:16px">${isMd?'📄':'📎'}</div>`;
-    return `<div class="file-item">${thumb}<span class="name">${f.name}</span>${badge}</div>`;
+    const clickData = JSON.stringify({name:f.name, url:f.download_url, isImg, isMd}).replace(/'/g,'&#39;').replace(/"/g,'&quot;');
+    return `<div class="file-item" onclick="previewFile(${clickData})">${thumb}<span class="name">${f.name}</span>${badge}</div>`;
   }).join('');
 }
 
@@ -453,6 +502,49 @@ function toast(msg, type='info') {
   document.getElementById('toasts').appendChild(el);
   setTimeout(() => el.remove(), 4000);
 }
+// ── Preview ──
+function previewFile(info) {
+  const modal = document.getElementById('previewModal');
+  const title = document.getElementById('previewTitle');
+  const body = document.getElementById('previewBody');
+  title.textContent = info.name;
+  body.innerHTML = '<div class="preview-loading">⏳ 로딩 중...</div>';
+  modal.classList.add('active');
+
+  if (info.isImg) {
+    const img = new Image();
+    img.onload = () => { body.innerHTML = ''; body.appendChild(img); };
+    img.onerror = () => { body.innerHTML = '<div class="preview-loading">❌ 이미지를 불러올 수 없습니다</div>'; };
+    img.src = info.url;
+    img.style.cssText = 'width:100%;height:auto;border-radius:12px;';
+  } else if (info.isMd) {
+    fetch(info.url)
+      .then(r => r.text())
+      .then(text => {
+        // 간단한 마크다운 렌더링
+        let html = text
+          .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+          .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+          .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+          .replace(/^# (.+)$/gm, '<h1>$1</h1>')
+          .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+          .replace(/`(.+?)`/g, '<code>$1</code>')
+          .replace(/^- (.+)$/gm, '• $1')
+          .replace(/\n/g, '<br>');
+        body.innerHTML = `<div class="md-content">${html}</div>`;
+      })
+      .catch(() => { body.innerHTML = '<div class="preview-loading">❌ 파일을 불러올 수 없습니다</div>'; });
+  } else {
+    fetch(info.url)
+      .then(r => r.text())
+      .then(text => {
+        body.innerHTML = `<div class="md-content">${text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>')}</div>`;
+      })
+      .catch(() => { body.innerHTML = '<div class="preview-loading">❌ 파일을 불러올 수 없습니다</div>'; });
+  }
+}
+function closePreview() { document.getElementById('previewModal').classList.remove('active'); }
+
 // ── Copy Mobile Link ──
 function copyMobileLink() {
   const token = document.getElementById('inputToken').value.trim() || CFG.token;
