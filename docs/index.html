@@ -7,27 +7,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #0a0a0f; --bg2: #12121a; --card: #1a1a2e; --card-hover: #1e1e35;
-  --border: rgba(255,255,255,0.06); --text: #e8e8f0; --text2: #8888aa; --muted: #55556a;
-  --purple: #7c5cf5; --blue: #4ea8ff; --green: #34d399; --amber: #fbbf24; --rose: #fb7185;
-  --glow-p: rgba(124,92,245,0.15); --glow-b: rgba(78,168,255,0.15);
+  --bg: #f5f5f7; --bg2: #ffffff; --card: #ffffff; --card-hover: #f0f0f5;
+  --border: rgba(0,0,0,0.08); --text: #1a1a2e; --text2: #666680; --muted: #999aaa;
+  --purple: #6c4bf4; --blue: #3b8bff; --green: #22c55e; --amber: #f59e0b; --rose: #ef4444;
+  --glow-p: rgba(108,75,244,0.06); --glow-b: rgba(59,139,255,0.06);
   --radius: 16px;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
 body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
-body::before {
-  content:''; position:fixed; top:-50%; left:-50%; width:200%; height:200%;
-  background: radial-gradient(ellipse at 20% 50%,var(--glow-p),transparent 50%),
-              radial-gradient(ellipse at 80% 20%,var(--glow-b),transparent 50%);
-  animation: drift 20s ease-in-out infinite; z-index:-1; pointer-events:none;
-}
-@keyframes drift { 0%,100%{transform:translate(0,0)} 50%{transform:translate(2%,-1%)} }
 
 /* Header */
 header {
   padding:20px 28px; display:flex; align-items:center; justify-content:space-between;
   border-bottom:1px solid var(--border); backdrop-filter:blur(20px);
-  position:sticky; top:0; z-index:100; background:rgba(10,10,15,0.85);
+  position:sticky; top:0; z-index:100; background:rgba(255,255,255,0.92);
 }
 .logo {
   width:42px; height:42px; background:linear-gradient(135deg,var(--purple),var(--blue));
@@ -35,8 +28,8 @@ header {
   box-shadow:0 4px 20px rgba(124,92,245,0.3);
 }
 .header-left { display:flex; align-items:center; gap:14px; }
-.header-left h1 { font-size:20px; font-weight:800; background:linear-gradient(90deg,#fff,var(--blue)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-.header-left h1 span { font-size:12px; font-weight:400; display:block; background:none; -webkit-text-fill-color:var(--text2); }
+.header-left h1 { font-size:20px; font-weight:800; color:var(--text); }
+.header-left h1 span { font-size:12px; font-weight:400; display:block; color:var(--text2); }
 .status { display:flex; align-items:center; gap:8px; }
 .dot { width:8px; height:8px; border-radius:50%; animation:pulse 2s infinite; }
 .dot.on { background:var(--green); box-shadow:0 0 8px var(--green); }
@@ -52,7 +45,7 @@ main { display:grid; grid-template-columns:1fr 360px; gap:24px; padding:28px; ma
 @media(max-width:900px) { main { grid-template-columns:1fr; } }
 
 /* Calendar */
-.cal-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:24px; }
+.cal-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:24px; box-shadow:0 2px 12px rgba(0,0,0,0.06); }
 .cal-nav { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; }
 .cal-nav h2 { font-size:18px; font-weight:700; }
 .cal-nav button { width:36px; height:36px; border-radius:10px; border:1px solid var(--border); background:var(--bg2); color:var(--text); cursor:pointer; font-size:16px; transition:all .2s; }
@@ -60,37 +53,46 @@ main { display:grid; grid-template-columns:1fr 360px; gap:24px; padding:28px; ma
 .cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
 .cal-day { text-align:center; padding:8px 0; font-size:11px; font-weight:600; color:var(--muted); text-transform:uppercase; }
 .cal-cell {
-  aspect-ratio:1; display:flex; flex-direction:column; align-items:center; justify-content:center;
-  border-radius:12px; cursor:pointer; font-size:14px; font-weight:500; transition:all .2s; position:relative; gap:4px;
+  aspect-ratio:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
+  border-radius:12px; cursor:pointer; font-size:14px; font-weight:500; transition:all .2s; position:relative; padding-top:8px; gap:2px; overflow:hidden;
 }
-.cal-cell:hover { background:rgba(124,92,245,.1); }
-.cal-cell.today { background:rgba(124,92,245,.15); color:var(--purple); font-weight:700; }
-.cal-cell.selected { background:var(--purple); color:#fff; box-shadow:0 4px 16px rgba(124,92,245,.4); }
-.cal-cell.has-data::after { content:''; width:6px; height:6px; border-radius:50%; background:var(--green); position:absolute; bottom:6px; }
+.cal-cell:hover { background:rgba(108,75,244,.08); }
+.cal-cell.today { background:rgba(108,75,244,.1); color:var(--purple); font-weight:700; }
+.cal-cell.selected { background:var(--purple); color:#fff; box-shadow:0 4px 16px rgba(108,75,244,.3); }
 .cal-cell.other { opacity:.25; }
-.cal-cell.selected.has-data::after { background:#fff; }
+.cat-tags { display:flex; flex-wrap:wrap; gap:1px; justify-content:center; margin-top:2px; max-width:100%; overflow:hidden; }
+.cat-tag { font-size:7px; padding:1px 4px; border-radius:3px; font-weight:600; white-space:nowrap; line-height:1.3; }
+.cat-ai { background:#dbeafe; color:#2563eb; } .cat-company { background:#dcfce7; color:#16a34a; }
+.cat-good { background:#fef3c7; color:#d97706; } .cat-project { background:#ede9fe; color:#7c3aed; }
+.cat-daily { background:#fce7f3; color:#db2777; } .cat-etc { background:#f1f5f9; color:#64748b; }
 
 /* Sidebar */
 .sidebar { display:flex; flex-direction:column; gap:16px; }
-.side-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:20px; }
+.side-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:20px; box-shadow:0 2px 12px rgba(0,0,0,0.06); }
 .side-card h3 { font-size:12px; text-transform:uppercase; letter-spacing:1.5px; color:var(--muted); margin-bottom:14px; font-weight:600; }
 .selected-date { font-size:22px; font-weight:800; font-family:'JetBrains Mono',monospace; color:var(--purple); margin-bottom:4px; }
 
 /* Dropzone */
 .dropzone {
-  border:2px dashed rgba(124,92,245,.3); border-radius:14px; padding:32px 16px; text-align:center;
-  cursor:pointer; transition:all .3s; background:rgba(124,92,245,.03);
+  border:2px dashed rgba(108,75,244,.25); border-radius:14px; padding:32px 16px; text-align:center;
+  cursor:pointer; transition:all .3s; background:rgba(108,75,244,.02);
 }
-.dropzone:hover, .dropzone.dragover { border-color:var(--purple); background:rgba(124,92,245,.08); }
+.dropzone:hover, .dropzone.dragover { border-color:var(--purple); background:rgba(108,75,244,.06); }
 .dropzone .icon { font-size:36px; margin-bottom:8px; }
 .dropzone p { font-size:13px; color:var(--text2); }
 .dropzone input { display:none; }
+.cat-select { margin-top:12px; }
+.cat-select label { font-size:11px; color:var(--text2); font-weight:600; margin-bottom:6px; display:block; }
+.cat-btns { display:flex; flex-wrap:wrap; gap:6px; }
+.cat-btn { padding:6px 12px; border-radius:8px; border:1.5px solid var(--border); background:var(--bg); cursor:pointer; font-size:12px; font-weight:500; transition:all .2s; color:var(--text); }
+.cat-btn:hover { border-color:var(--purple); }
+.cat-btn.active { background:var(--purple); color:#fff; border-color:var(--purple); }
 
 /* File list */
 .file-list { display:flex; flex-direction:column; gap:8px; }
 .file-item {
   display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:10px;
-  background:rgba(255,255,255,.02); border:1px solid var(--border); font-size:13px;
+  background:var(--bg); border:1px solid var(--border); font-size:13px;
   cursor:pointer; transition:all .2s;
 }
 .file-item:hover { background:rgba(124,92,245,.08); border-color:rgba(124,92,245,.2); }
@@ -200,7 +202,11 @@ main { display:grid; grid-template-columns:1fr 360px; gap:24px; padding:28px; ma
       <h3>📅 선택된 날짜</h3>
       <div class="selected-date" id="selDate">날짜를 선택하세요</div>
       <div id="uploadSection" style="display:none;margin-top:16px;">
-        <div class="dropzone" id="dropzone" onclick="document.getElementById('fileInput').click()">
+        <div class="cat-select">
+          <label>📂 카테고리</label>
+          <div class="cat-btns" id="catBtns"></div>
+        </div>
+        <div class="dropzone" id="dropzone" onclick="document.getElementById('fileInput').click()" style="margin-top:12px;">
           <div class="icon">📸</div>
           <p>이미지를 드래그하거나 클릭하여 업로드</p>
           <input type="file" id="fileInput" accept="image/*" multiple>
@@ -269,6 +275,16 @@ const CFG = {
 // ── State ──
 let curYear, curMonth, selectedDate = null;
 const existingDates = new Set();
+let categoryData = {}; // { '2026-05-06': ['AI공부'], ... }
+let selectedCategory = '';
+const CATEGORIES = [
+  { key:'AI공부', label:'AI공부', cls:'cat-ai' },
+  { key:'회사', label:'회사', cls:'cat-company' },
+  { key:'좋은글', label:'좋은글', cls:'cat-good' },
+  { key:'프로젝트', label:'프로젝트', cls:'cat-project' },
+  { key:'일상', label:'일상', cls:'cat-daily' },
+  { key:'기타', label:'기타', cls:'cat-etc' }
+];
 
 // ── URL 파라미터로 자동 토큰 설정 ──
 function autoSetupFromURL() {
@@ -298,7 +314,10 @@ function autoSetupFromURL() {
   curMonth = now.getMonth();
   autoSetupFromURL();
   updateStatus();
-  if (CFG.token) await fetchExistingDates();
+  if (CFG.token) {
+    await fetchExistingDates();
+    await fetchCategoryData();
+  }
   renderCalendar();
   if (!CFG.token) openSettings();
 })();
@@ -319,6 +338,27 @@ async function fetchExistingDates() {
     existingDates.clear();
     items.filter(i => i.type === 'dir').forEach(i => existingDates.add(i.name));
   } catch(e) { console.warn('fetchDates:', e); }
+}
+
+async function fetchCategoryData() {
+  try {
+    const res = await ghAPI(`/repos/${CFG.owner}/${CFG.repo}/contents/${CFG.base}/_categories.json?ref=${CFG.branch}`);
+    categoryData = JSON.parse(atob(res.content.replace(/\n/g,'')));
+  } catch(e) { categoryData = {}; }
+}
+
+async function saveCategoryData() {
+  const content = btoa(unescape(encodeURIComponent(JSON.stringify(categoryData, null, 2))));
+  const path = `${CFG.base}/_categories.json`;
+  let sha;
+  try {
+    const existing = await ghAPI(`/repos/${CFG.owner}/${CFG.repo}/contents/${path}?ref=${CFG.branch}`);
+    sha = existing.sha;
+  } catch(e) {}
+  await ghAPI(`/repos/${CFG.owner}/${CFG.repo}/contents/${path}`, {
+    method: 'PUT',
+    body: JSON.stringify({ message: '[P-Reinforce] update categories', content, branch: CFG.branch, ...(sha ? {sha} : {}) })
+  });
 }
 
 async function fetchFilesForDate(dateStr) {
@@ -377,8 +417,13 @@ function renderCalendar() {
     let cls = 'cal-cell';
     if (isToday) cls += ' today';
     if (isSel) cls += ' selected';
-    if (hasData) cls += ' has-data';
-    html += `<div class="${cls}" onclick="selectDate('${dateStr}')">${d}</div>`;
+    const cats = categoryData[dateStr] || [];
+    const catHtml = cats.map(c => {
+      const cat = CATEGORIES.find(x => x.key === c) || {cls:'cat-etc'};
+      return `<span class="cat-tag ${cat.cls}">${c}</span>`;
+    }).join('');
+    const tagsDiv = catHtml ? `<div class="cat-tags">${catHtml}</div>` : '';
+    html += `<div class="${cls}" onclick="selectDate('${dateStr}')">${d}${tagsDiv}</div>`;
   }
 
   // Next month padding
@@ -404,8 +449,14 @@ function nextMonth() { curMonth++; if(curMonth>11){curMonth=0;curYear++;} render
 
 async function selectDate(dateStr) {
   selectedDate = dateStr;
+  selectedCategory = '';
   document.getElementById('selDate').textContent = dateStr;
   document.getElementById('uploadSection').style.display = 'block';
+  // Render category buttons
+  const catBtns = document.getElementById('catBtns');
+  catBtns.innerHTML = CATEGORIES.map(c =>
+    `<button class="cat-btn" data-key="${c.key}" onclick="pickCategory('${c.key}',this)">${c.label}</button>`
+  ).join('');
   renderCalendar();
   await loadFiles(dateStr);
 }
@@ -428,6 +479,14 @@ async function loadFiles(dateStr) {
   }).join('');
 }
 
+// ── Category ──
+function pickCategory(key, btn) {
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  if (selectedCategory === key) { selectedCategory = ''; return; }
+  selectedCategory = key;
+  btn.classList.add('active');
+}
+
 // ── Upload ──
 const dropzone = document.getElementById('dropzone');
 const fileInput = document.getElementById('fileInput');
@@ -440,6 +499,7 @@ fileInput.addEventListener('change', e => handleFiles(e.target.files));
 async function handleFiles(files) {
   if (!selectedDate) { toast('날짜를 먼저 선택하세요', 'error'); return; }
   if (!CFG.token) { toast('설정에서 GitHub Token을 입력하세요', 'error'); openSettings(); return; }
+  if (!selectedCategory) { toast('카테고리를 먼저 선택하세요', 'error'); return; }
 
   const bar = document.getElementById('progressBar');
   const fill = document.getElementById('progressFill');
@@ -461,6 +521,14 @@ async function handleFiles(files) {
   }
 
   existingDates.add(selectedDate);
+  // Save category
+  if (selectedCategory) {
+    if (!categoryData[selectedDate]) categoryData[selectedDate] = [];
+    if (!categoryData[selectedDate].includes(selectedCategory)) {
+      categoryData[selectedDate].push(selectedCategory);
+    }
+    try { await saveCategoryData(); } catch(e) { console.warn('cat save:', e); }
+  }
   renderCalendar();
   await loadFiles(selectedDate);
 
