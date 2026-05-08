@@ -44,7 +44,8 @@ jobs:
           반드시 아래 형식을 지켜주세요:
 
           ---
-          title: "(내용을 대표하는 제목)"
+          title: "(내용을 요약하는 구체적인 한국어 제목)"
+          filename: "(제목을 밑줄로_연결한_파일명용_한국어이름)"
           date: "{date}"
           source: image-ocr-gemini
           original_image: "{filename}"
@@ -78,7 +79,10 @@ jobs:
           ## 🔗 Knowledge Connections
           (관련될 수 있는 지식 주제를 [[위키링크]] 형태로 3~5개 제안)
 
-          중요: 이미지에 텍스트가 있으면 정확히 읽어주세요. 표 형태라면 표 내용을 빠짐없이 포함해주세요.
+          중요:
+          - 이미지에 텍스트가 있으면 정확히 읽어주세요. 표 형태라면 표 내용을 빠짐없이 포함해주세요.
+          - filename 필드는 내용을 요약한 한국어 이름으로, 공백 대신 밑줄(_)을 쓰세요.
+            예시: "AI이미지_부분수정_JSON프롬프트기법", "엑셀_셀병합_단축키_정리", "공자_논어_핵심명언"
           """
 
           def gemini_process(img_path, date_str, filename):
@@ -146,15 +150,43 @@ jobs:
               images.extend(glob.glob(f"00_Raw/**/*.{ext}", recursive=True))
               images.extend(glob.glob(f"00_Raw/**/*.{ext.upper()}", recursive=True))
 
+          def extract_filename_from_md(content):
+              """Extract filename field from Gemini-generated MD frontmatter."""
+              import re as _re
+              m = _re.search(r'filename:\s*["\']?([^"\']\S+)', content)
+              if m:
+                  name = m.group(1).strip().strip('"').strip("'")
+                  # Clean up: remove spaces, ensure underscores
+                  name = name.replace(' ', '_').replace('/', '_')
+                  # Remove problematic chars
+                  name = _re.sub(r'[<>:"/\\|?*]', '', name)
+                  if name:
+                      return name
+              return None
+
+          # Track existing MD files to avoid duplicates
+          def get_existing_md_files(directory):
+              return set(f for f in os.listdir(directory) if f.endswith('.md'))
+
           processed = 0
           for img_path in sorted(set(images)):
-              md_path = os.path.splitext(img_path)[0] + ".md"
-              if os.path.exists(md_path):
-                  print(f"⏭️  Skip: {os.path.basename(img_path)}")
+              img_dir = os.path.dirname(img_path)
+              # Check if any MD references this image already
+              filename = os.path.basename(img_path)
+              already_has_md = False
+              for existing_md in glob.glob(os.path.join(img_dir, '*.md')):
+                  try:
+                      with open(existing_md, 'r', encoding='utf-8') as _f:
+                          if filename in _f.read(500):
+                              already_has_md = True
+                              break
+                  except:
+                      pass
+              if already_has_md:
+                  print(f"⏭️  Skip (MD exists): {filename}")
                   continue
 
-              filename = os.path.basename(img_path)
-              date_str = os.path.basename(os.path.dirname(img_path))
+              date_str = os.path.basename(img_dir)
               print(f"🔍 Processing: {img_path}")
 
               # Try Gemini first, fallback to Tesseract
@@ -169,9 +201,21 @@ jobs:
                   content = tesseract_fallback(img_path, date_str, filename)
                   print(f"  ⚠️ Tesseract 폴백 사용")
 
+              # Extract descriptive filename from Gemini output
+              desc_name = extract_filename_from_md(content) if content else None
+              if desc_name:
+                  md_filename = f"{desc_name}.md"
+              else:
+                  md_filename = os.path.splitext(filename)[0] + ".md"
+
+              md_path = os.path.join(img_dir, md_filename)
+              # Avoid overwrite
+              if os.path.exists(md_path):
+                  md_path = os.path.join(img_dir, os.path.splitext(filename)[0] + ".md")
+
               with open(md_path, "w", encoding="utf-8") as f:
                   f.write(content)
-              print(f"  📝 Created: {md_path}")
+              print(f"  📝 Created: {os.path.basename(md_path)}")
               processed += 1
 
           print(f"\n✅ 총 {processed}개 이미지 문서화 완료")
@@ -255,17 +299,24 @@ jobs:
 
                   content = ''
                   fpath = os.path.join(full, fname)
-                  if fname.endswith('.md'):
-                      try:
-                          with open(fpath, 'r', encoding='utf-8') as f:
-                              content = f.read()
-                      except:
-                          pass
+                  try:
+                      with open(fpath, 'r', encoding='utf-8') as f:
+                          content = f.read()
+                  except:
+                      pass
 
                   cat = classify_file(fname, content)
                   if cat not in cat_data[entry]:
                       cat_data[entry][cat] = []
                   cat_data[entry][cat].append(fname)
+
+                  # Also add the original image to the same category
+                  m = re.search(r'original_image:\s*["\']?([^"\']\S+)', content)
+                  if m:
+                      orig_img = m.group(1).strip().strip('"').strip("'")
+                      if orig_img and orig_img not in existing_files and os.path.exists(os.path.join(full, orig_img)):
+                          cat_data[entry][cat].append(orig_img)
+                          existing_files.add(orig_img)
 
           with open(cat_path, 'w', encoding='utf-8') as f:
               json.dump(cat_data, f, ensure_ascii=False, indent=2)

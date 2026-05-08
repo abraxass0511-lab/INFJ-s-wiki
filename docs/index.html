@@ -558,7 +558,7 @@ async function loadFiles(dateStr) {
     list.innerHTML = '<p style="font-size:13px;color:var(--muted)">파일 없음</p>';
     return;
   }
-  // Build file-to-category map (MD only)
+  // Build file-to-category map from categoryData
   const fileCatMap = {};
   const dateCats = categoryData[dateStr];
   if (dateCats && typeof dateCats === 'object') {
@@ -566,26 +566,14 @@ async function loadFiles(dateStr) {
       for (const fn of fnames) fileCatMap[fn] = cat;
     }
   }
-  // Build a lookup by file name
-  const fileMap = {};
-  for (const f of files) fileMap[f.name] = f;
-  // Separate MD and find paired images
-  const mdFiles = files.filter(f => /\.md$/i.test(f.name));
-  const pairedImages = new Set();
+  // Group ALL files by category
   const groups = {};
-  for (const f of mdFiles) {
-    const cat = fileCatMap[f.name] || '미분류';
+  for (const f of files) {
+    if (f.name.startsWith('_') || f.name === 'README.md') continue;
+    const cat = fileCatMap[f.name] || '기타';
     if (!groups[cat]) groups[cat] = [];
-    const baseName = f.name.replace(/\.md$/i, '');
-    let origImg = null;
-    for (const ext of ['png','jpg','jpeg','webp','bmp']) {
-      const imgName = `${baseName}.${ext}`;
-      if (fileMap[imgName]) { origImg = fileMap[imgName]; pairedImages.add(imgName); break; }
-    }
-    groups[cat].push({ md: f, img: origImg });
+    groups[cat].push(f);
   }
-  // Remaining non-MD, non-paired files
-  const remainFiles = files.filter(f => !/\.md$/i.test(f.name) && !pairedImages.has(f.name));
   const renderItem = (f) => {
     const isImg = /\.(png|jpg|jpeg|webp|bmp)$/i.test(f.name);
     const isMd = /\.md$/i.test(f.name);
@@ -596,18 +584,10 @@ async function loadFiles(dateStr) {
     return `<div class="file-item" onclick="previewFile(${clickData})">${thumb}<span class="name">${f.name}</span>${badge}${delBtn}</div>`;
   };
   let html = '';
-  for (const [cat, pairs] of Object.entries(groups)) {
+  for (const [cat, gFiles] of Object.entries(groups)) {
     const catInfo = CATEGORIES.find(x => x.key === cat) || {cls:'cat-etc'};
-    html += `<div class="cat-group"><div class="cat-group-header ${catInfo.cls}">${cat} (${pairs.length})</div>`;
-    for (const pair of pairs) {
-      if (pair.img) html += renderItem(pair.img);
-      html += renderItem(pair.md);
-    }
-    html += '</div>';
-  }
-  if (remainFiles.length > 0) {
-    html += `<div class="cat-group"><div class="cat-group-header cat-etc">📎 첨부파일 (${remainFiles.length})</div>`;
-    html += remainFiles.map(renderItem).join('');
+    html += `<div class="cat-group"><div class="cat-group-header ${catInfo.cls}">${cat} (${gFiles.length})</div>`;
+    html += gFiles.map(renderItem).join('');
     html += '</div>';
   }
   list.innerHTML = html;
