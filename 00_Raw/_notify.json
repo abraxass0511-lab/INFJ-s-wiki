@@ -1,15 +1,5 @@
 {
-  "pending": [
-    {
-      "chat_id": 8428421905,
-      "date": "2026-05-08",
-      "file": "IMG_20260508161808.jpg",
-      "category": "AI공부",
-      "timestamp": "2026-05-08T07:18:12.222Z",
-      "ocr_engine": "gemini",
-      "md_file": "AI이미지_부분수정_JSON프롬프트기법.md"
-    }
-  ],
+  "pending": [],
   "worker_url": "https://wiki-telegram-bot.abraxass0511.workers.dev/notify",
   "last_completed": []
 }
