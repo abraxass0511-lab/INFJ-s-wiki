@@ -37,7 +37,7 @@ jobs:
           from urllib.request import Request, urlopen
           from urllib.error import URLError
 
-          API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent"
+          API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
           API_KEY = os.environ.get("GEMINI_API_KEY", "")
 
           if API_KEY:
@@ -378,48 +378,90 @@ jobs:
                   print(f"  {date} [{c}] → {', '.join(files)}")
 
       - name: "🚀 Commit & Push"
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           git config user.name "P-Reinforce Bot"
           git config user.email "bot@p-reinforce.local"
-          # Pull latest - accept ours for _categories.json conflicts
-          git stash || true
-          if ! git pull --rebase origin main; then
-            echo "⚠️ Rebase conflict detected, resolving..."
-            # For _categories.json conflicts, keep our version (just re-generated)
-            git checkout --theirs 00_Raw/_categories.json 2>/dev/null || true
-            git add 00_Raw/_categories.json
-            git rebase --continue || git rebase --abort
-            git stash pop || true
-            # Re-run category classification to ensure clean JSON
-            python3 -c "
-          import os, json, re
-          cat_path = '00_Raw/_categories.json'
-          try:
-              with open(cat_path, 'r', encoding='utf-8') as f:
-                  json.load(f)
-              print('✅ _categories.json is valid JSON')
-          except:
-              print('⚠️ _categories.json is corrupted, regenerating...')
-              os.remove(cat_path)
-              with open(cat_path, 'w', encoding='utf-8') as f:
-                  json.dump({}, f)
-          "
-          else
-            git stash pop || true
-          fi
-          git add -A
+          
+          # Add all generated files EXCEPT _categories.json
+          git add -A -- ':!00_Raw/_categories.json'
+          
           if git diff --cached --quiet; then
-            echo "📭 No new documents"
+            echo "📭 No new documents to commit"
           else
-            git commit -m "[P-Reinforce] 🧠 Gemini 지식 문서화 + 🏷️ 카테고리 분류"
-            # Retry push up to 3 times
-            for i in 1 2 3; do
-              git push && echo "🚀 Push complete!" && break
-              echo "⚠️ Push failed, retrying ($i/3)..."
-              git pull --rebase origin main || true
-              sleep 2
-            done
+            git commit -m "[P-Reinforce] 🧠 Gemini 지식 문서화"
           fi
+          
+          # Pull latest changes (may include deletions from web UI)
+          git pull --no-rebase origin main --strategy-option=ours || {
+            echo "⚠️ Pull conflict, aborting merge and retrying..."
+            git merge --abort 2>/dev/null || true
+            git pull --no-rebase origin main --strategy-option=theirs || true
+          }
+          
+          # NOW regenerate _categories.json from the merged state
+          python3 << 'PYEOF'
+          import os, json, re
+          CATEGORIES = {
+              'AI공부': ['ai','gpt','chatgpt','gemini','claude','llm','프롬프트','prompt','이미지생성','영상생성','stable diffusion','midjourney','api','모델','rag','벡터','임베딩','에이전트','agent','자동화','automation','파이프라인','렌더','render','ocr','위키','wiki','vibe coding','바이브코딩','cursor','copilot','code','코딩','json','debug','script','python','스크립트','html','프롬프트기법','프레임워크','라이브러리','인포그래픽','데이터','프로젝트','웹생성','앱생성'],
+              '회사': ['엑셀','excel','보고서','보고','건설','안전','시공','공사','설계','감리','인허가','계약','발주','입찰','견적','업무','회의','결재','기안','품의','csi','새마을금고','공문','직장','qr','가이드','guide','infographic','result_guide'],
+              '좋은글': ['명언','인용','quote','좋은글','명상','동기부여','자기계발','독서','인사이트','지혜','철학'],
+              '유튜브': ['youtube','유튜브','shorts','구독','조회수','알고리즘','mrbeast','채널','channel','업로드','upload','영상편집','freedom grind','luna_vault','onia','콘텐츠','content','ctr','lofi','비트','beat','phonk'],
+              '1인기업': ['1인기업','사업','창업','수익','부업','프리랜서','마케팅','브랜딩','개인사업','소득','투잡'],
+              '운동': ['헬스','운동','수영','달리기','웨이트','근력','스트레칭','다이어트','체중','피트니스','gym','workout'],
+              '육아': ['아기','육아','아이','유아','돌봄','추억','성장','양육','부모','가족','태교']
+          }
+          def classify(fn, ct=''):
+              t = (fn + ' ' + ct).lower()
+              s = {}
+              for c, kws in CATEGORIES.items():
+                  sc = sum(1 for k in kws if k.lower() in t)
+                  if sc > 0: s[c] = sc
+              return max(s, key=s.get) if s else '기타'
+          
+          raw = '00_Raw'; d = {}
+          for e in sorted(os.listdir(raw)):
+              fp = os.path.join(raw, e)
+              if not os.path.isdir(fp) or not re.match(r'\d{4}-\d{2}-\d{2}', e): continue
+              d[e] = {}; img_map = {}
+              for fn in sorted(os.listdir(fp)):
+                  if fn.startswith('_') or fn.startswith('.') or fn == 'README.md': continue
+                  if not fn.endswith('.md'): continue
+                  ct = ''
+                  try:
+                      with open(os.path.join(fp, fn), 'r', encoding='utf-8') as f: ct = f.read()
+                  except: pass
+                  c = classify(fn, ct)
+                  if c not in d[e]: d[e][c] = []
+                  d[e][c].append(fn)
+                  m = re.search(r'original_image:\s*"?([^"\s]+)', ct)
+                  if m: img_map[m.group(1).strip()] = c
+              for fn in sorted(os.listdir(fp)):
+                  if fn.startswith('_') or fn.startswith('.') or fn == 'README.md' or fn.endswith('.md'): continue
+                  c = img_map.get(fn, classify(fn, ''))
+                  if c not in d[e]: d[e][c] = []
+                  d[e][c].append(fn)
+              if not d[e]: del d[e]
+          with open(os.path.join(raw, '_categories.json'), 'w', encoding='utf-8') as f:
+              json.dump(d, f, ensure_ascii=False, indent=2)
+          # Validate
+          with open(os.path.join(raw, '_categories.json'), 'r') as f:
+              json.load(f)
+          print(f'✅ _categories.json rebuilt: {len(d)} dates')
+          PYEOF
+          
+          # Commit the fresh _categories.json
+          git add 00_Raw/_categories.json
+          git diff --cached --quiet || git commit -m "[P-Reinforce] 🏷️ 카테고리 분류"
+          
+          # Push with retry
+          for i in 1 2 3; do
+            git push && echo "🚀 Push complete!" && break
+            echo "⚠️ Push failed, retrying ($i/3)..."
+            git pull --no-rebase origin main --strategy-option=ours || true
+            sleep 2
+          done
 
       - name: "🔔 실패 알림"
         if: failure()
