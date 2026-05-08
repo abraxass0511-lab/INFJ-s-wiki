@@ -23,6 +23,55 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: "⏳ _notify.json 동기화 대기"
+        env:
+          GH_TOKEN: ${{ secrets.GIT_PERSONAL_ACCESS_TOKEN }}
+        shell: python3 {0}
+        run: |
+          import os, json, base64, time
+          from urllib.request import Request, urlopen
+
+          token = os.environ.get('GH_TOKEN', '')
+          if not token:
+              print('⏭️ GH_TOKEN 없음 — 건너뜀')
+              exit(0)
+
+          notify_path = '00_Raw/_notify.json'
+          api_url = 'https://api.github.com/repos/abraxass0511-lab/INFJ-s-wiki/contents/00_Raw/_notify.json?ref=main'
+
+          # 최대 30초 대기 (Worker가 _notify.json 커밋할 시간)
+          for attempt in range(6):
+              time.sleep(5)
+              try:
+                  req = Request(api_url, headers={
+                      'Authorization': f'token {token}',
+                      'Accept': 'application/vnd.github.v3+json',
+                      'User-Agent': 'wiki-ocr-bot'
+                  })
+                  with urlopen(req, timeout=10) as resp:
+                      data = json.loads(resp.read().decode())
+                      if data.get('content'):
+                          content = base64.b64decode(data['content']).decode('utf-8')
+                          notify = json.loads(content)
+                          if notify.get('pending'):
+                              os.makedirs(os.path.dirname(notify_path), exist_ok=True)
+                              with open(notify_path, 'w', encoding='utf-8') as f:
+                                  json.dump(notify, f, ensure_ascii=False, indent=2)
+                              print(f'✅ _notify.json 동기화 완료 ({len(notify["pending"])}건 대기)')
+                              exit(0)
+                          else:
+                              print(f'⏳ _notify.json 있지만 pending 없음 (시도 {attempt+1}/6)')
+                      else:
+                          print(f'⏳ _notify.json 없음 (시도 {attempt+1}/6)')
+              except Exception as e:
+                  print(f'⏳ 대기 중 (시도 {attempt+1}/6): {e}')
+
+          # 로컬 파일이라도 있으면 사용
+          if os.path.exists(notify_path):
+              print('ℹ️ 로컬 _notify.json 사용')
+          else:
+              print('⚠️ _notify.json을 찾지 못함 — 알림 없이 진행')
+
       - name: "🔧 Install Tesseract OCR (fallback)"
         run: |
           sudo apt-get update
@@ -114,7 +163,7 @@ jobs:
           """
 
           def gemini_process(img_path, date_str, filename):
-              """Send image to Gemini API and get structured document."""
+              """Send image to Gemini API with retry logic for transient errors."""
               with open(img_path, "rb") as f:
                   img_b64 = base64.b64encode(f.read()).decode()
 
@@ -134,30 +183,42 @@ jobs:
                   "generationConfig": {"temperature": 0.3, "maxOutputTokens": 4096}
               }).encode()
 
-              req = Request(f"{API_URL}?key={API_KEY}", data=payload, headers={"Content-Type": "application/json"}, method="POST")
+              MAX_RETRIES = 4
+              RETRY_CODES = {429, 500, 502, 503, 504}
 
-              try:
-                  with urlopen(req, timeout=60) as resp:
-                      result = json.loads(resp.read().decode())
-                      text = result["candidates"][0]["content"]["parts"][0]["text"]
-                      # Strip markdown code fences if Gemini wraps output
-                      if text.startswith("```"):
-                          lines = text.split("\n")
-                          if lines[0].strip().startswith("```"):
-                              lines = lines[1:]
-                          if lines and lines[-1].strip() == "```":
-                              lines = lines[:-1]
-                          text = "\n".join(lines)
-                      return text
-              except Exception as e:
-                  err_body = ''
-                  if hasattr(e, 'read'):
-                      try: err_body = e.read().decode()[:500]
-                      except: pass
-                  print(f"  ⚠️ Gemini API 실패: {e}")
-                  if err_body:
-                      print(f"  📋 응답: {err_body}")
-                  return None
+              for attempt in range(MAX_RETRIES):
+                  req = Request(f"{API_URL}?key={API_KEY}", data=payload, headers={"Content-Type": "application/json"}, method="POST")
+                  try:
+                      with urlopen(req, timeout=90) as resp:
+                          result = json.loads(resp.read().decode())
+                          text = result["candidates"][0]["content"]["parts"][0]["text"]
+                          # Strip markdown code fences if Gemini wraps output
+                          if text.startswith("```"):
+                              lines = text.split("\n")
+                              if lines[0].strip().startswith("```"):
+                                  lines = lines[1:]
+                              if lines and lines[-1].strip() == "```":
+                                  lines = lines[:-1]
+                              text = "\n".join(lines)
+                          return text
+                  except Exception as e:
+                      err_code = getattr(e, 'code', 0)
+                      err_body = ''
+                      if hasattr(e, 'read'):
+                          try: err_body = e.read().decode()[:500]
+                          except: pass
+
+                      if err_code in RETRY_CODES and attempt < MAX_RETRIES - 1:
+                          wait = (2 ** attempt) * 5  # 5s, 10s, 20s
+                          print(f"  ⚠️ Gemini API {err_code} (attempt {attempt+1}/{MAX_RETRIES}), {wait}초 후 재시도...")
+                          time.sleep(wait)
+                          continue
+
+                      print(f"  ❌ Gemini API 최종 실패 (attempt {attempt+1}/{MAX_RETRIES}): {e}")
+                      if err_body:
+                          print(f"  📋 응답: {err_body}")
+                      return None
+              return None
 
           def tesseract_fallback(img_path, date_str, filename):
               """Fallback to Tesseract OCR if Gemini fails."""
@@ -244,15 +305,18 @@ jobs:
 
               # Try Gemini first, fallback to Tesseract
               content = None
+              ocr_engine = 'none'
               if API_KEY:
                   content = gemini_process(img_path, date_str, filename)
                   if content:
                       print(f"  ✅ Gemini 문서화 완료")
+                      ocr_engine = 'gemini'
                   time.sleep(2)  # Rate limit
 
               if not content:
                   content = tesseract_fallback(img_path, date_str, filename)
                   print(f"  ⚠️ Tesseract 폴백 사용")
+                  ocr_engine = 'tesseract'
 
               # Extract descriptive filename from Gemini output
               desc_name = extract_filename_from_md(content) if content else None
@@ -268,8 +332,23 @@ jobs:
 
               with open(md_path, "w", encoding="utf-8") as f:
                   f.write(content)
-              print(f"  📝 Created: {os.path.basename(md_path)}")
+              print(f"  📝 Created: {os.path.basename(md_path)} (engine={ocr_engine})")
               processed += 1
+
+              # _notify.json에 OCR 엔진 결과 기록
+              notify_path = '00_Raw/_notify.json'
+              if os.path.exists(notify_path):
+                  try:
+                      with open(notify_path, 'r', encoding='utf-8') as nf:
+                          ndata = json.load(nf)
+                      for item in ndata.get('pending', []):
+                          if filename in item.get('file', ''):
+                              item['ocr_engine'] = ocr_engine
+                              item['md_file'] = os.path.basename(md_path)
+                      with open(notify_path, 'w', encoding='utf-8') as nf:
+                          json.dump(ndata, nf, ensure_ascii=False, indent=2)
+                  except:
+                      pass
 
           print(f"\n✅ 총 {processed}개 이미지 문서화 완료")
 
@@ -657,20 +736,32 @@ jobs:
               fname = item.get('file', '')
               category = item.get('category', '')
               date = item.get('date', '')
+              ocr_engine = item.get('ocr_engine', 'unknown')
+              md_file = item.get('md_file', '')
               if not chat_id:
                   continue
 
               msg = '🎉 [5/5] 모든 처리 완료!\n\n'
               msg += f'📸 이미지: {fname}\n'
               msg += f'📂 카테고리: {category}\n'
-              msg += f'📅 날짜: {date}\n\n'
+              msg += f'📅 날짜: {date}\n'
+              if md_file:
+                  msg += f'📄 문서: {md_file}\n'
+              msg += '\n'
+
+              if ocr_engine == 'tesseract':
+                  msg += '⚠️ Gemini AI 실패 → Tesseract OCR 폴백 사용\n'
+                  msg += '  (문서 품질이 낮을 수 있습니다)\n\n'
+              elif ocr_engine == 'gemini':
+                  msg += '🧠 Gemini AI 문서화 완료\n\n'
+
               msg += '✅ GitHub Push 완료\n'
               msg += '✅ MD 문서 생성 완료\n'
               msg += '✅ 카테고리 분류 완료\n'
               msg += '✅ 캘린더 자동 반영 완료\n\n'
               msg += '🌐 캘린더 확인:\nhttps://abraxass0511-lab.github.io/INFJ-s-wiki/'
               send_telegram(chat_id, msg)
-              print(f'  📱 최종 완료 알림: chat_id={chat_id}')
+              print(f'  📱 최종 완료 알림: chat_id={chat_id} (engine={ocr_engine})')
 
           # pending 비우기
           notify_data['pending'] = []
