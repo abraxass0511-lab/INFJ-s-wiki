@@ -1,0 +1,12 @@
+{
+  "pending": [
+    {
+      "chat_id": 8428421905,
+      "date": "2026-05-08",
+      "file": "IMG_20260508155947.jpg",
+      "category": "AI공부",
+      "timestamp": "2026-05-08T06:59:51.300Z"
+    }
+  ],
+  "worker_url": "https://wiki-telegram-bot.abraxass0511.workers.dev/notify"
+}
