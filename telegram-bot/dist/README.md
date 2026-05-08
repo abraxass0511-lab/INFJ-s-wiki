@@ -1,1 +1,0 @@
-This folder contains the built output assets for the worker "wiki-telegram-bot" generated at 2026-05-08T06:01:45.610Z.
