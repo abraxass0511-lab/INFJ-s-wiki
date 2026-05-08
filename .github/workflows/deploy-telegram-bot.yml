@@ -1,0 +1,58 @@
+name: Setup Telegram Bot
+
+on:
+  workflow_dispatch:
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    env:
+      CF_ACCOUNT: "80153aa1bf9a3491f8a39bfec766f625"
+      CF_SCRIPT: "wiki-telegram-bot"
+      WEBHOOK_URL: "https://wiki-telegram-bot.abraxass0511.workers.dev/webhook"
+    steps:
+      - name: Set TELEGRAM_BOT_TOKEN in Cloudflare Worker
+        run: |
+          RESPONSE=$(curl -s -X PUT \
+            "https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT/workers/scripts/$CF_SCRIPT/secrets" \
+            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_OAUTH_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{"name":"TELEGRAM_BOT_TOKEN","text":"${{ secrets.TELEGRAM_BOT_TOKEN }}","type":"secret_text"}')
+          echo "TELEGRAM_BOT_TOKEN: $(echo $RESPONSE | jq -r '.success')"
+
+      - name: Set GITHUB_TOKEN in Cloudflare Worker
+        run: |
+          RESPONSE=$(curl -s -X PUT \
+            "https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT/workers/scripts/$CF_SCRIPT/secrets" \
+            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_OAUTH_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{"name":"GITHUB_TOKEN","text":"${{ secrets.GIT_PERSONAL_ACCESS_TOKEN }}","type":"secret_text"}')
+          echo "GITHUB_TOKEN: $(echo $RESPONSE | jq -r '.success')"
+
+      - name: Set GITHUB_OWNER in Cloudflare Worker
+        run: |
+          RESPONSE=$(curl -s -X PUT \
+            "https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT/workers/scripts/$CF_SCRIPT/secrets" \
+            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_OAUTH_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{"name":"GITHUB_OWNER","text":"abraxass0511-lab","type":"secret_text"}')
+          echo "GITHUB_OWNER: $(echo $RESPONSE | jq -r '.success')"
+
+      - name: Set GITHUB_REPO in Cloudflare Worker
+        run: |
+          RESPONSE=$(curl -s -X PUT \
+            "https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT/workers/scripts/$CF_SCRIPT/secrets" \
+            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_OAUTH_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{"name":"GITHUB_REPO","text":"INFJ-s-wiki","type":"secret_text"}')
+          echo "GITHUB_REPO: $(echo $RESPONSE | jq -r '.success')"
+
+      - name: Setup Telegram Webhook
+        run: |
+          RESPONSE=$(curl -s "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/setWebhook?url=$WEBHOOK_URL")
+          echo "Webhook: $RESPONSE"
+
+      - name: Verify Webhook
+        run: |
+          RESPONSE=$(curl -s "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/getWebhookInfo")
+          echo "Webhook Info: $RESPONSE"
