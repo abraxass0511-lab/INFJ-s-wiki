@@ -37,7 +37,7 @@ jobs:
           from urllib.request import Request, urlopen
           from urllib.error import URLError
 
-          API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
+          API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent"
           API_KEY = os.environ.get("GEMINI_API_KEY", "")
 
           if API_KEY:
@@ -312,11 +312,9 @@ jobs:
               return max(scores, key=scores.get)
 
           cat_path = '00_Raw/_categories.json'
-          try:
-              with open(cat_path, 'r', encoding='utf-8') as f:
-                  cat_data = json.load(f)
-          except:
-              cat_data = {}
+
+          # Always rebuild from scratch to avoid stale/wrong categories
+          cat_data = {}
 
           raw_dir = '00_Raw'
           for entry in sorted(os.listdir(raw_dir)):
@@ -324,20 +322,14 @@ jobs:
               if not os.path.isdir(full) or not re.match(r'\d{4}-\d{2}-\d{2}', entry):
                   continue
 
-              existing_files = set()
-              if entry in cat_data and isinstance(cat_data[entry], dict):
-                  for files in cat_data[entry].values():
-                      existing_files.update(files)
-
-              if entry not in cat_data or not isinstance(cat_data[entry], dict):
-                  cat_data[entry] = {}
+              cat_data[entry] = {}
+              # First pass: classify MD files and track image-to-category mapping
+              img_cat_map = {}  # image_filename -> category
 
               for fname in os.listdir(full):
                   if fname.startswith('_') or fname.startswith('.') or fname == 'README.md':
                       continue
                   if not fname.endswith('.md'):
-                      continue
-                  if fname in existing_files:
                       continue
 
                   content = ''
@@ -353,13 +345,29 @@ jobs:
                       cat_data[entry][cat] = []
                   cat_data[entry][cat].append(fname)
 
-                  # Also add the original image to the same category
+                  # Track original image → same category
                   m = re.search(r'original_image:\s*["\']?([^"\']\S+)', content)
                   if m:
                       orig_img = m.group(1).strip().strip('"').strip("'")
-                      if orig_img and orig_img not in existing_files and os.path.exists(os.path.join(full, orig_img)):
-                          cat_data[entry][cat].append(orig_img)
-                          existing_files.add(orig_img)
+                      if orig_img:
+                          img_cat_map[orig_img] = cat
+
+              # Second pass: add image/other files using mapped category
+              for fname in os.listdir(full):
+                  if fname.startswith('_') or fname.startswith('.') or fname == 'README.md':
+                      continue
+                  if fname.endswith('.md'):
+                      continue  # Already processed
+
+                  # Use category from paired MD, or classify by filename
+                  cat = img_cat_map.get(fname, classify_file(fname, ''))
+                  if cat not in cat_data[entry]:
+                      cat_data[entry][cat] = []
+                  cat_data[entry][cat].append(fname)
+
+              # Remove empty dates
+              if not cat_data[entry]:
+                  del cat_data[entry]
 
           with open(cat_path, 'w', encoding='utf-8') as f:
               json.dump(cat_data, f, ensure_ascii=False, indent=2)
