@@ -90,6 +90,17 @@ main { display:grid; grid-template-columns:1fr 360px; gap:24px; padding:28px; ma
 
 /* File list */
 .file-list { display:flex; flex-direction:column; gap:8px; }
+.cat-group { margin-top:8px; }
+.cat-group-header {
+  font-size:11px; font-weight:700; padding:6px 10px; border-radius:8px; margin-bottom:6px;
+  display:inline-flex; align-items:center; gap:4px;
+}
+.cat-group-header.cat-ai { background:#dbeafe; color:#2563eb; }
+.cat-group-header.cat-company { background:#dcfce7; color:#16a34a; }
+.cat-group-header.cat-good { background:#fef3c7; color:#d97706; }
+.cat-group-header.cat-project { background:#ede9fe; color:#7c3aed; }
+.cat-group-header.cat-daily { background:#fce7f3; color:#db2777; }
+.cat-group-header.cat-etc { background:#f1f5f9; color:#64748b; }
 .file-item {
   display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:10px;
   background:var(--bg); border:1px solid var(--border); font-size:13px;
@@ -417,8 +428,10 @@ function renderCalendar() {
     let cls = 'cal-cell';
     if (isToday) cls += ' today';
     if (isSel) cls += ' selected';
-    const cats = categoryData[dateStr] || [];
-    const catHtml = cats.map(c => {
+    const dateCats = categoryData[dateStr];
+    let catNames = [];
+    if (dateCats && typeof dateCats === 'object') catNames = Object.keys(dateCats);
+    const catHtml = catNames.map(c => {
       const cat = CATEGORIES.find(x => x.key === c) || {cls:'cat-etc'};
       return `<span class="cat-tag ${cat.cls}">${c}</span>`;
     }).join('');
@@ -469,14 +482,37 @@ async function loadFiles(dateStr) {
     list.innerHTML = '<p style="font-size:13px;color:var(--muted)">파일 없음</p>';
     return;
   }
-  list.innerHTML = files.map(f => {
-    const isImg = /\.(png|jpg|jpeg|webp|bmp)$/i.test(f.name);
-    const isMd = /\.md$/i.test(f.name);
-    const badge = isImg ? '<span class="badge badge-img">IMG</span>' : isMd ? '<span class="badge badge-md">MD</span>' : '';
-    const thumb = isImg ? `<img class="thumb" src="${f.download_url}" alt="">` : `<div class="thumb" style="display:flex;align-items:center;justify-content:center;font-size:16px">${isMd?'📄':'📎'}</div>`;
-    const clickData = JSON.stringify({name:f.name, url:f.download_url, isImg, isMd}).replace(/'/g,'&#39;').replace(/"/g,'&quot;');
-    return `<div class="file-item" onclick="previewFile(${clickData})">${thumb}<span class="name">${f.name}</span>${badge}</div>`;
-  }).join('');
+  // Build file-to-category map from categoryData
+  const fileCatMap = {};
+  const dateCats = categoryData[dateStr];
+  if (dateCats && typeof dateCats === 'object') {
+    for (const [cat, fnames] of Object.entries(dateCats)) {
+      for (const fn of fnames) fileCatMap[fn] = cat;
+    }
+  }
+  // Group files by category
+  const groups = {};
+  for (const f of files) {
+    const cat = fileCatMap[f.name] || '미분류';
+    if (!groups[cat]) groups[cat] = [];
+    groups[cat].push(f);
+  }
+  // Render grouped
+  let html = '';
+  for (const [cat, gFiles] of Object.entries(groups)) {
+    const catInfo = CATEGORIES.find(x => x.key === cat) || {cls:'cat-etc'};
+    html += `<div class="cat-group"><div class="cat-group-header ${catInfo.cls}">${cat} (${gFiles.length})</div>`;
+    html += gFiles.map(f => {
+      const isImg = /\.(png|jpg|jpeg|webp|bmp)$/i.test(f.name);
+      const isMd = /\.md$/i.test(f.name);
+      const badge = isImg ? '<span class="badge badge-img">IMG</span>' : isMd ? '<span class="badge badge-md">MD</span>' : '';
+      const thumb = isImg ? `<img class="thumb" src="${f.download_url}" alt="">` : `<div class="thumb" style="display:flex;align-items:center;justify-content:center;font-size:16px">${isMd?'📄':'📎'}</div>`;
+      const clickData = JSON.stringify({name:f.name, url:f.download_url, isImg, isMd}).replace(/'/g,'&#39;').replace(/"/g,'&quot;');
+      return `<div class="file-item" onclick="previewFile(${clickData})">${thumb}<span class="name">${f.name}</span>${badge}</div>`;
+    }).join('');
+    html += '</div>';
+  }
+  list.innerHTML = html;
 }
 
 // ── Category ──
@@ -521,11 +557,14 @@ async function handleFiles(files) {
   }
 
   existingDates.add(selectedDate);
-  // Save category
+  // Save category per file
   if (selectedCategory) {
-    if (!categoryData[selectedDate]) categoryData[selectedDate] = [];
-    if (!categoryData[selectedDate].includes(selectedCategory)) {
-      categoryData[selectedDate].push(selectedCategory);
+    if (!categoryData[selectedDate] || typeof categoryData[selectedDate] !== 'object') categoryData[selectedDate] = {};
+    if (!categoryData[selectedDate][selectedCategory]) categoryData[selectedDate][selectedCategory] = [];
+    for (const file of files) {
+      if (!categoryData[selectedDate][selectedCategory].includes(file.name)) {
+        categoryData[selectedDate][selectedCategory].push(file.name);
+      }
     }
     try { await saveCategoryData(); } catch(e) { console.warn('cat save:', e); }
   }
