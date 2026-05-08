@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -556,10 +556,10 @@ async function selectDate(dateStr) {
 
 async function loadFiles(dateStr) {
   const list = document.getElementById('fileList');
-  list.innerHTML = '<p style="font-size:13px;color:var(--muted)">濡쒕뵫 以?..</p>';
+  list.innerHTML = '<p style="font-size:13px;color:var(--muted)">로딩 중...</p>';
   const files = await fetchFilesForDate(dateStr);
   if (files.length === 0) {
-    list.innerHTML = '<p style="font-size:13px;color:var(--muted)">?뚯씪 ?놁쓬</p>';
+    list.innerHTML = '<p style="font-size:13px;color:var(--muted)">파일 없음</p>';
     return;
   }
   // Build file-to-category map (MD only)
@@ -570,37 +570,54 @@ async function loadFiles(dateStr) {
       for (const fn of fnames) fileCatMap[fn] = cat;
     }
   }
-  // Separate MD files (categorized) and attachments (images, etc.)
+  // Build a map of all files by basename (without extension)
+  const fileMap = {};
+  for (const f of files) fileMap[f.name] = f;
+  // Separate MD files and image files
   const mdFiles = files.filter(f => /\.md$/i.test(f.name));
-  const attachFiles = files.filter(f => !/\.md$/i.test(f.name));
-  // Group MD files by category
+  const imgExts = /\.(png|jpg|jpeg|webp|bmp)$/i;
+  // Track which images are paired with an MD file
+  const pairedImages = new Set();
+  // Group MD files by category, and find their original images
   const groups = {};
   for (const f of mdFiles) {
-    const cat = fileCatMap[f.name] || '誘몃텇瑜?;
+    const cat = fileCatMap[f.name] || '미분류';
     if (!groups[cat]) groups[cat] = [];
-    groups[cat].push(f);
+    // Find original image: same basename, image extension
+    const baseName = f.name.replace(/\.md$/i, '');
+    let origImg = null;
+    for (const ext of ['png','jpg','jpeg','webp','bmp']) {
+      const imgName = `${baseName}.${ext}`;
+      if (fileMap[imgName]) { origImg = fileMap[imgName]; pairedImages.add(imgName); break; }
+    }
+    groups[cat].push({ md: f, img: origImg });
   }
+  // Remaining files: images not paired + other non-MD files
+  const remainFiles = files.filter(f => !/\.md$/i.test(f.name) && !pairedImages.has(f.name));
   const renderItem = (f) => {
-    const isImg = /\.(png|jpg|jpeg|webp|bmp)$/i.test(f.name);
+    const isImg = imgExts.test(f.name);
     const isMd = /\.md$/i.test(f.name);
     const badge = isImg ? '<span class="badge badge-img">IMG</span>' : isMd ? '<span class="badge badge-md">MD</span>' : '';
-    const thumb = isImg ? `<img class="thumb" src="${f.download_url}" alt="">` : `<div class="thumb" style="display:flex;align-items:center;justify-content:center;font-size:16px">${isMd?'\ud83d\udcc4':'\ud83d\udcce'}</div>`;
-    const clickData = JSON.stringify({name:f.name, url:f.download_url, isImg, isMd}).replace(/'/g,'&#39;').replace(/\"/g,'&quot;');
-    const delBtn = `<button class="btn-del" onclick="event.stopPropagation();confirmDelete('${dateStr}','${f.name.replace(/'/g,"\\\\'")}')">\ud83d\uddd1\ufe0f</button>`;
+    const thumb = isImg ? `<img class="thumb" src="${f.download_url}" alt="">` : `<div class="thumb" style="display:flex;align-items:center;justify-content:center;font-size:16px">${isMd?'📄':'📎'}</div>`;
+    const clickData = JSON.stringify({name:f.name, url:f.download_url, isImg, isMd}).replace(/'/g,'&#39;').replace(/"/g,'&quot;');
+    const delBtn = `<button class="btn-del" onclick="event.stopPropagation();confirmDelete('${dateStr}','${f.name.replace(/'/g,"\\\\'")}')" title="삭제">🗑️</button>`;
     return `<div class="file-item" onclick="previewFile(${clickData})">${thumb}<span class="name">${f.name}</span>${badge}${delBtn}</div>`;
   };
   let html = '';
-  // MD groups
-  for (const [cat, gFiles] of Object.entries(groups)) {
+  // MD groups with paired images
+  for (const [cat, pairs] of Object.entries(groups)) {
     const catInfo = CATEGORIES.find(x => x.key === cat) || {cls:'cat-etc'};
-    html += `<div class="cat-group"><div class="cat-group-header ${catInfo.cls}">${cat} (${gFiles.length})</div>`;
-    html += gFiles.map(renderItem).join('');
+    html += `<div class="cat-group"><div class="cat-group-header ${catInfo.cls}">${cat} (${pairs.length})</div>`;
+    for (const pair of pairs) {
+      if (pair.img) html += renderItem(pair.img);
+      html += renderItem(pair.md);
+    }
     html += '</div>';
   }
-  // Attachments
-  if (attachFiles.length > 0) {
-    html += `<div class="cat-group"><div class="cat-group-header cat-etc">\ud83d\udcce 泥⑤??뚯씪 (${attachFiles.length})</div>`;
-    html += attachFiles.map(renderItem).join('');
+  // Remaining attachments
+  if (remainFiles.length > 0) {
+    html += `<div class="cat-group"><div class="cat-group-header cat-etc">📎 첨부파일 (${remainFiles.length})</div>`;
+    html += remainFiles.map(renderItem).join('');
     html += '</div>';
   }
   list.innerHTML = html;
