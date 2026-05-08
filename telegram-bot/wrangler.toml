@@ -1,0 +1,15 @@
+name = "wiki-telegram-bot"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+# 환경 변수는 Cloudflare Dashboard에서 설정하세요
+# Settings > Variables > Environment Variables
+# 
+# 필수:
+#   TELEGRAM_BOT_TOKEN  = "봇토큰"
+#   GITHUB_TOKEN        = "ghp_xxxxx"
+#   GITHUB_OWNER        = "abraxass0511-lab"
+#   GITHUB_REPO         = "INFJ-s-wiki"
+#
+# 선택:
+#   ALLOWED_CHAT_IDS    = "123456789,987654321"
