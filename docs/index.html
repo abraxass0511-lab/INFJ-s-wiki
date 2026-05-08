@@ -393,7 +393,9 @@ async function fetchExistingDates() {
 async function fetchCategoryData() {
   try {
     const res = await ghAPI(`/repos/${CFG.owner}/${CFG.repo}/contents/${CFG.base}/_categories.json?ref=${CFG.branch}`);
-    categoryData = JSON.parse(atob(res.content.replace(/\n/g,'')));
+    const raw = atob(res.content.replace(/\n/g,''));
+    const bytes = new Uint8Array([...raw].map(c => c.charCodeAt(0)));
+    categoryData = JSON.parse(new TextDecoder('utf-8').decode(bytes));
   } catch(e) { categoryData = {}; }
 }
 
