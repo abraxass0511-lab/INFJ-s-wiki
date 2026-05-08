@@ -404,9 +404,14 @@ function autoSetupFromURL() {
   curMonth = now.getMonth();
   autoSetupFromURL();
   updateStatus();
+  // Always load category data (works without token for public repos)
+  await fetchCategoryData();
   if (CFG.token) {
     await fetchExistingDates();
-    await fetchCategoryData();
+  } else {
+    // Derive existing dates from categoryData
+    existingDates.clear();
+    Object.keys(categoryData).forEach(d => existingDates.add(d));
   }
   renderCalendar();
   if (!CFG.token) openSettings();
@@ -432,17 +437,24 @@ async function fetchExistingDates() {
 
 async function fetchCategoryData() {
   try {
-    const res = await ghAPI(`/repos/${CFG.owner}/${CFG.repo}/contents/${CFG.base}/_categories.json?ref=${CFG.branch}`);
-    const raw = atob(res.content.replace(/\n/g,''));
-    const bytes = new Uint8Array([...raw].map(c => c.charCodeAt(0)));
-    categoryData = JSON.parse(new TextDecoder('utf-8').decode(bytes));
+    if (CFG.token) {
+      const res = await ghAPI(`/repos/${CFG.owner}/${CFG.repo}/contents/${CFG.base}/_categories.json?ref=${CFG.branch}`);
+      const raw = atob(res.content.replace(/\n/g,''));
+      const bytes = new Uint8Array([...raw].map(c => c.charCodeAt(0)));
+      categoryData = JSON.parse(new TextDecoder('utf-8').decode(bytes));
+    } else {
+      // Fallback: fetch raw file directly (works for public repos)
+      const rawUrl = `https://raw.githubusercontent.com/${CFG.owner}/${CFG.repo}/${CFG.branch}/${CFG.base}/_categories.json`;
+      const res = await fetch(rawUrl);
+      if (res.ok) categoryData = await res.json();
+    }
     // Check for workflow error notification
     if (categoryData._error) {
       const err = categoryData._error;
       toast(`⚠️ 자동 문서화 실패: ${err.message} (${err.time})`, 'error');
       delete categoryData._error;
     }
-  } catch(e) { categoryData = {}; }
+  } catch(e) { console.warn('fetchCategoryData:', e); categoryData = {}; }
 }
 
 async function saveCategoryData() {
