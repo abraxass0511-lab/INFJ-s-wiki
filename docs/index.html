@@ -63,8 +63,9 @@ main { display:grid; grid-template-columns:1fr 360px; gap:24px; padding:28px; ma
 .cat-tags { display:flex; flex-direction:column; align-items:stretch; gap:1px; margin-top:3px; width:100%; padding:0 3px; box-sizing:border-box; overflow:hidden; }
 .cat-tag { font-size:8px; padding:2px 0; border-radius:3px; font-weight:700; white-space:nowrap; line-height:1.2; text-align:center; }
 .cat-ai { background:#dbeafe; color:#2563eb; } .cat-company { background:#dcfce7; color:#16a34a; }
-.cat-good { background:#fef3c7; color:#d97706; } .cat-project { background:#ede9fe; color:#7c3aed; }
-.cat-daily { background:#fce7f3; color:#db2777; } .cat-etc { background:#f1f5f9; color:#64748b; }
+.cat-good { background:#fef3c7; color:#d97706; } .cat-youtube { background:#fee2e2; color:#dc2626; }
+.cat-biz { background:#fce7f3; color:#db2777; } .cat-exercise { background:#d1fae5; color:#059669; }
+.cat-baby { background:#ede9fe; color:#7c3aed; } .cat-etc { background:#f1f5f9; color:#64748b; }
 
 /* Sidebar */
 .sidebar { display:flex; flex-direction:column; gap:16px; }
@@ -98,8 +99,10 @@ main { display:grid; grid-template-columns:1fr 360px; gap:24px; padding:28px; ma
 .cat-group-header.cat-ai { background:#dbeafe; color:#2563eb; }
 .cat-group-header.cat-company { background:#dcfce7; color:#16a34a; }
 .cat-group-header.cat-good { background:#fef3c7; color:#d97706; }
-.cat-group-header.cat-project { background:#ede9fe; color:#7c3aed; }
-.cat-group-header.cat-daily { background:#fce7f3; color:#db2777; }
+.cat-group-header.cat-youtube { background:#fee2e2; color:#dc2626; }
+.cat-group-header.cat-biz { background:#fce7f3; color:#db2777; }
+.cat-group-header.cat-exercise { background:#d1fae5; color:#059669; }
+.cat-group-header.cat-baby { background:#ede9fe; color:#7c3aed; }
 .cat-group-header.cat-etc { background:#f1f5f9; color:#64748b; }
 .file-item {
   display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:10px;
@@ -366,8 +369,10 @@ const CATEGORIES = [
   { key:'AI공부', label:'AI공부', cls:'cat-ai' },
   { key:'회사', label:'회사', cls:'cat-company' },
   { key:'좋은글', label:'좋은글', cls:'cat-good' },
-  { key:'프로젝트', label:'프로젝트', cls:'cat-project' },
-  { key:'일상', label:'일상', cls:'cat-daily' },
+  { key:'유튜브', label:'유튜브', cls:'cat-youtube' },
+  { key:'1인기업', label:'1인기업', cls:'cat-biz' },
+  { key:'운동', label:'운동', cls:'cat-exercise' },
+  { key:'육아', label:'육아', cls:'cat-baby' },
   { key:'기타', label:'기타', cls:'cat-etc' }
 ];
 
