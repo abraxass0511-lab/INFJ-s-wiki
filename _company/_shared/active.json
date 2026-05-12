@@ -12,5 +12,9 @@
   "designer": {
     "activatedAt": "2026-05-12T03:06:35.220Z"
   },
-  "_migrated_v2": true
+  "_migrated_v2": true,
+  "developer": {
+    "activatedAt": "2026-05-12T03:31:41.912Z"
+  },
+  "_coder_recommended": true
 }
