@@ -151,8 +151,19 @@ async function determineFolder(classification) {
 
 /**
  * 원본 파일을 00_Raw/날짜 폴더로 아카이브
+ * - 이미 날짜 서브폴더(YYYY-MM-DD)에 있는 파일은 스킵
+ * - 루트 00_Raw에 직접 있는 파일만 today() 폴더로 복사
  */
 async function archiveRaw(filePath) {
+  // 파일의 부모 폴더명이 YYYY-MM-DD 패턴이면 이미 아카이브된 상태
+  const parentDir = path.basename(path.dirname(filePath));
+  const datePattern = /^\d{4}-\d{2}-\d{2}$/;
+  
+  if (datePattern.test(parentDir)) {
+    console.log(`  📦 원본 아카이브 스킵 (이미 ${parentDir}/ 폴더에 존재)`);
+    return;
+  }
+  
   const dateFolder = path.join(CONFIG.PATHS.RAW, today());
   await ensureDir(dateFolder);
   
