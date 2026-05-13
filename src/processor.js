@@ -230,7 +230,7 @@ export async function processAllRaw() {
     const files = [];
     
     for (const entry of entries) {
-      if (entry.isFile() && (entry.name.endsWith('.md') || entry.name.endsWith('.txt'))) {
+      if (entry.isFile() && entry.name !== 'README.md' && (entry.name.endsWith('.md') || entry.name.endsWith('.txt'))) {
         files.push(path.join(rawPath, entry.name));
       }
     }
