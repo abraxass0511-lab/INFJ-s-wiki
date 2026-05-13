@@ -16,5 +16,18 @@
   "developer": {
     "activatedAt": "2026-05-12T03:31:41.912Z"
   },
-  "_coder_recommended": true
+  "_coder_recommended": true,
+  "instagram": {
+    "activatedAt": "2026-05-13T01:57:44.317Z",
+    "seeded_v3": true
+  },
+  "business": {
+    "activatedAt": "2026-05-13T01:57:44.317Z",
+    "seeded_v3": true
+  },
+  "researcher": {
+    "activatedAt": "2026-05-13T01:57:44.317Z",
+    "seeded_v3": true
+  },
+  "_migrated_v3": true
 }
