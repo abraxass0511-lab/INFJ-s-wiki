@@ -3241,6 +3241,122 @@
       "created": "2026-05-06T04:08:24.158Z",
       "lastUpdated": "2026-05-06T04:08:24.158Z",
       "accessCount": 0
+    },
+    "bb43cfcf-c494-4ac3-ab8a-ff238ab3af47": {
+      "title": "README",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\⚖️ Decisions\\README.md",
+      "category": "⚖️ Decisions",
+      "tags": [
+        "decisions",
+        "결정",
+        "분석",
+        "readme"
+      ],
+      "confidence": 0.63,
+      "created": "2026-05-13T03:34:33.354Z",
+      "lastUpdated": "2026-05-13T03:34:33.354Z",
+      "accessCount": 0
+    },
+    "f1ad5a3d-97d5-48ce-a017-9d43743b85be": {
+      "title": "AI_1인_기업_자동화_챕터_1",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\💡 Topics\\AI_1인_기업_자동화_챕터_1.md",
+      "category": "💡 Topics",
+      "tags": [
+        "topics",
+        "ai",
+        "기술",
+        "원리",
+        "1인",
+        "기업"
+      ],
+      "confidence": 0.48,
+      "created": "2026-05-13T03:36:08.525Z",
+      "lastUpdated": "2026-05-13T03:36:08.525Z",
+      "accessCount": 0
+    },
+    "02c68293-dd3d-4a6e-879b-57a1dce27d0c": {
+      "title": "MrBeast_유튜브_전략",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\🚀 Skills\\MrBeast_유튜브_전략.md",
+      "category": "🚀 Skills",
+      "tags": [
+        "skills",
+        "스크립트",
+        "script",
+        "프롬프트",
+        "mrbeast",
+        "유튜브",
+        "전략"
+      ],
+      "confidence": 0.42,
+      "created": "2026-05-13T03:36:40.417Z",
+      "lastUpdated": "2026-05-13T03:36:40.417Z",
+      "accessCount": 0
+    },
+    "39b9464a-d4f4-4a11-9c3f-6923c0f22974": {
+      "title": "테스트_브레인_팩",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\🚀 Skills\\테스트_브레인_팩.md",
+      "category": "🚀 Skills",
+      "tags": [
+        "skills",
+        "방법",
+        "도구",
+        "테스트",
+        "브레인"
+      ],
+      "confidence": 0.58,
+      "created": "2026-05-13T03:36:53.953Z",
+      "lastUpdated": "2026-05-13T03:36:53.953Z",
+      "accessCount": 0
+    },
+    "6ebc77bd-b60c-46f2-a7c6-52a2b2fd61d0": {
+      "title": "SK하이닉스_새마을금고_금융_서비스_가이드",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\⚖️ Decisions\\SK하이닉스_새마을금고_금융_서비스_가이드.md",
+      "category": "⚖️ Decisions",
+      "tags": [
+        "decisions",
+        "선택",
+        "비교",
+        "sk하이닉스",
+        "새마을금고",
+        "금융"
+      ],
+      "confidence": 0.5,
+      "created": "2026-05-13T03:37:09.667Z",
+      "lastUpdated": "2026-05-13T03:37:09.667Z",
+      "accessCount": 0
+    },
+    "11ed854c-9fbc-4d13-be94-d019d92533ec": {
+      "title": "AI_개발_LLM_선택_전략_고려사항",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\💡 Topics\\AI_개발_LLM_선택_전략_고려사항.md",
+      "category": "💡 Topics",
+      "tags": [
+        "topics",
+        "ai",
+        "llm",
+        "코딩",
+        "개발"
+      ],
+      "confidence": 0.36,
+      "created": "2026-05-13T03:37:28.776Z",
+      "lastUpdated": "2026-05-13T03:37:28.776Z",
+      "accessCount": 0
+    },
+    "48225b2f-1e47-4410-ba12-993e824dc3f5": {
+      "title": "구글_코랩_활용_AI_개발_및_Stable_Diffusion_GPU_오류_해결",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\🛠️ Projects\\구글_코랩_활용_AI_개발_및_Stable_Diffusion_GPU_오류_해결.md",
+      "category": "🛠️ Projects",
+      "tags": [
+        "projects",
+        "개발",
+        "진행",
+        "구글",
+        "코랩",
+        "활용"
+      ],
+      "confidence": 0.43,
+      "created": "2026-05-13T03:37:41.877Z",
+      "lastUpdated": "2026-05-13T03:37:41.877Z",
+      "accessCount": 0
     }
   },
   "edges": [
@@ -9641,6 +9757,251 @@
       "type": "similarity",
       "weight": 0.2,
       "created": "2026-05-06T04:08:24.160Z"
+    },
+    {
+      "source": "bb43cfcf-c494-4ac3-ab8a-ff238ab3af47",
+      "target": "7079c2bf-d098-426e-a20d-9d6e3cb181bf",
+      "type": "similarity",
+      "weight": 0.75,
+      "created": "2026-05-13T03:34:33.356Z"
+    },
+    {
+      "source": "bb43cfcf-c494-4ac3-ab8a-ff238ab3af47",
+      "target": "f4c9e240-a1c0-4526-8a4c-d51e7e852595",
+      "type": "similarity",
+      "weight": 0.75,
+      "created": "2026-05-13T03:34:33.356Z"
+    },
+    {
+      "source": "bb43cfcf-c494-4ac3-ab8a-ff238ab3af47",
+      "target": "89eddf85-557b-4136-af75-51eecc83e04c",
+      "type": "similarity",
+      "weight": 0.75,
+      "created": "2026-05-13T03:34:33.356Z"
+    },
+    {
+      "source": "bb43cfcf-c494-4ac3-ab8a-ff238ab3af47",
+      "target": "562356ea-ea7f-4787-8fad-b57be359c0a7",
+      "type": "similarity",
+      "weight": 0.75,
+      "created": "2026-05-13T03:34:33.356Z"
+    },
+    {
+      "source": "bb43cfcf-c494-4ac3-ab8a-ff238ab3af47",
+      "target": "68c4d277-8a7b-42a2-9bd1-5395b6007019",
+      "type": "similarity",
+      "weight": 0.75,
+      "created": "2026-05-13T03:34:33.356Z"
+    },
+    {
+      "source": "f1ad5a3d-97d5-48ce-a017-9d43743b85be",
+      "target": "d41507c1-d963-4419-a1b5-179cb3a80c6d",
+      "type": "similarity",
+      "weight": 0.22,
+      "created": "2026-05-13T03:36:08.529Z"
+    },
+    {
+      "source": "f1ad5a3d-97d5-48ce-a017-9d43743b85be",
+      "target": "c758a9d8-2bbe-40e6-9273-9e9ec2d58232",
+      "type": "similarity",
+      "weight": 0.22,
+      "created": "2026-05-13T03:36:08.529Z"
+    },
+    {
+      "source": "f1ad5a3d-97d5-48ce-a017-9d43743b85be",
+      "target": "7e5ac51b-2999-48fe-a034-0937a919af6c",
+      "type": "similarity",
+      "weight": 0.22,
+      "created": "2026-05-13T03:36:08.529Z"
+    },
+    {
+      "source": "f1ad5a3d-97d5-48ce-a017-9d43743b85be",
+      "target": "6839d52d-21d5-450a-ac25-8e0d6df8cffd",
+      "type": "similarity",
+      "weight": 0.22,
+      "created": "2026-05-13T03:36:08.529Z"
+    },
+    {
+      "source": "f1ad5a3d-97d5-48ce-a017-9d43743b85be",
+      "target": "549fd4d0-305d-4caa-8ddc-f41a5a57d491",
+      "type": "similarity",
+      "weight": 0.22,
+      "created": "2026-05-13T03:36:08.529Z"
+    },
+    {
+      "source": "02c68293-dd3d-4a6e-879b-57a1dce27d0c",
+      "target": "344ca5dc-6fce-432a-8d7f-ecd23c275480",
+      "type": "similarity",
+      "weight": 0.2714285714285714,
+      "created": "2026-05-13T03:36:40.420Z"
+    },
+    {
+      "source": "02c68293-dd3d-4a6e-879b-57a1dce27d0c",
+      "target": "1e7ad860-bead-4a8a-83ef-a6e2522b8684",
+      "type": "similarity",
+      "weight": 0.2714285714285714,
+      "created": "2026-05-13T03:36:40.420Z"
+    },
+    {
+      "source": "02c68293-dd3d-4a6e-879b-57a1dce27d0c",
+      "target": "90eee726-94ac-4ec5-ab81-5caf1840f2ab",
+      "type": "similarity",
+      "weight": 0.2714285714285714,
+      "created": "2026-05-13T03:36:40.420Z"
+    },
+    {
+      "source": "02c68293-dd3d-4a6e-879b-57a1dce27d0c",
+      "target": "21cd8620-dc85-4f66-9f36-9764198e265e",
+      "type": "similarity",
+      "weight": 0.2714285714285714,
+      "created": "2026-05-13T03:36:40.420Z"
+    },
+    {
+      "source": "02c68293-dd3d-4a6e-879b-57a1dce27d0c",
+      "target": "c670ac52-5fce-4000-867f-0cb68e5b260a",
+      "type": "similarity",
+      "weight": 0.2714285714285714,
+      "created": "2026-05-13T03:36:40.420Z"
+    },
+    {
+      "source": "39b9464a-d4f4-4a11-9c3f-6923c0f22974",
+      "target": "344ca5dc-6fce-432a-8d7f-ecd23c275480",
+      "type": "similarity",
+      "weight": 0.18571428571428572,
+      "created": "2026-05-13T03:36:53.954Z"
+    },
+    {
+      "source": "39b9464a-d4f4-4a11-9c3f-6923c0f22974",
+      "target": "90eee726-94ac-4ec5-ab81-5caf1840f2ab",
+      "type": "similarity",
+      "weight": 0.18571428571428572,
+      "created": "2026-05-13T03:36:53.954Z"
+    },
+    {
+      "source": "39b9464a-d4f4-4a11-9c3f-6923c0f22974",
+      "target": "c670ac52-5fce-4000-867f-0cb68e5b260a",
+      "type": "similarity",
+      "weight": 0.18571428571428572,
+      "created": "2026-05-13T03:36:53.955Z"
+    },
+    {
+      "source": "39b9464a-d4f4-4a11-9c3f-6923c0f22974",
+      "target": "0b963505-dbf5-4ef0-b5b6-c50f6298ad2d",
+      "type": "similarity",
+      "weight": 0.18571428571428572,
+      "created": "2026-05-13T03:36:53.955Z"
+    },
+    {
+      "source": "39b9464a-d4f4-4a11-9c3f-6923c0f22974",
+      "target": "01845e0e-f7fb-4998-bf0e-0d2c29c9cbcb",
+      "type": "similarity",
+      "weight": 0.18571428571428572,
+      "created": "2026-05-13T03:36:53.955Z"
+    },
+    {
+      "source": "6ebc77bd-b60c-46f2-a7c6-52a2b2fd61d0",
+      "target": "ca9e08d3-a9df-4b37-83ad-d79a5a0361da",
+      "type": "similarity",
+      "weight": 0.2,
+      "created": "2026-05-13T03:37:09.669Z"
+    },
+    {
+      "source": "6ebc77bd-b60c-46f2-a7c6-52a2b2fd61d0",
+      "target": "b35018d2-e778-4b29-ad93-56290e321e44",
+      "type": "similarity",
+      "weight": 0.2,
+      "created": "2026-05-13T03:37:09.669Z"
+    },
+    {
+      "source": "6ebc77bd-b60c-46f2-a7c6-52a2b2fd61d0",
+      "target": "d64b7905-4a7a-49a0-a242-728d72800c03",
+      "type": "similarity",
+      "weight": 0.2,
+      "created": "2026-05-13T03:37:09.669Z"
+    },
+    {
+      "source": "6ebc77bd-b60c-46f2-a7c6-52a2b2fd61d0",
+      "target": "34df1e59-02a8-47c9-88d7-969750ee2184",
+      "type": "similarity",
+      "weight": 0.2,
+      "created": "2026-05-13T03:37:09.669Z"
+    },
+    {
+      "source": "6ebc77bd-b60c-46f2-a7c6-52a2b2fd61d0",
+      "target": "ad76eb7b-9e45-4a42-9318-8ad707da380b",
+      "type": "similarity",
+      "weight": 0.2,
+      "created": "2026-05-13T03:37:09.669Z"
+    },
+    {
+      "source": "11ed854c-9fbc-4d13-be94-d019d92533ec",
+      "target": "caeec344-4594-43a8-8001-f3e60014f9f3",
+      "type": "similarity",
+      "weight": 0.22857142857142856,
+      "created": "2026-05-13T03:37:28.778Z"
+    },
+    {
+      "source": "11ed854c-9fbc-4d13-be94-d019d92533ec",
+      "target": "70297ca2-9112-47db-8c88-e27f68fc9049",
+      "type": "similarity",
+      "weight": 0.22857142857142856,
+      "created": "2026-05-13T03:37:28.778Z"
+    },
+    {
+      "source": "11ed854c-9fbc-4d13-be94-d019d92533ec",
+      "target": "2ab82dfc-a938-4562-8ba6-b07092564fd6",
+      "type": "similarity",
+      "weight": 0.22857142857142856,
+      "created": "2026-05-13T03:37:28.778Z"
+    },
+    {
+      "source": "11ed854c-9fbc-4d13-be94-d019d92533ec",
+      "target": "2bd2b576-b644-485e-8560-5c1233c91331",
+      "type": "similarity",
+      "weight": 0.22857142857142856,
+      "created": "2026-05-13T03:37:28.778Z"
+    },
+    {
+      "source": "11ed854c-9fbc-4d13-be94-d019d92533ec",
+      "target": "7e5ac51b-2999-48fe-a034-0937a919af6c",
+      "type": "similarity",
+      "weight": 0.22,
+      "created": "2026-05-13T03:37:28.778Z"
+    },
+    {
+      "source": "48225b2f-1e47-4410-ba12-993e824dc3f5",
+      "target": "d85e58f9-7d38-4b1d-81be-a85020a41a62",
+      "type": "similarity",
+      "weight": 0.16,
+      "created": "2026-05-13T03:37:41.879Z"
+    },
+    {
+      "source": "48225b2f-1e47-4410-ba12-993e824dc3f5",
+      "target": "633221bf-464d-49dc-9ec5-936bd1e1796b",
+      "type": "similarity",
+      "weight": 0.16,
+      "created": "2026-05-13T03:37:41.879Z"
+    },
+    {
+      "source": "48225b2f-1e47-4410-ba12-993e824dc3f5",
+      "target": "9441f5e5-ee0c-4731-b7ff-5c008fc2e979",
+      "type": "similarity",
+      "weight": 0.16,
+      "created": "2026-05-13T03:37:41.879Z"
+    },
+    {
+      "source": "48225b2f-1e47-4410-ba12-993e824dc3f5",
+      "target": "838c98cc-c093-441f-99c1-91e71a9f0bb3",
+      "type": "similarity",
+      "weight": 0.16,
+      "created": "2026-05-13T03:37:41.879Z"
+    },
+    {
+      "source": "48225b2f-1e47-4410-ba12-993e824dc3f5",
+      "target": "70f9b8aa-8d99-4982-8bfd-4458089b251c",
+      "type": "similarity",
+      "weight": 0.16,
+      "created": "2026-05-13T03:37:41.879Z"
     }
   ]
 }

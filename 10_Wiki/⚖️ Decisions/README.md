@@ -1,9 +1,9 @@
 ---
-id: "8925109b-eb2f-41be-909d-8705bad82861"
+id: "bb43cfcf-c494-4ac3-ab8a-ff238ab3af47"
 category: "[[10_Wiki/⚖️ Decisions]]"
 confidence_score: 0.63
 tags: ["decisions", "결정", "분석", "readme"]
-last_reinforced: 2026-05-06
+last_reinforced: 2026-05-13
 github_commit: "pending"
 ---
 
@@ -38,4 +38,4 @@ github_commit: "pending"
 ## 🔗 지식 연결 (Graph)
 - **Parent:** [[⚖️ Decisions]]
 - **Related:** [[결정]], [[분석]]
-- **Raw Source:** [[00_Raw/2026-05-06/README]]
+- **Raw Source:** [[00_Raw/2026-05-13/README]]
