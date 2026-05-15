@@ -53,14 +53,14 @@ main { display:grid; grid-template-columns:1fr 360px; gap:24px; padding:28px; ma
 .cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
 .cal-day { text-align:center; padding:8px 0; font-size:11px; font-weight:600; color:var(--muted); text-transform:uppercase; }
 .cal-cell {
-  aspect-ratio:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
-  border-radius:12px; cursor:pointer; font-size:14px; font-weight:500; transition:all .2s; position:relative; padding-top:8px; gap:2px; overflow:hidden;
+  min-height:80px; display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
+  border-radius:12px; cursor:pointer; font-size:14px; font-weight:500; transition:all .2s; position:relative; padding-top:8px; padding-bottom:4px; gap:2px;
 }
 .cal-cell:hover { background:rgba(108,75,244,.08); }
 .cal-cell.today { background:rgba(108,75,244,.1); color:var(--purple); font-weight:700; }
 .cal-cell.selected { background:var(--purple); color:#fff; box-shadow:0 4px 16px rgba(108,75,244,.3); }
 .cal-cell.other { opacity:.25; }
-.cat-tags { display:flex; flex-direction:column; align-items:stretch; gap:1px; margin-top:3px; width:100%; padding:0 3px; box-sizing:border-box; overflow:hidden; }
+.cat-tags { display:flex; flex-direction:column; align-items:stretch; gap:1px; margin-top:3px; width:100%; padding:0 3px; box-sizing:border-box; }
 .cat-tag { font-size:8px; padding:2px 0; border-radius:3px; font-weight:700; white-space:nowrap; line-height:1.2; text-align:center; }
 .cat-ai { background:#dbeafe; color:#2563eb; } .cat-company { background:#dcfce7; color:#16a34a; }
 .cat-good { background:#fef3c7; color:#d97706; } .cat-youtube { background:#fee2e2; color:#dc2626; }
