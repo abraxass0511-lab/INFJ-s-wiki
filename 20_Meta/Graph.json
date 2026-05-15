@@ -3471,16 +3471,16 @@
       "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\⚖️ Decisions\\2026-05-15_위키에이전트_검색팝업_모바일최적화.md",
       "category": "⚖️ Decisions",
       "tags": [
-        "decisions",
-        "선택",
-        "ui",
-        "2026",
-        "05",
-        "15"
+        "프론트엔드",
+        "검색",
+        "UI",
+        "모바일",
+        "캘린더",
+        "체크박스"
       ],
       "confidence": 0.43,
       "created": "2026-05-15T06:27:43.976Z",
-      "lastUpdated": "2026-05-15T06:27:43.977Z",
+      "lastUpdated": "2026-05-15T06:50:27.077Z",
       "accessCount": 0
     }
   },
