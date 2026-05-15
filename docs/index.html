@@ -1128,7 +1128,9 @@ function getSelectedYears() {
 function updateYearBtnLabel() {
   const btn = document.getElementById('yearPickerBtn');
   const checked = getSelectedYears();
-  if (checked.length === 0 || checked.length === searchYears.length) {
+  if (checked.length === 0) {
+    btn.textContent = '전체 ▾';
+  } else if (checked.length === searchYears.length && searchYears.length > 1) {
     btn.textContent = '전체 ▾';
   } else if (checked.length === 1) {
     btn.textContent = checked[0] + '년 ▾';
