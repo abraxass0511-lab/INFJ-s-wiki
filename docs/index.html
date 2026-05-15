@@ -257,8 +257,8 @@ main { display:grid; grid-template-columns:1fr 360px; gap:24px; padding:28px; ma
     <span>🔍</span>
     <input type="text" id="searchInput" placeholder="지식 검색... (예: 안전모, 엑셀 병합, 공자 명언)" oninput="debounceSearch()">
     <select id="searchYear" style="border:none;background:transparent;color:var(--purple);font-size:12px;font-weight:600;cursor:pointer;outline:none;font-family:inherit" onchange="debounceSearch()">
-      <option value="current">올해</option>
-      <option value="all">전체 연도</option>
+      <option value="2026">연도 로딩중...</option>
+      <option value="all">전체</option>
     </select>
     <span id="searchClear" style="cursor:pointer;display:none;color:var(--muted)" onclick="clearSearch()">✕</span>
   </div>
@@ -503,6 +503,22 @@ async function fetchSearchIndex() {
       const bytes = new Uint8Array([...raw].map(c => c.charCodeAt(0)));
       searchYears = JSON.parse(new TextDecoder('utf-8').decode(bytes));
       console.log(`🔍 Search years: ${searchYears.join(', ')}`);
+      // Populate year selector dynamically
+      const sel = document.getElementById('searchYear');
+      sel.innerHTML = '';
+      // Add each year (newest first)
+      const reversedYears = [...searchYears].reverse();
+      for (const yr of reversedYears) {
+        const opt = document.createElement('option');
+        opt.value = yr;
+        opt.textContent = yr + '년';
+        sel.appendChild(opt);
+      }
+      // Add "전체" at the end
+      const allOpt = document.createElement('option');
+      allOpt.value = 'all';
+      allOpt.textContent = '전체';
+      sel.appendChild(allOpt);
       // Pre-load current year index
       const curYr = String(new Date().getFullYear());
       if (searchYears.includes(curYr)) await loadYearIndex(curYr);
@@ -1068,10 +1084,10 @@ async function doSearch(query) {
 
   // Determine which years to search
   let yearsToSearch = [];
-  if (yearSel === 'current') {
-    yearsToSearch = [String(new Date().getFullYear())];
-  } else {
+  if (yearSel === 'all') {
     yearsToSearch = [...searchYears].reverse(); // newest first
+  } else {
+    yearsToSearch = [yearSel]; // specific year
   }
 
   // Load and search each year
