@@ -1091,13 +1091,10 @@ function populateYearCheckboxes() {
   const curYr = String(new Date().getFullYear());
   selectedSearchYears = searchYears.includes(curYr) ? [curYr] : [...searchYears];
   const reversed = [...searchYears].reverse();
-  let html = '';
-  if (searchYears.length > 1) {
-    html += `<div class="yp-item" onclick="event.stopPropagation()">
+  let html = `<div class="yp-item" onclick="event.stopPropagation()">
       <input type="checkbox" id="yp_all" onchange="toggleAllYears(this.checked)">
       <label for="yp_all" style="font-weight:700">전체</label>
     </div><div class="yp-divider"></div>`;
-  }
   html += reversed.map(yr => {
     const checked = selectedSearchYears.includes(yr) ? 'checked' : '';
     return `<div class="yp-item" onclick="event.stopPropagation()">
