@@ -3375,6 +3375,113 @@
       "created": "2026-05-15T05:11:54.326Z",
       "lastUpdated": "2026-05-15T05:11:54.326Z",
       "accessCount": 0
+    },
+    "799ba78c-099a-484f-88d0-c6c7bb6a07a0": {
+      "title": "2026-05-15_SafeGuard_MediaPipe_PPE_감지시스템",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\⚖️ Decisions\\2026-05-15_SafeGuard_MediaPipe_PPE_감지시스템.md",
+      "category": "⚖️ Decisions",
+      "tags": [
+        "decisions",
+        "분석",
+        "vs",
+        "결정",
+        "2026",
+        "05",
+        "15"
+      ],
+      "confidence": 0.35,
+      "created": "2026-05-15T06:22:59.824Z",
+      "lastUpdated": "2026-05-15T06:22:59.824Z",
+      "accessCount": 0
+    },
+    "453ff38f-b1f4-4f5f-bb10-b939b6aa4127": {
+      "title": "2026-05-15_SafeGuard_MediaPipe_PPE_감지시스템",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\⚖️ Decisions\\2026-05-15_SafeGuard_MediaPipe_PPE_감지시스템.md",
+      "category": "⚖️ Decisions",
+      "tags": [
+        "decisions",
+        "분석",
+        "vs",
+        "결정",
+        "2026",
+        "05",
+        "15"
+      ],
+      "confidence": 0.35,
+      "created": "2026-05-15T06:23:16.292Z",
+      "lastUpdated": "2026-05-15T06:23:16.292Z",
+      "accessCount": 0
+    },
+    "3d888046-c130-4108-9838-73282534effa": {
+      "title": "2026-05-15_SafeGuard_MediaPipe_PPE_감지시스템",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\⚖️ Decisions\\2026-05-15_SafeGuard_MediaPipe_PPE_감지시스템.md",
+      "category": "⚖️ Decisions",
+      "tags": [
+        "decisions",
+        "분석",
+        "vs",
+        "결정",
+        "2026",
+        "05",
+        "15"
+      ],
+      "confidence": 0.35,
+      "created": "2026-05-15T06:23:33.067Z",
+      "lastUpdated": "2026-05-15T06:23:33.067Z",
+      "accessCount": 0
+    },
+    "7660654e-734d-46fa-bfbb-64ed2a966b1a": {
+      "title": "2026-05-15_SafeGuard_MediaPipe_PPE_감지시스템",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\⚖️ Decisions\\2026-05-15_SafeGuard_MediaPipe_PPE_감지시스템.md",
+      "category": "⚖️ Decisions",
+      "tags": [
+        "decisions",
+        "분석",
+        "vs",
+        "결정",
+        "2026",
+        "05",
+        "15"
+      ],
+      "confidence": 0.35,
+      "created": "2026-05-15T06:26:39.548Z",
+      "lastUpdated": "2026-05-15T06:26:39.548Z",
+      "accessCount": 0
+    },
+    "8c68a258-47fd-46b3-b955-585ea5a2ede6": {
+      "title": "2026-05-15_SafeGuard_MediaPipe_PPE_감지시스템",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\⚖️ Decisions\\2026-05-15_SafeGuard_MediaPipe_PPE_감지시스템.md",
+      "category": "⚖️ Decisions",
+      "tags": [
+        "decisions",
+        "분석",
+        "vs",
+        "결정",
+        "2026",
+        "05",
+        "15"
+      ],
+      "confidence": 0.35,
+      "created": "2026-05-15T06:26:48.846Z",
+      "lastUpdated": "2026-05-15T06:26:48.847Z",
+      "accessCount": 0
+    },
+    "64dd2bdc-b569-4fce-9488-3a44f98ba48f": {
+      "title": "2026-05-15_위키에이전트_검색팝업_모바일최적화",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\⚖️ Decisions\\2026-05-15_위키에이전트_검색팝업_모바일최적화.md",
+      "category": "⚖️ Decisions",
+      "tags": [
+        "decisions",
+        "선택",
+        "ui",
+        "2026",
+        "05",
+        "15"
+      ],
+      "confidence": 0.43,
+      "created": "2026-05-15T06:27:43.976Z",
+      "lastUpdated": "2026-05-15T06:27:43.977Z",
+      "accessCount": 0
     }
   },
   "edges": [
@@ -10055,6 +10162,216 @@
       "type": "similarity",
       "weight": 0.2714285714285714,
       "created": "2026-05-15T05:11:54.330Z"
+    },
+    {
+      "source": "799ba78c-099a-484f-88d0-c6c7bb6a07a0",
+      "target": "b926596b-1fb0-44ab-8968-a2c77a0dc5b9",
+      "type": "similarity",
+      "weight": 0.8571428571428571,
+      "created": "2026-05-15T06:22:59.827Z"
+    },
+    {
+      "source": "799ba78c-099a-484f-88d0-c6c7bb6a07a0",
+      "target": "05e986c9-bbd0-4384-b9bb-d3b3a727fc72",
+      "type": "similarity",
+      "weight": 0.2714285714285714,
+      "created": "2026-05-15T06:22:59.827Z"
+    },
+    {
+      "source": "799ba78c-099a-484f-88d0-c6c7bb6a07a0",
+      "target": "632ac684-b3f6-4c06-b643-2050c42049fe",
+      "type": "similarity",
+      "weight": 0.2714285714285714,
+      "created": "2026-05-15T06:22:59.827Z"
+    },
+    {
+      "source": "799ba78c-099a-484f-88d0-c6c7bb6a07a0",
+      "target": "9220f5df-8cd3-4bb9-8c88-37122c8b9b37",
+      "type": "similarity",
+      "weight": 0.2714285714285714,
+      "created": "2026-05-15T06:22:59.827Z"
+    },
+    {
+      "source": "799ba78c-099a-484f-88d0-c6c7bb6a07a0",
+      "target": "26acdf97-2803-4163-ae58-f72827c97d87",
+      "type": "similarity",
+      "weight": 0.2714285714285714,
+      "created": "2026-05-15T06:22:59.827Z"
+    },
+    {
+      "source": "453ff38f-b1f4-4f5f-bb10-b939b6aa4127",
+      "target": "b926596b-1fb0-44ab-8968-a2c77a0dc5b9",
+      "type": "similarity",
+      "weight": 0.8571428571428571,
+      "created": "2026-05-15T06:23:16.295Z"
+    },
+    {
+      "source": "453ff38f-b1f4-4f5f-bb10-b939b6aa4127",
+      "target": "799ba78c-099a-484f-88d0-c6c7bb6a07a0",
+      "type": "similarity",
+      "weight": 0.8571428571428571,
+      "created": "2026-05-15T06:23:16.295Z"
+    },
+    {
+      "source": "453ff38f-b1f4-4f5f-bb10-b939b6aa4127",
+      "target": "05e986c9-bbd0-4384-b9bb-d3b3a727fc72",
+      "type": "similarity",
+      "weight": 0.2714285714285714,
+      "created": "2026-05-15T06:23:16.295Z"
+    },
+    {
+      "source": "453ff38f-b1f4-4f5f-bb10-b939b6aa4127",
+      "target": "632ac684-b3f6-4c06-b643-2050c42049fe",
+      "type": "similarity",
+      "weight": 0.2714285714285714,
+      "created": "2026-05-15T06:23:16.295Z"
+    },
+    {
+      "source": "453ff38f-b1f4-4f5f-bb10-b939b6aa4127",
+      "target": "9220f5df-8cd3-4bb9-8c88-37122c8b9b37",
+      "type": "similarity",
+      "weight": 0.2714285714285714,
+      "created": "2026-05-15T06:23:16.295Z"
+    },
+    {
+      "source": "3d888046-c130-4108-9838-73282534effa",
+      "target": "b926596b-1fb0-44ab-8968-a2c77a0dc5b9",
+      "type": "similarity",
+      "weight": 0.8571428571428571,
+      "created": "2026-05-15T06:23:33.071Z"
+    },
+    {
+      "source": "3d888046-c130-4108-9838-73282534effa",
+      "target": "799ba78c-099a-484f-88d0-c6c7bb6a07a0",
+      "type": "similarity",
+      "weight": 0.8571428571428571,
+      "created": "2026-05-15T06:23:33.071Z"
+    },
+    {
+      "source": "3d888046-c130-4108-9838-73282534effa",
+      "target": "453ff38f-b1f4-4f5f-bb10-b939b6aa4127",
+      "type": "similarity",
+      "weight": 0.8571428571428571,
+      "created": "2026-05-15T06:23:33.071Z"
+    },
+    {
+      "source": "3d888046-c130-4108-9838-73282534effa",
+      "target": "05e986c9-bbd0-4384-b9bb-d3b3a727fc72",
+      "type": "similarity",
+      "weight": 0.2714285714285714,
+      "created": "2026-05-15T06:23:33.071Z"
+    },
+    {
+      "source": "3d888046-c130-4108-9838-73282534effa",
+      "target": "632ac684-b3f6-4c06-b643-2050c42049fe",
+      "type": "similarity",
+      "weight": 0.2714285714285714,
+      "created": "2026-05-15T06:23:33.071Z"
+    },
+    {
+      "source": "7660654e-734d-46fa-bfbb-64ed2a966b1a",
+      "target": "b926596b-1fb0-44ab-8968-a2c77a0dc5b9",
+      "type": "similarity",
+      "weight": 0.8571428571428571,
+      "created": "2026-05-15T06:26:39.554Z"
+    },
+    {
+      "source": "7660654e-734d-46fa-bfbb-64ed2a966b1a",
+      "target": "799ba78c-099a-484f-88d0-c6c7bb6a07a0",
+      "type": "similarity",
+      "weight": 0.8571428571428571,
+      "created": "2026-05-15T06:26:39.554Z"
+    },
+    {
+      "source": "7660654e-734d-46fa-bfbb-64ed2a966b1a",
+      "target": "453ff38f-b1f4-4f5f-bb10-b939b6aa4127",
+      "type": "similarity",
+      "weight": 0.8571428571428571,
+      "created": "2026-05-15T06:26:39.554Z"
+    },
+    {
+      "source": "7660654e-734d-46fa-bfbb-64ed2a966b1a",
+      "target": "3d888046-c130-4108-9838-73282534effa",
+      "type": "similarity",
+      "weight": 0.8571428571428571,
+      "created": "2026-05-15T06:26:39.554Z"
+    },
+    {
+      "source": "7660654e-734d-46fa-bfbb-64ed2a966b1a",
+      "target": "05e986c9-bbd0-4384-b9bb-d3b3a727fc72",
+      "type": "similarity",
+      "weight": 0.2714285714285714,
+      "created": "2026-05-15T06:26:39.554Z"
+    },
+    {
+      "source": "8c68a258-47fd-46b3-b955-585ea5a2ede6",
+      "target": "b926596b-1fb0-44ab-8968-a2c77a0dc5b9",
+      "type": "similarity",
+      "weight": 0.8571428571428571,
+      "created": "2026-05-15T06:26:48.850Z"
+    },
+    {
+      "source": "8c68a258-47fd-46b3-b955-585ea5a2ede6",
+      "target": "799ba78c-099a-484f-88d0-c6c7bb6a07a0",
+      "type": "similarity",
+      "weight": 0.8571428571428571,
+      "created": "2026-05-15T06:26:48.850Z"
+    },
+    {
+      "source": "8c68a258-47fd-46b3-b955-585ea5a2ede6",
+      "target": "453ff38f-b1f4-4f5f-bb10-b939b6aa4127",
+      "type": "similarity",
+      "weight": 0.8571428571428571,
+      "created": "2026-05-15T06:26:48.850Z"
+    },
+    {
+      "source": "8c68a258-47fd-46b3-b955-585ea5a2ede6",
+      "target": "3d888046-c130-4108-9838-73282534effa",
+      "type": "similarity",
+      "weight": 0.8571428571428571,
+      "created": "2026-05-15T06:26:48.850Z"
+    },
+    {
+      "source": "8c68a258-47fd-46b3-b955-585ea5a2ede6",
+      "target": "7660654e-734d-46fa-bfbb-64ed2a966b1a",
+      "type": "similarity",
+      "weight": 0.8571428571428571,
+      "created": "2026-05-15T06:26:48.850Z"
+    },
+    {
+      "source": "64dd2bdc-b569-4fce-9488-3a44f98ba48f",
+      "target": "b926596b-1fb0-44ab-8968-a2c77a0dc5b9",
+      "type": "similarity",
+      "weight": 0.22857142857142856,
+      "created": "2026-05-15T06:27:43.978Z"
+    },
+    {
+      "source": "64dd2bdc-b569-4fce-9488-3a44f98ba48f",
+      "target": "799ba78c-099a-484f-88d0-c6c7bb6a07a0",
+      "type": "similarity",
+      "weight": 0.22857142857142856,
+      "created": "2026-05-15T06:27:43.978Z"
+    },
+    {
+      "source": "64dd2bdc-b569-4fce-9488-3a44f98ba48f",
+      "target": "453ff38f-b1f4-4f5f-bb10-b939b6aa4127",
+      "type": "similarity",
+      "weight": 0.22857142857142856,
+      "created": "2026-05-15T06:27:43.978Z"
+    },
+    {
+      "source": "64dd2bdc-b569-4fce-9488-3a44f98ba48f",
+      "target": "3d888046-c130-4108-9838-73282534effa",
+      "type": "similarity",
+      "weight": 0.22857142857142856,
+      "created": "2026-05-15T06:27:43.978Z"
+    },
+    {
+      "source": "64dd2bdc-b569-4fce-9488-3a44f98ba48f",
+      "target": "7660654e-734d-46fa-bfbb-64ed2a966b1a",
+      "type": "similarity",
+      "weight": 0.22857142857142856,
+      "created": "2026-05-15T06:27:43.978Z"
     }
   ]
 }

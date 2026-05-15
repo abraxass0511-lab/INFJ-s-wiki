@@ -1,7 +1,7 @@
 ---
-id: "b926596b-1fb0-44ab-8968-a2c77a0dc5b9"
+id: "8c68a258-47fd-46b3-b955-585ea5a2ede6"
 category: "[[10_Wiki/⚖️ Decisions]]"
-confidence_score: 0.33
+confidence_score: 0.35
 tags: ["decisions", "분석", "vs", "결정", "2026", "05", "15"]
 last_reinforced: 2026-05-15
 github_commit: "pending"
