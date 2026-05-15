@@ -94,6 +94,11 @@ export async function processDocument(filePath) {
     // ── 원본 백업 이동 ──
     await archiveRaw(filePath);
 
+    // ── 캘린더 카테고리 자동 분류 ──
+    const calendarCat = classifyCalendarCategory(fileName, rawContent);
+    await updateCalendarCategories(fileName + '.md', calendarCat);
+    console.log(`  📅 캘린더 카테고리: ${calendarCat}`);
+
     // ── 보상 점수 계산 ──
     const graphConn = getGraphConnectivity(updatedGraph);
     const reward = await computeTotalReward(classification.confidence, graphConn);
@@ -256,6 +261,79 @@ export async function processAllRaw() {
     console.error(`배치 처리 에러: ${err.message}`);
     return { processed: 0, results: [], error: err.message };
   }
+}
+
+/**
+ * 캘린더 카테고리 자동 분류 (내용 기반)
+ * 캘린더 UI의 8개 카테고리: AI공부, 회사, 좋은글, 유튜브, 1인기업, 운동, 육아, 기타
+ */
+const CALENDAR_CATEGORIES = {
+  'AI공부': ['AI', 'ai', '머신러닝', 'machine learning', 'deep learning', '딥러닝', 'LLM', 'GPT', 'mediapipe', 'tensorflow', 'pytorch', 'computer vision', '컴퓨터 비전', '신경망', 'neural', 'NLP', 'OCR', '객체 감지', 'object detect', 'PPE', '감지', 'detection', 'model', '모델'],
+  '회사': ['회사', '직장', '업무', '회의', '출근', '퇴근', '사내', '팀', '동료', '상사', '급여', '인사', '근무'],
+  '좋은글': ['명언', '좋은글', '감동', '인용', '격언', '철학', '명상', '마음', '성찰', '동기부여', '자기계발'],
+  '유튜브': ['유튜브', 'youtube', '채널', '영상', '구독', '조회수', '썸네일', '알고리즘', '크리에이터', 'shorts', '편집'],
+  '1인기업': ['1인기업', '사이드프로젝트', '자동화', '위키', 'wiki', '에이전트', 'agent', '프론트엔드', 'frontend', '백엔드', 'backend', '캘린더', 'calendar', '웹', 'web', 'UI', 'UX', '검색', '팝업', '모바일', 'CSS', 'JavaScript', 'HTML', 'Node', 'npm', '배포', 'deploy', 'GitHub', '깃허브', '개인 프로젝트'],
+  '운동': ['운동', '헬스', '러닝', '수영', '등산', '요가', '필라테스', '다이어트', '체중', '근력', '유산소', '스트레칭'],
+  '육아': ['육아', '아기', '아이', '돌봄', '유치원', '어린이집', '이유식', '수유', '놀이', '성장'],
+};
+
+function classifyCalendarCategory(title, content) {
+  const text = `${title} ${content}`.toLowerCase();
+  const scores = {};
+
+  for (const [cat, keywords] of Object.entries(CALENDAR_CATEGORIES)) {
+    let score = 0;
+    for (const kw of keywords) {
+      const regex = new RegExp(kw.toLowerCase(), 'gi');
+      const matches = text.match(regex);
+      if (matches) {
+        score += Math.log2(1 + matches.length);
+      }
+    }
+    if (score > 0) scores[cat] = score;
+  }
+
+  // 가장 높은 점수의 카테고리 반환, 없으면 '기타'
+  const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+  if (sorted.length === 0) return '기타';
+
+  console.log(`       → 캘린더 분류 점수: ${sorted.map(([c,s]) => `${c}(${s.toFixed(1)})`).join(', ')}`);
+  return sorted[0][0];
+}
+
+/**
+ * _categories.json에 파일의 캘린더 카테고리 기록
+ */
+async function updateCalendarCategories(fileName, calendarCategory) {
+  const catPath = path.join(CONFIG.PATHS.RAW, '_categories.json');
+  let catData = {};
+
+  try {
+    const raw = await readText(catPath);
+    if (raw) catData = JSON.parse(raw);
+  } catch { /* 파일 없으면 새로 생성 */ }
+
+  // 파일명에서 날짜 추출 (YYYY-MM-DD)
+  const dateMatch = fileName.match(/^(\d{4}-\d{2}-\d{2})/);
+  const dateKey = dateMatch ? dateMatch[1] : today();
+
+  if (!catData[dateKey]) catData[dateKey] = {};
+
+  // 기존 카테고리에서 이 파일 제거 (중복 방지)
+  for (const cat of Object.keys(catData[dateKey])) {
+    if (Array.isArray(catData[dateKey][cat])) {
+      catData[dateKey][cat] = catData[dateKey][cat].filter(f => f !== fileName);
+      if (catData[dateKey][cat].length === 0) delete catData[dateKey][cat];
+    }
+  }
+
+  // 새 카테고리에 추가
+  if (!catData[dateKey][calendarCategory]) catData[dateKey][calendarCategory] = [];
+  if (!catData[dateKey][calendarCategory].includes(fileName)) {
+    catData[dateKey][calendarCategory].push(fileName);
+  }
+
+  await writeText(catPath, JSON.stringify(catData, null, 2));
 }
 
 export default { processDocument, processAllRaw };
