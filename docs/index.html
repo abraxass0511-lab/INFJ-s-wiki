@@ -365,6 +365,7 @@ const CFG = {
 let curYear, curMonth, selectedDate = null;
 const existingDates = new Set();
 let categoryData = {}; // { '2026-05-06': ['AI공부'], ... }
+let searchIndex = []; // [{d,n,c,t,s}, ...]
 let selectedCategory = '';
 const CATEGORIES = [
   { key:'AI공부', label:'AI공부', cls:'cat-ai' },
@@ -410,6 +411,7 @@ function autoSetupFromURL() {
     await fetchExistingDates();
   }
   await fetchCategoryData();
+  await fetchSearchIndex();
   if (!CFG.token) {
     // Derive existing dates from categoryData
     existingDates.clear();
@@ -479,6 +481,23 @@ async function fetchCategoryData() {
       }
     }
   } catch(e) { console.warn('fetchCategoryData:', e); categoryData = {}; }
+}
+
+async function fetchSearchIndex() {
+  try {
+    const cacheBust = `_t=${Date.now()}`;
+    const apiUrl = `https://api.github.com/repos/${CFG.owner}/${CFG.repo}/contents/${CFG.base}/_search_index.json?ref=${CFG.branch}&${cacheBust}`;
+    const headers = { 'Accept': 'application/vnd.github.v3+json' };
+    if (CFG.token) headers['Authorization'] = `token ${CFG.token}`;
+    const res = await fetch(apiUrl, { headers, cache: 'no-store' });
+    if (res.ok) {
+      const data = await res.json();
+      const raw = atob(data.content.replace(/\n/g,''));
+      const bytes = new Uint8Array([...raw].map(c => c.charCodeAt(0)));
+      searchIndex = JSON.parse(new TextDecoder('utf-8').decode(bytes));
+      console.log(`🔍 Search index loaded: ${searchIndex.length} entries`);
+    }
+  } catch(e) { console.warn('fetchSearchIndex:', e); searchIndex = []; }
 }
 
 async function saveCategoryData() {
@@ -1020,19 +1039,41 @@ async function doSearch(query) {
   results.classList.add('active');
   const q = query.toLowerCase();
   let items = [];
-  // 1) Search file names & categories in local data
-  for (const [date, cats] of Object.entries(categoryData)) {
-    if (typeof cats !== 'object') continue;
-    for (const [cat, fnames] of Object.entries(cats)) {
-      for (const fn of fnames) {
-        if (fn.toLowerCase().includes(q) || cat.toLowerCase().includes(q)) {
-          items.push({ date, name: fn, cat });
+
+  // 1) Search in search index (title + content)
+  if (searchIndex.length > 0) {
+    for (const entry of searchIndex) {
+      const titleText = (entry.t + ' ' + entry.n).toLowerCase();
+      const contentText = (entry.s || '').toLowerCase();
+      const inTitle = titleText.includes(q);
+      const inContent = contentText.includes(q);
+      if (inTitle || inContent) {
+        let snippet = '';
+        if (inContent && !inTitle) {
+          const idx = contentText.indexOf(q);
+          const start = Math.max(0, idx - 40);
+          const end = Math.min(entry.s.length, idx + q.length + 40);
+          snippet = (start > 0 ? '...' : '') + entry.s.slice(start, end).replace(/\n/g,' ').trim() + (end < entry.s.length ? '...' : '');
+        }
+        items.push({ date: entry.d, name: entry.n, cat: entry.c, title: entry.t, matchType: inTitle ? '제목' : '내용', snippet });
+      }
+    }
+  } else {
+    // Fallback: search categoryData (filename only)
+    for (const [date, cats] of Object.entries(categoryData)) {
+      if (typeof cats !== 'object') continue;
+      for (const [cat, fnames] of Object.entries(cats)) {
+        for (const fn of fnames) {
+          if (fn.toLowerCase().includes(q) || cat.toLowerCase().includes(q)) {
+            items.push({ date, name: fn, cat, matchType: '제목' });
+          }
         }
       }
     }
   }
-  // 2) Deep search: GitHub Search API (MD content)
-  if (CFG.token && items.length < 10) {
+
+  // 2) GitHub Search API fallback (if few results)
+  if (CFG.token && items.length < 5) {
     try {
       const res = await fetch(`https://api.github.com/search/code?q=${encodeURIComponent(query)}+repo:${CFG.owner}/${CFG.repo}+path:00_Raw+extension:md`, {
         headers: { Authorization: `token ${CFG.token}`, Accept: 'application/vnd.github.v3+json' }
@@ -1043,24 +1084,31 @@ async function doSearch(query) {
           if (parts.length >= 3) {
             const date = parts[1], name = parts.slice(2).join('/');
             if (!items.find(i => i.date === date && i.name === name)) {
-              items.push({ date, name, cat: '검색결과' });
+              items.push({ date, name, cat: '검색결과', matchType: 'API' });
             }
           }
         }
       }
     } catch(e) { console.warn('search api:', e); }
   }
+
   if (items.length === 0) {
     results.innerHTML = '<div class="sr-empty">검색 결과가 없습니다</div>';
     return;
   }
+  // Sort: title matches first, then content matches
+  items.sort((a,b) => (a.matchType === '제목' ? 0 : 1) - (b.matchType === '제목' ? 0 : 1));
   results.innerHTML = items.slice(0, 30).map(i => {
     const catInfo = CATEGORIES.find(x => x.key === i.cat) || {};
     const catCls = catInfo.cls || 'cat-etc';
-    return `<div class="sr-item" onclick="goToDate('${i.date}')">
+    const badge = i.matchType === '내용' ? '<span style="font-size:9px;padding:2px 6px;border-radius:4px;background:rgba(108,75,244,.12);color:var(--purple);margin-left:6px;font-weight:600">내용 일치</span>' : '';
+    const esc = s => s ? s.replace(/</g,'&lt;').replace(/>/g,'&gt;') : '';
+    const snippetHtml = i.snippet ? `<div style="width:100%;padding-left:76px;margin-top:2px"><span style="font-size:11px;color:var(--muted);display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">📎 ${esc(i.snippet)}</span></div>` : '';
+    return `<div class="sr-item" onclick="goToDate('${i.date}')" style="flex-wrap:wrap">
       <span class="sr-date">${i.date}</span>
-      <span class="sr-name">${i.name}</span>
+      <span class="sr-name">${esc(i.title || i.name)}${badge}</span>
       <span class="sr-cat ${catCls}">${i.cat}</span>
+      ${snippetHtml}
     </div>`;
   }).join('');
 }
