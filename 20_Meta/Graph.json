@@ -3357,6 +3357,24 @@
       "created": "2026-05-13T03:37:41.877Z",
       "lastUpdated": "2026-05-13T03:37:41.877Z",
       "accessCount": 0
+    },
+    "b926596b-1fb0-44ab-8968-a2c77a0dc5b9": {
+      "title": "2026-05-15_SafeGuard_MediaPipe_PPE_감지시스템",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\⚖️ Decisions\\2026-05-15_SafeGuard_MediaPipe_PPE_감지시스템.md",
+      "category": "⚖️ Decisions",
+      "tags": [
+        "decisions",
+        "분석",
+        "vs",
+        "결정",
+        "2026",
+        "05",
+        "15"
+      ],
+      "confidence": 0.33,
+      "created": "2026-05-15T05:11:54.326Z",
+      "lastUpdated": "2026-05-15T05:11:54.326Z",
+      "accessCount": 0
     }
   },
   "edges": [
@@ -10002,6 +10020,41 @@
       "type": "similarity",
       "weight": 0.16,
       "created": "2026-05-13T03:37:41.879Z"
+    },
+    {
+      "source": "b926596b-1fb0-44ab-8968-a2c77a0dc5b9",
+      "target": "05e986c9-bbd0-4384-b9bb-d3b3a727fc72",
+      "type": "similarity",
+      "weight": 0.2714285714285714,
+      "created": "2026-05-15T05:11:54.329Z"
+    },
+    {
+      "source": "b926596b-1fb0-44ab-8968-a2c77a0dc5b9",
+      "target": "632ac684-b3f6-4c06-b643-2050c42049fe",
+      "type": "similarity",
+      "weight": 0.2714285714285714,
+      "created": "2026-05-15T05:11:54.330Z"
+    },
+    {
+      "source": "b926596b-1fb0-44ab-8968-a2c77a0dc5b9",
+      "target": "9220f5df-8cd3-4bb9-8c88-37122c8b9b37",
+      "type": "similarity",
+      "weight": 0.2714285714285714,
+      "created": "2026-05-15T05:11:54.330Z"
+    },
+    {
+      "source": "b926596b-1fb0-44ab-8968-a2c77a0dc5b9",
+      "target": "26acdf97-2803-4163-ae58-f72827c97d87",
+      "type": "similarity",
+      "weight": 0.2714285714285714,
+      "created": "2026-05-15T05:11:54.330Z"
+    },
+    {
+      "source": "b926596b-1fb0-44ab-8968-a2c77a0dc5b9",
+      "target": "0c020f66-28b7-455c-abf8-b5fa8fdbddd9",
+      "type": "similarity",
+      "weight": 0.2714285714285714,
+      "created": "2026-05-15T05:11:54.330Z"
     }
   ]
 }
