@@ -1091,14 +1091,41 @@ function populateYearCheckboxes() {
   const curYr = String(new Date().getFullYear());
   selectedSearchYears = searchYears.includes(curYr) ? [curYr] : [...searchYears];
   const reversed = [...searchYears].reverse();
-  container.innerHTML = reversed.map(yr => {
+  let html = '';
+  if (searchYears.length > 1) {
+    html += `<div class="yp-item" onclick="event.stopPropagation()">
+      <input type="checkbox" id="yp_all" onchange="toggleAllYears(this.checked)">
+      <label for="yp_all" style="font-weight:700">전체</label>
+    </div><div class="yp-divider"></div>`;
+  }
+  html += reversed.map(yr => {
     const checked = selectedSearchYears.includes(yr) ? 'checked' : '';
     return `<div class="yp-item" onclick="event.stopPropagation()">
-      <input type="checkbox" id="yp_${yr}" value="${yr}" ${checked} onchange="updateYearBtnLabel()">
+      <input type="checkbox" id="yp_${yr}" value="${yr}" ${checked} onchange="onYearCheckChange()">
       <label for="yp_${yr}">${yr}년</label>
     </div>`;
   }).join('');
+  container.innerHTML = html;
+  syncAllCheckbox();
   updateYearBtnLabel();
+}
+
+function toggleAllYears(checked) {
+  document.querySelectorAll('#yearCheckboxes input[type=checkbox][value]').forEach(cb => cb.checked = checked);
+  updateYearBtnLabel();
+}
+
+function onYearCheckChange() {
+  syncAllCheckbox();
+  updateYearBtnLabel();
+}
+
+function syncAllCheckbox() {
+  const allCb = document.getElementById('yp_all');
+  if (!allCb) return;
+  const yearBoxes = document.querySelectorAll('#yearCheckboxes input[type=checkbox][value]');
+  const allChecked = [...yearBoxes].every(cb => cb.checked);
+  allCb.checked = allChecked;
 }
 
 function toggleYearPicker() {
