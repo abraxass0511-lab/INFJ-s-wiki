@@ -229,6 +229,37 @@ main { display:grid; grid-template-columns:1fr 360px; gap:24px; padding:28px; ma
 .sr-cat { font-size:10px; padding:2px 8px; border-radius:6px; font-weight:600; background:var(--bg2); color:var(--muted); }
 .sr-empty { padding:20px; text-align:center; font-size:13px; color:var(--muted); }
 
+
+/* Year Picker Popup */
+.year-picker-wrap { position:relative; }
+.year-picker-btn {
+  border:none; background:rgba(124,92,245,.08); color:var(--purple);
+  font-size:12px; font-weight:700; cursor:pointer; font-family:inherit;
+  padding:5px 12px; border-radius:8px; display:flex; align-items:center; gap:4px;
+  transition:background .2s; white-space:nowrap;
+}
+.year-picker-btn:hover { background:rgba(124,92,245,.15); }
+.year-picker-popup {
+  display:none; position:absolute; top:calc(100% + 6px); right:0;
+  background:var(--card); border:1px solid var(--border); border-radius:12px;
+  padding:10px; min-width:160px; box-shadow:0 8px 24px rgba(0,0,0,.12);
+  z-index:100; animation: ypFadeIn .15s ease;
+}
+.year-picker-popup.active { display:block; }
+@keyframes ypFadeIn { from { opacity:0; transform:translateY(-4px); } to { opacity:1; transform:translateY(0); } }
+.yp-item { display:flex; align-items:center; gap:8px; padding:6px 8px; border-radius:8px; cursor:pointer; transition:background .15s; }
+.yp-item:hover { background:rgba(124,92,245,.06); }
+.yp-item input[type=checkbox] {
+  width:16px; height:16px; accent-color:var(--purple); cursor:pointer; margin:0;
+}
+.yp-item label { font-size:13px; font-weight:500; color:var(--text); cursor:pointer; flex:1; }
+.yp-apply {
+  margin-top:8px; width:100%; padding:7px; border:none; border-radius:8px;
+  background:var(--purple); color:#fff; font-size:12px; font-weight:700;
+  cursor:pointer; font-family:inherit; transition:opacity .2s;
+}
+.yp-apply:hover { opacity:.85; }
+.yp-divider { height:1px; background:var(--border); margin:6px 0; }
 /* Refresh button */
 .btn-sync { display:flex; align-items:center; gap:6px; margin-top:12px; width:100%; justify-content:center; padding:8px; border-radius:10px; border:1px solid var(--border); background:var(--bg2); color:var(--text); font-size:13px; cursor:pointer; transition:all .2s; }
 .btn-sync:hover { border-color:var(--purple); background:rgba(124,92,245,.08); }
@@ -256,10 +287,14 @@ main { display:grid; grid-template-columns:1fr 360px; gap:24px; padding:28px; ma
   <div class="search-wrap">
     <span>🔍</span>
     <input type="text" id="searchInput" placeholder="지식 검색... (예: 안전모, 엑셀 병합, 공자 명언)" oninput="debounceSearch()">
-    <select id="searchYear" style="border:none;background:transparent;color:var(--purple);font-size:12px;font-weight:600;cursor:pointer;outline:none;font-family:inherit" onchange="debounceSearch()">
-      <option value="2026">연도 로딩중...</option>
-      <option value="all">전체</option>
-    </select>
+    <div class="year-picker-wrap">
+      <button type="button" class="year-picker-btn" onclick="toggleYearPicker()" id="yearPickerBtn">2026년 ▾</button>
+      <div class="year-picker-popup" id="yearPickerPopup">
+        <div id="yearCheckboxes"></div>
+        <div class="yp-divider"></div>
+        <button type="button" class="yp-apply" onclick="applyYearFilter()">적용</button>
+      </div>
+    </div>
     <span id="searchClear" style="cursor:pointer;display:none;color:var(--muted)" onclick="clearSearch()">✕</span>
   </div>
   <div class="search-results" id="searchResults"></div>
@@ -503,22 +538,8 @@ async function fetchSearchIndex() {
       const bytes = new Uint8Array([...raw].map(c => c.charCodeAt(0)));
       searchYears = JSON.parse(new TextDecoder('utf-8').decode(bytes));
       console.log(`🔍 Search years: ${searchYears.join(', ')}`);
-      // Populate year selector dynamically
-      const sel = document.getElementById('searchYear');
-      sel.innerHTML = '';
-      // Add each year (newest first)
-      const reversedYears = [...searchYears].reverse();
-      for (const yr of reversedYears) {
-        const opt = document.createElement('option');
-        opt.value = yr;
-        opt.textContent = yr + '년';
-        sel.appendChild(opt);
-      }
-      // Add "전체" at the end
-      const allOpt = document.createElement('option');
-      allOpt.value = 'all';
-      allOpt.textContent = '전체';
-      sel.appendChild(allOpt);
+      // Populate year checkboxes dynamically
+      populateYearCheckboxes();
       // Pre-load current year index
       const curYr = String(new Date().getFullYear());
       if (searchYears.includes(curYr)) await loadYearIndex(curYr);
@@ -1060,6 +1081,71 @@ async function syncData() {
   btn.querySelector('.sync-icon').textContent = '🔄';
 }
 
+
+// ── Year Picker ──
+let selectedSearchYears = []; // will be set to current year on load
+
+function populateYearCheckboxes() {
+  const container = document.getElementById('yearCheckboxes');
+  if (!container) return;
+  const curYr = String(new Date().getFullYear());
+  selectedSearchYears = searchYears.includes(curYr) ? [curYr] : [...searchYears];
+  const reversed = [...searchYears].reverse();
+  container.innerHTML = reversed.map(yr => {
+    const checked = selectedSearchYears.includes(yr) ? 'checked' : '';
+    return `<div class="yp-item" onclick="event.stopPropagation()">
+      <input type="checkbox" id="yp_${yr}" value="${yr}" ${checked} onchange="updateYearBtnLabel()">
+      <label for="yp_${yr}">${yr}년</label>
+    </div>`;
+  }).join('');
+  updateYearBtnLabel();
+}
+
+function toggleYearPicker() {
+  const popup = document.getElementById('yearPickerPopup');
+  popup.classList.toggle('active');
+  if (popup.classList.contains('active')) {
+    // Close when clicking outside
+    setTimeout(() => {
+      document.addEventListener('click', closeYearPickerOutside);
+    }, 10);
+  }
+}
+
+function closeYearPickerOutside(e) {
+  const wrap = document.querySelector('.year-picker-wrap');
+  if (wrap && !wrap.contains(e.target)) {
+    document.getElementById('yearPickerPopup').classList.remove('active');
+    document.removeEventListener('click', closeYearPickerOutside);
+  }
+}
+
+function getSelectedYears() {
+  const boxes = document.querySelectorAll('#yearCheckboxes input[type=checkbox]:checked');
+  return [...boxes].map(b => b.value);
+}
+
+function updateYearBtnLabel() {
+  const btn = document.getElementById('yearPickerBtn');
+  const checked = getSelectedYears();
+  if (checked.length === 0 || checked.length === searchYears.length) {
+    btn.textContent = '전체 ▾';
+  } else if (checked.length === 1) {
+    btn.textContent = checked[0] + '년 ▾';
+  } else {
+    btn.textContent = checked[0] + '년 외 ' + (checked.length - 1) + '개 ▾';
+  }
+}
+
+function applyYearFilter() {
+  selectedSearchYears = getSelectedYears();
+  document.getElementById('yearPickerPopup').classList.remove('active');
+  document.removeEventListener('click', closeYearPickerOutside);
+  // Re-trigger search if there's a query
+  const q = document.getElementById('searchInput').value.trim();
+  if (q) doSearch(q);
+}
+
 // ── Search ──
 let searchTimer = null;
 function debounceSearch() {
@@ -1079,16 +1165,11 @@ async function doSearch(query) {
   results.innerHTML = '<div class="sr-empty">✨ 검색 중...</div>';
   results.classList.add('active');
   const q = query.toLowerCase();
-  const yearSel = document.getElementById('searchYear').value;
   let items = [];
 
-  // Determine which years to search
-  let yearsToSearch = [];
-  if (yearSel === 'all') {
-    yearsToSearch = [...searchYears].reverse(); // newest first
-  } else {
-    yearsToSearch = [yearSel]; // specific year
-  }
+  // Determine which years to search from checkboxes
+  const checkedYears = getSelectedYears();
+  let yearsToSearch = checkedYears.length > 0 ? checkedYears : [...searchYears].reverse();
 
   // Load and search each year
   for (const yr of yearsToSearch) {
