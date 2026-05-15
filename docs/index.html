@@ -255,7 +255,11 @@ main { display:grid; grid-template-columns:1fr 360px; gap:24px; padding:28px; ma
 <div class="search-bar">
   <div class="search-wrap">
     <span>🔍</span>
-    <input type="text" id="searchInput" placeholder="지식 검색... (예: 엑셀 병합, 공자 명언)" oninput="debounceSearch()">
+    <input type="text" id="searchInput" placeholder="지식 검색... (예: 안전모, 엑셀 병합, 공자 명언)" oninput="debounceSearch()">
+    <select id="searchYear" style="border:none;background:transparent;color:var(--purple);font-size:12px;font-weight:600;cursor:pointer;outline:none;font-family:inherit" onchange="debounceSearch()">
+      <option value="current">올해</option>
+      <option value="all">전체 연도</option>
+    </select>
     <span id="searchClear" style="cursor:pointer;display:none;color:var(--muted)" onclick="clearSearch()">✕</span>
   </div>
   <div class="search-results" id="searchResults"></div>
@@ -366,6 +370,8 @@ let curYear, curMonth, selectedDate = null;
 const existingDates = new Set();
 let categoryData = {}; // { '2026-05-06': ['AI공부'], ... }
 let searchIndex = []; // [{d,n,c,t,s}, ...]
+let searchYears = []; // ['2026','2027',...]
+let searchYearCache = {}; // { '2026': [...], ... }
 let selectedCategory = '';
 const CATEGORIES = [
   { key:'AI공부', label:'AI공부', cls:'cat-ai' },
@@ -486,18 +492,37 @@ async function fetchCategoryData() {
 async function fetchSearchIndex() {
   try {
     const cacheBust = `_t=${Date.now()}`;
-    const apiUrl = `https://api.github.com/repos/${CFG.owner}/${CFG.repo}/contents/${CFG.base}/_search_index.json?ref=${CFG.branch}&${cacheBust}`;
+    // Load year manifest
+    const yearUrl = `https://api.github.com/repos/${CFG.owner}/${CFG.repo}/contents/${CFG.base}/_search_years.json?ref=${CFG.branch}&${cacheBust}`;
     const headers = { 'Accept': 'application/vnd.github.v3+json' };
     if (CFG.token) headers['Authorization'] = `token ${CFG.token}`;
-    const res = await fetch(apiUrl, { headers, cache: 'no-store' });
+    const res = await fetch(yearUrl, { headers, cache: 'no-store' });
     if (res.ok) {
       const data = await res.json();
       const raw = atob(data.content.replace(/\n/g,''));
       const bytes = new Uint8Array([...raw].map(c => c.charCodeAt(0)));
-      searchIndex = JSON.parse(new TextDecoder('utf-8').decode(bytes));
-      console.log(`🔍 Search index loaded: ${searchIndex.length} entries`);
+      searchYears = JSON.parse(new TextDecoder('utf-8').decode(bytes));
+      console.log(`🔍 Search years: ${searchYears.join(', ')}`);
+      // Pre-load current year index
+      const curYr = String(new Date().getFullYear());
+      if (searchYears.includes(curYr)) await loadYearIndex(curYr);
     }
-  } catch(e) { console.warn('fetchSearchIndex:', e); searchIndex = []; }
+  } catch(e) { console.warn('fetchSearchIndex:', e); searchYears = []; }
+}
+
+async function loadYearIndex(year) {
+  if (searchYearCache[year]) return searchYearCache[year];
+  try {
+    const url = `https://raw.githubusercontent.com/${CFG.owner}/${CFG.repo}/${CFG.branch}/${CFG.base}/_search_index_${year}.json?_t=${Date.now()}`;
+    const res = await fetch(url, { cache: 'no-store' });
+    if (res.ok) {
+      const data = await res.json();
+      searchYearCache[year] = data;
+      console.log(`📅 Loaded ${year}: ${data.length} entries`);
+      return data;
+    }
+  } catch(e) { console.warn(`loadYearIndex(${year}):`, e); }
+  return [];
 }
 
 async function saveCategoryData() {
@@ -1038,18 +1063,29 @@ async function doSearch(query) {
   results.innerHTML = '<div class="sr-empty">✨ 검색 중...</div>';
   results.classList.add('active');
   const q = query.toLowerCase();
+  const yearSel = document.getElementById('searchYear').value;
   let items = [];
 
-  // 1) Search in search index (title + content)
-  if (searchIndex.length > 0) {
-    for (const entry of searchIndex) {
+  // Determine which years to search
+  let yearsToSearch = [];
+  if (yearSel === 'current') {
+    yearsToSearch = [String(new Date().getFullYear())];
+  } else {
+    yearsToSearch = [...searchYears].reverse(); // newest first
+  }
+
+  // Load and search each year
+  for (const yr of yearsToSearch) {
+    if (!searchYears.includes(yr)) continue;
+    const entries = await loadYearIndex(yr);
+    for (const entry of entries) {
       const titleText = (entry.t + ' ' + entry.n).toLowerCase();
       const contentText = (entry.s || '').toLowerCase();
       const inTitle = titleText.includes(q);
       const inContent = contentText.includes(q);
       if (inTitle || inContent) {
         let snippet = '';
-        if (inContent && !inTitle) {
+        if (inContent) {
           const idx = contentText.indexOf(q);
           const start = Math.max(0, idx - 40);
           const end = Math.min(entry.s.length, idx + q.length + 40);
@@ -1058,8 +1094,10 @@ async function doSearch(query) {
         items.push({ date: entry.d, name: entry.n, cat: entry.c, title: entry.t, matchType: inTitle ? '제목' : '내용', snippet });
       }
     }
-  } else {
-    // Fallback: search categoryData (filename only)
+  }
+
+  // Fallback: search categoryData if no index available
+  if (items.length === 0 && searchYears.length === 0) {
     for (const [date, cats] of Object.entries(categoryData)) {
       if (typeof cats !== 'object') continue;
       for (const [cat, fnames] of Object.entries(cats)) {
@@ -1070,26 +1108,6 @@ async function doSearch(query) {
         }
       }
     }
-  }
-
-  // 2) GitHub Search API fallback (if few results)
-  if (CFG.token && items.length < 5) {
-    try {
-      const res = await fetch(`https://api.github.com/search/code?q=${encodeURIComponent(query)}+repo:${CFG.owner}/${CFG.repo}+path:00_Raw+extension:md`, {
-        headers: { Authorization: `token ${CFG.token}`, Accept: 'application/vnd.github.v3+json' }
-      }).then(r => r.json());
-      if (res.items) {
-        for (const item of res.items) {
-          const parts = item.path.split('/');
-          if (parts.length >= 3) {
-            const date = parts[1], name = parts.slice(2).join('/');
-            if (!items.find(i => i.date === date && i.name === name)) {
-              items.push({ date, name, cat: '검색결과', matchType: 'API' });
-            }
-          }
-        }
-      }
-    } catch(e) { console.warn('search api:', e); }
   }
 
   if (items.length === 0) {

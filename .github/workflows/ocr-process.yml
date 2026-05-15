@@ -686,11 +686,13 @@ jobs:
           with open(os.path.join(raw, '_categories.json'), 'r') as f:
               json.load(f)
           print(f'✅ _categories.json rebuilt: {len(d)} dates')
-          # Build search index for content search
-          si = []
+          # Build year-split search index (full content)
+          by_year = {}
           for e2 in sorted(os.listdir(raw)):
               fp2 = os.path.join(raw, e2)
               if not os.path.isdir(fp2) or not re.match(r'\d{4}-\d{2}-\d{2}', e2): continue
+              year = e2[:4]
+              if year not in by_year: by_year[year] = []
               for fn2 in sorted(os.listdir(fp2)):
                   if fn2.startswith('_') or fn2.startswith('.') or fn2 == 'README.md': continue
                   if not fn2.endswith('.md'): continue
@@ -699,7 +701,7 @@ jobs:
                       with open(os.path.join(fp2, fn2), 'r', encoding='utf-8') as f2: ct2 = f2.read()
                   except: pass
                   tl = fn2.replace('.md','')
-                  tm = re.search(r'title:\s*["\']?(.+?)["\']?\s*$', ct2, re.MULTILINE)
+                  tm = re.search(r'title:\s*["\'\']?(.+?)["\'\']?\s*$', ct2, re.MULTILINE)
                   if tm: tl = tm.group(1).strip().strip('"').strip("'")
                   cf = '기타'
                   if e2 in d:
@@ -708,14 +710,23 @@ jobs:
                   body = ct2
                   fe = ct2.find('---', 3)
                   if ct2.startswith('---') and fe > 0: body = ct2[fe+3:]
-                  si.append({'d':e2,'n':fn2,'c':cf,'t':tl,'s':body[:300].replace('\n',' ')})
-          with open(os.path.join(raw, '_search_index.json'), 'w', encoding='utf-8') as f:
-              json.dump(si, f, ensure_ascii=False)
-          print(f'✅ _search_index.json built: {len(si)} entries')
+                  by_year[year].append({'d':e2,'n':fn2,'c':cf,'t':tl,'s':body.replace('\n',' ')})
+          all_years = sorted(by_year.keys())
+          for yr, entries in by_year.items():
+              with open(os.path.join(raw, f'_search_index_{yr}.json'), 'w', encoding='utf-8') as f:
+                  json.dump(entries, f, ensure_ascii=False)
+          with open(os.path.join(raw, '_search_years.json'), 'w', encoding='utf-8') as f:
+              json.dump(all_years, f, ensure_ascii=False)
+          total = sum(len(v) for v in by_year.values())
+          print(f'Search index: {total} entries across {len(all_years)} years: {all_years}')
+          old_idx = os.path.join(raw, '_search_index.json')
+          if os.path.exists(old_idx): os.remove(old_idx)
           PYEOF
           
-          # Commit the fresh _categories.json
-          git add 00_Raw/_categories.json 00_Raw/_search_index.json
+          # Commit categories + search indexes
+          git add 00_Raw/_categories.json 00_Raw/_search_years.json
+          for f in 00_Raw/_search_index_*.json; do git add "$f"; done
+          git rm -f 00_Raw/_search_index.json 2>/dev/null || true
           git diff --cached --quiet || git commit -m "[P-Reinforce] 🏷️ 카테고리 분류"
           
           # Push with retry
