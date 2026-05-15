@@ -1145,7 +1145,7 @@ function closeYearPickerOutside(e) {
 }
 
 function getSelectedYears() {
-  const boxes = document.querySelectorAll('#yearCheckboxes input[type=checkbox]:checked');
+  const boxes = document.querySelectorAll('#yearCheckboxes input[type=checkbox][value]:checked');
   return [...boxes].map(b => b.value);
 }
 
