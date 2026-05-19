@@ -3482,6 +3482,24 @@
       "created": "2026-05-15T06:27:43.976Z",
       "lastUpdated": "2026-05-15T06:50:27.077Z",
       "accessCount": 0
+    },
+    "200f9ea1-33ea-4289-805d-15a4ff6c4f98": {
+      "title": "2026-05-19_Gemma4_파인튜닝_로컬LLM_배포",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\🚀 Skills\\2026-05-19_Gemma4_파인튜닝_로컬LLM_배포.md",
+      "category": "🚀 Skills",
+      "tags": [
+        "skills",
+        "워크플로우",
+        "skill",
+        "template",
+        "2026",
+        "05",
+        "19"
+      ],
+      "confidence": 0.36,
+      "created": "2026-05-19T06:42:09.917Z",
+      "lastUpdated": "2026-05-19T06:42:09.917Z",
+      "accessCount": 0
     }
   },
   "edges": [
@@ -10372,6 +10390,41 @@
       "type": "similarity",
       "weight": 0.22857142857142856,
       "created": "2026-05-15T06:27:43.978Z"
+    },
+    {
+      "source": "200f9ea1-33ea-4289-805d-15a4ff6c4f98",
+      "target": "344ca5dc-6fce-432a-8d7f-ecd23c275480",
+      "type": "similarity",
+      "weight": 0.3142857142857143,
+      "created": "2026-05-19T06:42:09.921Z"
+    },
+    {
+      "source": "200f9ea1-33ea-4289-805d-15a4ff6c4f98",
+      "target": "90eee726-94ac-4ec5-ab81-5caf1840f2ab",
+      "type": "similarity",
+      "weight": 0.3142857142857143,
+      "created": "2026-05-19T06:42:09.921Z"
+    },
+    {
+      "source": "200f9ea1-33ea-4289-805d-15a4ff6c4f98",
+      "target": "c670ac52-5fce-4000-867f-0cb68e5b260a",
+      "type": "similarity",
+      "weight": 0.3142857142857143,
+      "created": "2026-05-19T06:42:09.921Z"
+    },
+    {
+      "source": "200f9ea1-33ea-4289-805d-15a4ff6c4f98",
+      "target": "0b963505-dbf5-4ef0-b5b6-c50f6298ad2d",
+      "type": "similarity",
+      "weight": 0.3142857142857143,
+      "created": "2026-05-19T06:42:09.921Z"
+    },
+    {
+      "source": "200f9ea1-33ea-4289-805d-15a4ff6c4f98",
+      "target": "01845e0e-f7fb-4998-bf0e-0d2c29c9cbcb",
+      "type": "similarity",
+      "weight": 0.3142857142857143,
+      "created": "2026-05-19T06:42:09.921Z"
     }
   ]
 }
