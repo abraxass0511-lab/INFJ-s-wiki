@@ -177,7 +177,7 @@ async function archiveRaw(filePath) {
   
   try {
     await fs.copyFile(filePath, archivePath);
-    // 원본은 유지 (삭제는 사용자 선택)
+    await fs.unlink(filePath);  // 원본 삭제 (중복 처리 방지)
     console.log(`  📦 원본 아카이브: ${path.relative(CONFIG.ROOT, archivePath)}`);
   } catch (err) {
     console.log(`  ⚠️ 아카이브 실패: ${err.message}`);

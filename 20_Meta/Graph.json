@@ -3500,6 +3500,42 @@
       "created": "2026-05-19T06:42:09.917Z",
       "lastUpdated": "2026-05-19T06:42:09.917Z",
       "accessCount": 0
+    },
+    "66346d45-d0c9-4ac9-99cc-44a29932c974": {
+      "title": "2026-05-19_Gemma4_파인튜닝_로컬LLM_배포",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\🚀 Skills\\2026-05-19_Gemma4_파인튜닝_로컬LLM_배포.md",
+      "category": "🚀 Skills",
+      "tags": [
+        "skills",
+        "워크플로우",
+        "skill",
+        "template",
+        "2026",
+        "05",
+        "19"
+      ],
+      "confidence": 0.36,
+      "created": "2026-05-20T04:28:06.442Z",
+      "lastUpdated": "2026-05-20T04:28:06.443Z",
+      "accessCount": 0
+    },
+    "0019b3b8-f972-401f-91c1-72f27d6e467d": {
+      "title": "2026-05-20_Gemma4_학습성공_최적화전략",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\💡 Topics\\2026-05-20_Gemma4_학습성공_최적화전략.md",
+      "category": "💡 Topics",
+      "tags": [
+        "topics",
+        "ai",
+        "원리",
+        "llm",
+        "2026",
+        "05",
+        "20"
+      ],
+      "confidence": 0.52,
+      "created": "2026-05-20T04:28:06.918Z",
+      "lastUpdated": "2026-05-20T04:28:06.918Z",
+      "accessCount": 0
     }
   },
   "edges": [
@@ -10425,6 +10461,76 @@
       "type": "similarity",
       "weight": 0.3142857142857143,
       "created": "2026-05-19T06:42:09.921Z"
+    },
+    {
+      "source": "66346d45-d0c9-4ac9-99cc-44a29932c974",
+      "target": "200f9ea1-33ea-4289-805d-15a4ff6c4f98",
+      "type": "similarity",
+      "weight": 0.9,
+      "created": "2026-05-20T04:28:06.445Z"
+    },
+    {
+      "source": "66346d45-d0c9-4ac9-99cc-44a29932c974",
+      "target": "344ca5dc-6fce-432a-8d7f-ecd23c275480",
+      "type": "similarity",
+      "weight": 0.3142857142857143,
+      "created": "2026-05-20T04:28:06.446Z"
+    },
+    {
+      "source": "66346d45-d0c9-4ac9-99cc-44a29932c974",
+      "target": "90eee726-94ac-4ec5-ab81-5caf1840f2ab",
+      "type": "similarity",
+      "weight": 0.3142857142857143,
+      "created": "2026-05-20T04:28:06.446Z"
+    },
+    {
+      "source": "66346d45-d0c9-4ac9-99cc-44a29932c974",
+      "target": "c670ac52-5fce-4000-867f-0cb68e5b260a",
+      "type": "similarity",
+      "weight": 0.3142857142857143,
+      "created": "2026-05-20T04:28:06.446Z"
+    },
+    {
+      "source": "66346d45-d0c9-4ac9-99cc-44a29932c974",
+      "target": "0b963505-dbf5-4ef0-b5b6-c50f6298ad2d",
+      "type": "similarity",
+      "weight": 0.3142857142857143,
+      "created": "2026-05-20T04:28:06.446Z"
+    },
+    {
+      "source": "0019b3b8-f972-401f-91c1-72f27d6e467d",
+      "target": "f1ad5a3d-97d5-48ce-a017-9d43743b85be",
+      "type": "similarity",
+      "weight": 0.3,
+      "created": "2026-05-20T04:28:06.922Z"
+    },
+    {
+      "source": "0019b3b8-f972-401f-91c1-72f27d6e467d",
+      "target": "d41507c1-d963-4419-a1b5-179cb3a80c6d",
+      "type": "similarity",
+      "weight": 0.22,
+      "created": "2026-05-20T04:28:06.922Z"
+    },
+    {
+      "source": "0019b3b8-f972-401f-91c1-72f27d6e467d",
+      "target": "c758a9d8-2bbe-40e6-9273-9e9ec2d58232",
+      "type": "similarity",
+      "weight": 0.22,
+      "created": "2026-05-20T04:28:06.922Z"
+    },
+    {
+      "source": "0019b3b8-f972-401f-91c1-72f27d6e467d",
+      "target": "7e5ac51b-2999-48fe-a034-0937a919af6c",
+      "type": "similarity",
+      "weight": 0.22,
+      "created": "2026-05-20T04:28:06.922Z"
+    },
+    {
+      "source": "0019b3b8-f972-401f-91c1-72f27d6e467d",
+      "target": "6839d52d-21d5-450a-ac25-8e0d6df8cffd",
+      "type": "similarity",
+      "weight": 0.22,
+      "created": "2026-05-20T04:28:06.922Z"
     }
   ]
 }
