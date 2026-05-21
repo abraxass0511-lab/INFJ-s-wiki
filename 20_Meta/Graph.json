@@ -3536,6 +3536,24 @@
       "created": "2026-05-20T04:28:06.918Z",
       "lastUpdated": "2026-05-20T04:28:06.918Z",
       "accessCount": 0
+    },
+    "9d3d39de-df92-47c7-ba87-b719d80dfa56": {
+      "title": "2026-05-21_카글_GGUF변환_환경비교",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\⚖️ Decisions\\2026-05-21_카글_GGUF변환_환경비교.md",
+      "category": "⚖️ Decisions",
+      "tags": [
+        "decisions",
+        "vs",
+        "비교",
+        "선택",
+        "2026",
+        "05",
+        "21"
+      ],
+      "confidence": 0.41,
+      "created": "2026-05-21T06:45:26.829Z",
+      "lastUpdated": "2026-05-21T06:45:26.829Z",
+      "accessCount": 0
     }
   },
   "edges": [
@@ -10531,6 +10549,41 @@
       "type": "similarity",
       "weight": 0.22,
       "created": "2026-05-20T04:28:06.922Z"
+    },
+    {
+      "source": "9d3d39de-df92-47c7-ba87-b719d80dfa56",
+      "target": "b926596b-1fb0-44ab-8968-a2c77a0dc5b9",
+      "type": "similarity",
+      "weight": 0.3142857142857143,
+      "created": "2026-05-21T06:45:26.837Z"
+    },
+    {
+      "source": "9d3d39de-df92-47c7-ba87-b719d80dfa56",
+      "target": "799ba78c-099a-484f-88d0-c6c7bb6a07a0",
+      "type": "similarity",
+      "weight": 0.3142857142857143,
+      "created": "2026-05-21T06:45:26.837Z"
+    },
+    {
+      "source": "9d3d39de-df92-47c7-ba87-b719d80dfa56",
+      "target": "453ff38f-b1f4-4f5f-bb10-b939b6aa4127",
+      "type": "similarity",
+      "weight": 0.3142857142857143,
+      "created": "2026-05-21T06:45:26.837Z"
+    },
+    {
+      "source": "9d3d39de-df92-47c7-ba87-b719d80dfa56",
+      "target": "3d888046-c130-4108-9838-73282534effa",
+      "type": "similarity",
+      "weight": 0.3142857142857143,
+      "created": "2026-05-21T06:45:26.837Z"
+    },
+    {
+      "source": "9d3d39de-df92-47c7-ba87-b719d80dfa56",
+      "target": "7660654e-734d-46fa-bfbb-64ed2a966b1a",
+      "type": "similarity",
+      "weight": 0.3142857142857143,
+      "created": "2026-05-21T06:45:26.837Z"
     }
   ]
 }
