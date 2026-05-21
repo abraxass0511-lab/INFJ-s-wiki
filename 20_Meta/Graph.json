@@ -3554,6 +3554,24 @@
       "created": "2026-05-21T06:45:26.829Z",
       "lastUpdated": "2026-05-21T06:45:26.829Z",
       "accessCount": 0
+    },
+    "dc59ca60-e67b-4013-89c8-a001aedd6004": {
+      "title": "2026-05-21_카글_GGUF변환_환경비교",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\⚖️ Decisions\\2026-05-21_카글_GGUF변환_환경비교.md",
+      "category": "⚖️ Decisions",
+      "tags": [
+        "decisions",
+        "vs",
+        "비교",
+        "선택",
+        "2026",
+        "05",
+        "21"
+      ],
+      "confidence": 0.41,
+      "created": "2026-05-21T06:50:11.500Z",
+      "lastUpdated": "2026-05-21T06:50:11.500Z",
+      "accessCount": 0
     }
   },
   "edges": [
@@ -10584,6 +10602,41 @@
       "type": "similarity",
       "weight": 0.3142857142857143,
       "created": "2026-05-21T06:45:26.837Z"
+    },
+    {
+      "source": "dc59ca60-e67b-4013-89c8-a001aedd6004",
+      "target": "9d3d39de-df92-47c7-ba87-b719d80dfa56",
+      "type": "similarity",
+      "weight": 0.8571428571428571,
+      "created": "2026-05-21T06:50:11.512Z"
+    },
+    {
+      "source": "dc59ca60-e67b-4013-89c8-a001aedd6004",
+      "target": "b926596b-1fb0-44ab-8968-a2c77a0dc5b9",
+      "type": "similarity",
+      "weight": 0.3142857142857143,
+      "created": "2026-05-21T06:50:11.512Z"
+    },
+    {
+      "source": "dc59ca60-e67b-4013-89c8-a001aedd6004",
+      "target": "799ba78c-099a-484f-88d0-c6c7bb6a07a0",
+      "type": "similarity",
+      "weight": 0.3142857142857143,
+      "created": "2026-05-21T06:50:11.512Z"
+    },
+    {
+      "source": "dc59ca60-e67b-4013-89c8-a001aedd6004",
+      "target": "453ff38f-b1f4-4f5f-bb10-b939b6aa4127",
+      "type": "similarity",
+      "weight": 0.3142857142857143,
+      "created": "2026-05-21T06:50:11.512Z"
+    },
+    {
+      "source": "dc59ca60-e67b-4013-89c8-a001aedd6004",
+      "target": "3d888046-c130-4108-9838-73282534effa",
+      "type": "similarity",
+      "weight": 0.3142857142857143,
+      "created": "2026-05-21T06:50:11.512Z"
     }
   ]
 }
