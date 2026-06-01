@@ -231,32 +231,66 @@ export async function processAllRaw() {
   const rawPath = CONFIG.PATHS.RAW;
   
   try {
-    const entries = await fs.readdir(rawPath, { withFileTypes: true });
     const files = [];
     
-    for (const entry of entries) {
+    // 00_Raw 루트의 파일
+    const rootEntries = await fs.readdir(rawPath, { withFileTypes: true });
+    for (const entry of rootEntries) {
       if (entry.isFile() && entry.name !== 'README.md' && (entry.name.endsWith('.md') || entry.name.endsWith('.txt'))) {
         files.push(path.join(rawPath, entry.name));
       }
     }
     
-    if (files.length === 0) {
+    // 00_Raw 하위 날짜 폴더 (YYYY-MM-DD) 탐색
+    for (const entry of rootEntries) {
+      if (entry.isDirectory() && /^\d{4}-\d{2}-\d{2}$/.test(entry.name)) {
+        const subDir = path.join(rawPath, entry.name);
+        const subEntries = await fs.readdir(subDir, { withFileTypes: true });
+        for (const subEntry of subEntries) {
+          if (subEntry.isFile() && (subEntry.name.endsWith('.md') || subEntry.name.endsWith('.txt'))) {
+            files.push(path.join(subDir, subEntry.name));
+          }
+        }
+      }
+    }
+    
+    // 이미 10_Wiki에 있는 파일 제외
+    const wikiPath = CONFIG.PATHS.WIKI || path.join(CONFIG.ROOT, '10_Wiki');
+    let wikiFiles = [];
+    try {
+      const walkWiki = async (dir) => {
+        const entries = await fs.readdir(dir, { withFileTypes: true });
+        for (const e of entries) {
+          if (e.isFile() && e.name.endsWith('.md')) wikiFiles.push(e.name);
+          if (e.isDirectory()) await walkWiki(path.join(dir, e.name));
+        }
+      };
+      await walkWiki(wikiPath);
+    } catch { /* Wiki 폴더 없으면 무시 */ }
+    
+    const unprocessed = files.filter(f => {
+      const baseName = path.basename(f);
+      const cleanName = baseName.replace(/^\d{4}-\d{2}-\d{2}_/, '');
+      return !wikiFiles.some(w => w === baseName || w.includes(cleanName.replace('.md', '').replace(/^(루나|알파|레오|위키)_/, '')));
+    });
+    
+    if (unprocessed.length === 0) {
       console.log('📭 처리할 파일이 없습니다.');
       return { processed: 0, results: [] };
     }
     
-    console.log(`\n🚀 ${files.length}개 파일 배치 처리 시작\n`);
+    console.log(`\n🚀 ${unprocessed.length}개 파일 배치 처리 시작 (총 ${files.length}개 중 미처리분)\n`);
     
     const results = [];
-    for (const file of files) {
+    for (const file of unprocessed) {
       const result = await processDocument(file);
       results.push(result);
     }
     
     const successful = results.filter(r => r.success).length;
-    console.log(`\n📊 처리 완료: ${successful}/${files.length} 성공\n`);
+    console.log(`\n📊 처리 완료: ${successful}/${unprocessed.length} 성공\n`);
     
-    return { processed: files.length, results };
+    return { processed: unprocessed.length, results };
   } catch (err) {
     console.error(`배치 처리 에러: ${err.message}`);
     return { processed: 0, results: [], error: err.message };

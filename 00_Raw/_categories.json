@@ -42,7 +42,7 @@
     ]
   },
   "2026-04-18": {
-    "AI공부": [
+    "유튜브": [
       "2026-04-18_로컬_AI_파이프라인_완성.md"
     ]
   },
@@ -66,11 +66,11 @@
   },
   "2026-04-24": {
     "AI공부": [
-      "2026-04-24_루나_SKILL전문읽기_절대규칙.md",
-      "2026-04-24_루나_별도음악_별도이미지_절대규칙.md"
+      "2026-04-24_루나_SKILL전문읽기_절대규칙.md"
     ],
     "유튜브": [
-      "2026-04-24_루나_v6시퀀셜내러티브_3타입전략_학습.md"
+      "2026-04-24_루나_v6시퀀셜내러티브_3타입전략_학습.md",
+      "2026-04-24_루나_별도음악_별도이미지_절대규칙.md"
     ]
   },
   "2026-05-04": {
@@ -202,6 +202,75 @@
   "2026-05-21": {
     "AI공부": [
       "2026-05-21_카글_GGUF변환_환경비교.md"
+    ]
+  },
+  "2026-06-01": {
+    "유튜브": [
+      "luna_vault_2026-04-16_Shorts_3개_업로드_-_비트싱크_렌더러_전환.md",
+      "시네마그래프_v4_CTR최적화_3편업로드.md"
+    ],
+    "AI공부": [
+      "debug_area1.md",
+      "debug_area2.md",
+      "debug_area3.md",
+      "debug_candidate_x167.md",
+      "debug_candidate_x334.md",
+      "debug_candidate_x435.md",
+      "debug_candidate_x592.md",
+      "debug_candidate_x76.md",
+      "debug_check_dot.md",
+      "debug_clean_patch.md",
+      "debug_dot_245_491.md",
+      "debug_dot_393_537.md",
+      "debug_dot_459_537.md",
+      "debug_dot_removed.md",
+      "debug_final.md",
+      "debug_final2.md",
+      "debug_full_line.md",
+      "debug_gaeseol.md",
+      "debug_gaeseori.md",
+      "debug_gaesul.md",
+      "debug_gaesuli_zoom.md",
+      "debug_i_below.md",
+      "debug_i_pilyo.md",
+      "debug_jayurown.md",
+      "debug_patched.md",
+      "debug_text_area.md",
+      "debug_two_lines.md",
+      "debug_zoom_dot.md",
+      "debug_zoom_i.md",
+      "detected_full_qr_area.md",
+      "detected_qr_precise.md",
+      "detected_qr_region.md",
+      "Gemini_Generated_Image_42mwsi42mwsi42mw.md",
+      "2026-06-01_Gemma4_LoRA_코드구현_디버깅패턴.md",
+      "2026-06-01_Gemma4_LoRA_파인튜닝_전체과정_하이브리드아키텍처.md",
+      "2026-06-01_QA데이터_축적시스템_주간루프_HF백업.md",
+      "2026-06-01_노하우_코드_지식자산화_회고템플릿.md"
+    ],
+    "1인기업": [
+      "result_guide_new_qr.md",
+      "2026-06-01_AntigravitySDK_윈도우_WSL2_설치_로컬AI연동.md"
+    ]
+  },
+  "2026-05-28": {
+    "1인기업": [
+      "2026-05-28_Firebase_Google_Auth_GitHub_Actions_CI_CD.md",
+      "2026-05-28_사진동영상_크기용량_변환기_개발_전체기록.md"
+    ]
+  },
+  "2026-05-29": {
+    "AI공부": [
+      "2026-05-29_Flutter_앱_개발_v1-v11_전체기록.md"
+    ],
+    "1인기업": [
+      "2026-05-29_사진동영상_전송기_서버_개발_전체기록.md"
+    ]
+  },
+  "2026-05-30": {
+    "1인기업": [
+      "2026-05-30_알파_승인_미실행_버그수정_모의실전_자동분기.md",
+      "2026-05-30_포토백업_v12-v18_GPS_위치기반_폴더명.md"
     ]
   }
 }
