@@ -254,6 +254,10 @@ export async function processAllRaw() {
       }
     }
     
+    // 쓰레기 파일 제외 (OCR 잔해, 디버그 파일 등)
+    const JUNK_PATTERNS = /^(debug_|detected_|result_|Gemini_Generated)/;
+    const cleanFiles = files.filter(f => !JUNK_PATTERNS.test(path.basename(f)));
+    
     // 이미 10_Wiki에 있는 파일 제외
     const wikiPath = CONFIG.PATHS.WIKI || path.join(CONFIG.ROOT, '10_Wiki');
     let wikiFiles = [];
@@ -268,7 +272,7 @@ export async function processAllRaw() {
       await walkWiki(wikiPath);
     } catch { /* Wiki 폴더 없으면 무시 */ }
     
-    const unprocessed = files.filter(f => {
+    const unprocessed = cleanFiles.filter(f => {
       const baseName = path.basename(f);
       const cleanName = baseName.replace(/^\d{4}-\d{2}-\d{2}_/, '');
       return !wikiFiles.some(w => w === baseName || w.includes(cleanName.replace('.md', '').replace(/^(루나|알파|레오|위키)_/, '')));
