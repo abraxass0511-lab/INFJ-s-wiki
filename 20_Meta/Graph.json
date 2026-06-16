@@ -770,6 +770,370 @@
       "created": "2026-06-01T03:30:02.382Z",
       "lastUpdated": "2026-06-01T03:30:02.382Z",
       "accessCount": 0
+    },
+    "cd160fe7-7201-46f9-a5d1-9ed32656ac6b": {
+      "title": "QR_코드의_이해와_활용",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\💡 Topics\\QR_코드의_이해와_활용.md",
+      "category": "💡 Topics",
+      "tags": [
+        "topics",
+        "코딩",
+        "원리",
+        "ai",
+        "qr",
+        "코드의",
+        "이해와"
+      ],
+      "confidence": 0.52,
+      "created": "2026-06-16T06:38:01.292Z",
+      "lastUpdated": "2026-06-16T06:38:01.292Z",
+      "accessCount": 0
+    },
+    "75d231f3-1934-4cc0-b4dc-6f461d4d4a50": {
+      "title": "금융상품의_퇴직_배당_세액공제_특징_및_지급_안내",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\⚖️ Decisions\\금융상품의_퇴직_배당_세액공제_특징_및_지급_안내.md",
+      "category": "⚖️ Decisions",
+      "tags": [
+        "decisions",
+        "전략",
+        "금융상품의",
+        "퇴직",
+        "배당"
+      ],
+      "confidence": 0.25,
+      "created": "2026-06-16T06:38:01.822Z",
+      "lastUpdated": "2026-06-16T06:38:01.822Z",
+      "accessCount": 0
+    },
+    "c1ed0590-4b3f-4439-9217-e5f236cd8736": {
+      "title": "배당_수령을_위한_필수_개설_조건",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\💡 Topics\\배당_수령을_위한_필수_개설_조건.md",
+      "category": "💡 Topics",
+      "tags": [
+        "topics",
+        "ai",
+        "배당",
+        "수령을",
+        "위한"
+      ],
+      "confidence": 0.44,
+      "created": "2026-06-16T06:38:02.158Z",
+      "lastUpdated": "2026-06-16T06:38:02.158Z",
+      "accessCount": 0
+    },
+    "8bb6f30f-1afb-4fc5-998e-08d1e81e18ed": {
+      "title": "배당_필수_및_개설_필요_조건_단편_정보",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\💡 Topics\\배당_필수_및_개설_필요_조건_단편_정보.md",
+      "category": "💡 Topics",
+      "tags": [
+        "topics",
+        "ai",
+        "배당",
+        "필수",
+        "개설"
+      ],
+      "confidence": 0.32,
+      "created": "2026-06-16T06:38:02.493Z",
+      "lastUpdated": "2026-06-16T06:38:02.493Z",
+      "accessCount": 0
+    },
+    "1d390a21-dbd1-460b-8397-a4d67a36a6e9": {
+      "title": "배당_필수_입출금_통장_요구사항",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\💡 Topics\\배당_필수_입출금_통장_요구사항.md",
+      "category": "💡 Topics",
+      "tags": [
+        "topics",
+        "ai",
+        "배당",
+        "필수",
+        "입출금"
+      ],
+      "confidence": 0.45,
+      "created": "2026-06-16T06:38:02.833Z",
+      "lastUpdated": "2026-06-16T06:38:02.833Z",
+      "accessCount": 0
+    },
+    "11fa3c8b-7b3e-4b86-b48f-653da1d04ca4": {
+      "title": "배당금_지급_입출금_통장_개설_필수_안내",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\💡 Topics\\배당금_지급_입출금_통장_개설_필수_안내.md",
+      "category": "💡 Topics",
+      "tags": [
+        "topics",
+        "ai",
+        "배당금",
+        "지급",
+        "입출금"
+      ],
+      "confidence": 0.46,
+      "created": "2026-06-16T06:38:03.168Z",
+      "lastUpdated": "2026-06-16T06:38:03.168Z",
+      "accessCount": 0
+    },
+    "2abe5215-7cf1-4bcc-a90f-2d85d53ff21e": {
+      "title": "배당금_지급_필수_입출금_통장_안내",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\💡 Topics\\배당금_지급_필수_입출금_통장_안내.md",
+      "category": "💡 Topics",
+      "tags": [
+        "topics",
+        "정의",
+        "ai",
+        "배당금",
+        "지급",
+        "필수"
+      ],
+      "confidence": 0.48,
+      "created": "2026-06-16T06:38:03.494Z",
+      "lastUpdated": "2026-06-16T06:38:03.494Z",
+      "accessCount": 0
+    },
+    "84940753-5fa8-492e-943b-34bbd6958382": {
+      "title": "배당금_지급을_위한_입출금_통장_개설_필수_안내",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\💡 Topics\\배당금_지급을_위한_입출금_통장_개설_필수_안내.md",
+      "category": "💡 Topics",
+      "tags": [
+        "topics",
+        "ai",
+        "배당금",
+        "지급을",
+        "위한"
+      ],
+      "confidence": 0.48,
+      "created": "2026-06-16T06:38:03.829Z",
+      "lastUpdated": "2026-06-16T06:38:03.829Z",
+      "accessCount": 0
+    },
+    "eedfbc40-4e1f-4237-ae47-f9d8c4c1c2ca": {
+      "title": "배당금_지급을_위한_필수_자유_계좌_안내",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\💡 Topics\\배당금_지급을_위한_필수_자유_계좌_안내.md",
+      "category": "💡 Topics",
+      "tags": [
+        "topics",
+        "ai",
+        "배당금",
+        "지급을",
+        "위한"
+      ],
+      "confidence": 0.49,
+      "created": "2026-06-16T06:38:04.158Z",
+      "lastUpdated": "2026-06-16T06:38:04.158Z",
+      "accessCount": 0
+    },
+    "5b822f72-f0af-4024-b241-48467a9eccbc": {
+      "title": "이미지_내용_분석_불가_텍스트_없는_시각적_조각",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\⚖️ Decisions\\이미지_내용_분석_불가_텍스트_없는_시각적_조각.md",
+      "category": "⚖️ Decisions",
+      "tags": [
+        "decisions",
+        "분석",
+        "이미지",
+        "내용"
+      ],
+      "confidence": 0.48,
+      "created": "2026-06-16T06:38:04.491Z",
+      "lastUpdated": "2026-06-16T06:38:04.491Z",
+      "accessCount": 0
+    },
+    "ae3db904-263f-48d1-b7ee-e00356b8011e": {
+      "title": "이미지_내용_불충분으로_인한_지식_문서화_불가",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\🚀 Skills\\이미지_내용_불충분으로_인한_지식_문서화_불가.md",
+      "category": "🚀 Skills",
+      "tags": [
+        "skills",
+        "방법",
+        "자동화",
+        "이미지",
+        "내용",
+        "불충분으로"
+      ],
+      "confidence": 0.46,
+      "created": "2026-06-16T06:38:04.816Z",
+      "lastUpdated": "2026-06-16T06:38:04.816Z",
+      "accessCount": 0
+    },
+    "ed7650fe-08d8-4208-8cfb-f6d9917736fa": {
+      "title": "이미지_내용_식별_불가_저해상도_픽셀화",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\🚀 Skills\\이미지_내용_식별_불가_저해상도_픽셀화.md",
+      "category": "🚀 Skills",
+      "tags": [
+        "skills",
+        "방법",
+        "패턴",
+        "도구",
+        "이미지",
+        "내용",
+        "식별"
+      ],
+      "confidence": 0.46,
+      "created": "2026-06-16T06:38:05.148Z",
+      "lastUpdated": "2026-06-16T06:38:05.148Z",
+      "accessCount": 0
+    },
+    "f1cbfa24-f7ed-4e24-866d-7af27ccf844d": {
+      "title": "이미지_텍스트_인식_불가_문서",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\💡 Topics\\이미지_텍스트_인식_불가_문서.md",
+      "category": "💡 Topics",
+      "tags": [
+        "topics",
+        "ai",
+        "이미지",
+        "텍스트",
+        "인식"
+      ],
+      "confidence": 0.78,
+      "created": "2026-06-16T06:38:05.506Z",
+      "lastUpdated": "2026-06-16T06:38:05.506Z",
+      "accessCount": 0
+    },
+    "64f5bef6-f092-43ce-ae3a-bbe25de208ff": {
+      "title": "정보_부족으로_분석이_어려운_픽셀화된_이미지",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\⚖️ Decisions\\정보_부족으로_분석이_어려운_픽셀화된_이미지.md",
+      "category": "⚖️ Decisions",
+      "tags": [
+        "decisions",
+        "분석",
+        "정보",
+        "부족으로",
+        "분석이"
+      ],
+      "confidence": 0.47,
+      "created": "2026-06-16T06:38:05.838Z",
+      "lastUpdated": "2026-06-16T06:38:05.838Z",
+      "accessCount": 0
+    },
+    "2254922b-2858-434f-a5d9-a499d4d2907c": {
+      "title": "추상적인_색상_블록_UI_요소_단편_분석",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\⚖️ Decisions\\추상적인_색상_블록_UI_요소_단편_분석.md",
+      "category": "⚖️ Decisions",
+      "tags": [
+        "decisions",
+        "분석",
+        "판단",
+        "추상적인",
+        "색상",
+        "블록"
+      ],
+      "confidence": 0.45,
+      "created": "2026-06-16T06:38:06.182Z",
+      "lastUpdated": "2026-06-16T06:38:06.182Z",
+      "accessCount": 0
+    },
+    "c76ddd09-93b4-495e-b61c-7155687ed920": {
+      "title": "퇴직금_지급_시기_및_배당금_수령_계좌_요건",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\💡 Topics\\퇴직금_지급_시기_및_배당금_수령_계좌_요건.md",
+      "category": "💡 Topics",
+      "tags": [
+        "topics",
+        "ai",
+        "퇴직금",
+        "지급",
+        "시기"
+      ],
+      "confidence": 0.28,
+      "created": "2026-06-16T06:38:06.522Z",
+      "lastUpdated": "2026-06-16T06:38:06.522Z",
+      "accessCount": 0
+    },
+    "dfca348a-6246-412b-95d7-700b1a640a16": {
+      "title": "판독_불가능한_이미지_분석_결과",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\⚖️ Decisions\\판독_불가능한_이미지_분석_결과.md",
+      "category": "⚖️ Decisions",
+      "tags": [
+        "decisions",
+        "분석",
+        "판독",
+        "불가능한",
+        "이미지"
+      ],
+      "confidence": 0.41,
+      "created": "2026-06-16T06:38:06.860Z",
+      "lastUpdated": "2026-06-16T06:38:06.860Z",
+      "accessCount": 0
+    },
+    "03ff1072-be96-4370-ae36-3cefa422b247": {
+      "title": "판독_불가능한_이미지_조각_분석_시도",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\⚖️ Decisions\\판독_불가능한_이미지_조각_분석_시도.md",
+      "category": "⚖️ Decisions",
+      "tags": [
+        "decisions",
+        "분석",
+        "판독",
+        "불가능한",
+        "이미지"
+      ],
+      "confidence": 0.46,
+      "created": "2026-06-16T06:38:07.198Z",
+      "lastUpdated": "2026-06-16T06:38:07.198Z",
+      "accessCount": 0
+    },
+    "4a84a428-7e6c-4f91-bd69-158a9286a7b8": {
+      "title": "픽셀화된_블록_기호_이미지_분석_불가",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\⚖️ Decisions\\픽셀화된_블록_기호_이미지_분석_불가.md",
+      "category": "⚖️ Decisions",
+      "tags": [
+        "decisions",
+        "분석",
+        "픽셀화된",
+        "블록",
+        "기호"
+      ],
+      "confidence": 0.45,
+      "created": "2026-06-16T06:38:07.551Z",
+      "lastUpdated": "2026-06-16T06:38:07.551Z",
+      "accessCount": 0
+    },
+    "bc1069c3-f49a-44be-a164-8128d93b7a90": {
+      "title": "필수_개선_요구사항",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\🛠️ Projects\\필수_개선_요구사항.md",
+      "category": "🛠️ Projects",
+      "tags": [
+        "projects",
+        "목표",
+        "계획",
+        "필수",
+        "개선",
+        "요구사항"
+      ],
+      "confidence": 0.48,
+      "created": "2026-06-16T06:38:07.881Z",
+      "lastUpdated": "2026-06-16T06:38:07.881Z",
+      "accessCount": 0
+    },
+    "de16629d-b0cc-434d-805f-61dd997794a6": {
+      "title": "필수_개설_요건_및_지침",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\🛠️ Projects\\필수_개설_요건_및_지침.md",
+      "category": "🛠️ Projects",
+      "tags": [
+        "projects",
+        "진행",
+        "프로젝트",
+        "목표",
+        "필수",
+        "개설",
+        "요건"
+      ],
+      "confidence": 0.44,
+      "created": "2026-06-16T06:38:08.220Z",
+      "lastUpdated": "2026-06-16T06:38:08.220Z",
+      "accessCount": 0
+    },
+    "f378e032-2c29-4f63-9bb3-f6e1dc150bc7": {
+      "title": "2026-06-16_레오_유튜브Shorts_제작시나리오_알고리즘최적화_업로드전략",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\⚖️ Decisions\\2026-06-16_레오_유튜브Shorts_제작시나리오_알고리즘최적화_업로드전략.md",
+      "category": "⚖️ Decisions",
+      "tags": [
+        "decisions",
+        "전략",
+        "선택",
+        "이유",
+        "shorts",
+        "viral",
+        "fyp",
+        "trending"
+      ],
+      "confidence": 0.43,
+      "created": "2026-06-16T06:38:08.612Z",
+      "lastUpdated": "2026-06-16T06:38:08.612Z",
+      "accessCount": 0
     }
   },
   "edges": [
@@ -2165,6 +2529,776 @@
       "type": "similarity",
       "weight": 0.22857142857142856,
       "created": "2026-06-01T03:30:02.383Z"
+    },
+    {
+      "source": "cd160fe7-7201-46f9-a5d1-9ed32656ac6b",
+      "target": "be84916a-a866-475c-9410-173813b2b659",
+      "type": "similarity",
+      "weight": 0.35,
+      "created": "2026-06-16T06:38:01.292Z"
+    },
+    {
+      "source": "cd160fe7-7201-46f9-a5d1-9ed32656ac6b",
+      "target": "c0a0d220-2bca-4d25-a9b3-848e1f690bea",
+      "type": "similarity",
+      "weight": 0.22499999999999998,
+      "created": "2026-06-16T06:38:01.293Z"
+    },
+    {
+      "source": "cd160fe7-7201-46f9-a5d1-9ed32656ac6b",
+      "target": "fb28d42f-af49-442e-9fe8-39d91cf2bbe3",
+      "type": "similarity",
+      "weight": 0.1714285714285714,
+      "created": "2026-06-16T06:38:01.293Z"
+    },
+    {
+      "source": "cd160fe7-7201-46f9-a5d1-9ed32656ac6b",
+      "target": "203f26f6-8566-4f07-8862-d3175c683f88",
+      "type": "similarity",
+      "weight": 0.12857142857142856,
+      "created": "2026-06-16T06:38:01.293Z"
+    },
+    {
+      "source": "cd160fe7-7201-46f9-a5d1-9ed32656ac6b",
+      "target": "a34504c4-d1ca-4ea2-846b-5c88fcd0e596",
+      "type": "similarity",
+      "weight": 0.12857142857142856,
+      "created": "2026-06-16T06:38:01.293Z"
+    },
+    {
+      "source": "75d231f3-1934-4cc0-b4dc-6f461d4d4a50",
+      "target": "aa1c67ec-f291-45ae-b6bb-178228284301",
+      "type": "similarity",
+      "weight": 0.3,
+      "created": "2026-06-16T06:38:01.822Z"
+    },
+    {
+      "source": "75d231f3-1934-4cc0-b4dc-6f461d4d4a50",
+      "target": "19580b24-1dba-41e3-b474-4a44b83e307a",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-16T06:38:01.822Z"
+    },
+    {
+      "source": "75d231f3-1934-4cc0-b4dc-6f461d4d4a50",
+      "target": "c0a0d220-2bca-4d25-a9b3-848e1f690bea",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-16T06:38:01.822Z"
+    },
+    {
+      "source": "75d231f3-1934-4cc0-b4dc-6f461d4d4a50",
+      "target": "56943d0a-5970-4446-afe8-7891054a65b9",
+      "type": "similarity",
+      "weight": 0.22857142857142856,
+      "created": "2026-06-16T06:38:01.822Z"
+    },
+    {
+      "source": "75d231f3-1934-4cc0-b4dc-6f461d4d4a50",
+      "target": "fd6bbcdd-bf8e-4559-8201-ce49ae35040f",
+      "type": "similarity",
+      "weight": 0.2,
+      "created": "2026-06-16T06:38:01.822Z"
+    },
+    {
+      "source": "c1ed0590-4b3f-4439-9217-e5f236cd8736",
+      "target": "be84916a-a866-475c-9410-173813b2b659",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-16T06:38:02.158Z"
+    },
+    {
+      "source": "c1ed0590-4b3f-4439-9217-e5f236cd8736",
+      "target": "e4c617c8-4be9-49ec-bb9d-79a81ec5d997",
+      "type": "similarity",
+      "weight": 0.22499999999999998,
+      "created": "2026-06-16T06:38:02.158Z"
+    },
+    {
+      "source": "c1ed0590-4b3f-4439-9217-e5f236cd8736",
+      "target": "c0a0d220-2bca-4d25-a9b3-848e1f690bea",
+      "type": "similarity",
+      "weight": 0.15,
+      "created": "2026-06-16T06:38:02.158Z"
+    },
+    {
+      "source": "c1ed0590-4b3f-4439-9217-e5f236cd8736",
+      "target": "cd160fe7-7201-46f9-a5d1-9ed32656ac6b",
+      "type": "similarity",
+      "weight": 0.14285714285714285,
+      "created": "2026-06-16T06:38:02.158Z"
+    },
+    {
+      "source": "c1ed0590-4b3f-4439-9217-e5f236cd8736",
+      "target": "fb28d42f-af49-442e-9fe8-39d91cf2bbe3",
+      "type": "similarity",
+      "weight": 0.12857142857142856,
+      "created": "2026-06-16T06:38:02.158Z"
+    },
+    {
+      "source": "8bb6f30f-1afb-4fc5-998e-08d1e81e18ed",
+      "target": "c1ed0590-4b3f-4439-9217-e5f236cd8736",
+      "type": "similarity",
+      "weight": 0.28,
+      "created": "2026-06-16T06:38:02.493Z"
+    },
+    {
+      "source": "8bb6f30f-1afb-4fc5-998e-08d1e81e18ed",
+      "target": "be84916a-a866-475c-9410-173813b2b659",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-16T06:38:02.493Z"
+    },
+    {
+      "source": "8bb6f30f-1afb-4fc5-998e-08d1e81e18ed",
+      "target": "8e9e1da7-d724-495a-ba38-7a008ce837ec",
+      "type": "similarity",
+      "weight": 0.19999999999999998,
+      "created": "2026-06-16T06:38:02.493Z"
+    },
+    {
+      "source": "8bb6f30f-1afb-4fc5-998e-08d1e81e18ed",
+      "target": "31d2500f-59a5-48f7-a5bb-d635f1202ff8",
+      "type": "similarity",
+      "weight": 0.19999999999999998,
+      "created": "2026-06-16T06:38:02.493Z"
+    },
+    {
+      "source": "8bb6f30f-1afb-4fc5-998e-08d1e81e18ed",
+      "target": "c0a0d220-2bca-4d25-a9b3-848e1f690bea",
+      "type": "similarity",
+      "weight": 0.15,
+      "created": "2026-06-16T06:38:02.493Z"
+    },
+    {
+      "source": "1d390a21-dbd1-460b-8397-a4d67a36a6e9",
+      "target": "8bb6f30f-1afb-4fc5-998e-08d1e81e18ed",
+      "type": "similarity",
+      "weight": 0.33999999999999997,
+      "created": "2026-06-16T06:38:02.833Z"
+    },
+    {
+      "source": "1d390a21-dbd1-460b-8397-a4d67a36a6e9",
+      "target": "be84916a-a866-475c-9410-173813b2b659",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-16T06:38:02.833Z"
+    },
+    {
+      "source": "1d390a21-dbd1-460b-8397-a4d67a36a6e9",
+      "target": "c1ed0590-4b3f-4439-9217-e5f236cd8736",
+      "type": "similarity",
+      "weight": 0.22,
+      "created": "2026-06-16T06:38:02.833Z"
+    },
+    {
+      "source": "1d390a21-dbd1-460b-8397-a4d67a36a6e9",
+      "target": "c0d355cf-8e1a-4b5c-93f7-c932db94f183",
+      "type": "similarity",
+      "weight": 0.19999999999999998,
+      "created": "2026-06-16T06:38:02.833Z"
+    },
+    {
+      "source": "1d390a21-dbd1-460b-8397-a4d67a36a6e9",
+      "target": "c0a0d220-2bca-4d25-a9b3-848e1f690bea",
+      "type": "similarity",
+      "weight": 0.15,
+      "created": "2026-06-16T06:38:02.833Z"
+    },
+    {
+      "source": "11fa3c8b-7b3e-4b86-b48f-653da1d04ca4",
+      "target": "c1ed0590-4b3f-4439-9217-e5f236cd8736",
+      "type": "similarity",
+      "weight": 0.33999999999999997,
+      "created": "2026-06-16T06:38:03.168Z"
+    },
+    {
+      "source": "11fa3c8b-7b3e-4b86-b48f-653da1d04ca4",
+      "target": "8bb6f30f-1afb-4fc5-998e-08d1e81e18ed",
+      "type": "similarity",
+      "weight": 0.33999999999999997,
+      "created": "2026-06-16T06:38:03.168Z"
+    },
+    {
+      "source": "11fa3c8b-7b3e-4b86-b48f-653da1d04ca4",
+      "target": "1d390a21-dbd1-460b-8397-a4d67a36a6e9",
+      "type": "similarity",
+      "weight": 0.33999999999999997,
+      "created": "2026-06-16T06:38:03.168Z"
+    },
+    {
+      "source": "11fa3c8b-7b3e-4b86-b48f-653da1d04ca4",
+      "target": "be84916a-a866-475c-9410-173813b2b659",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-16T06:38:03.168Z"
+    },
+    {
+      "source": "11fa3c8b-7b3e-4b86-b48f-653da1d04ca4",
+      "target": "8e9e1da7-d724-495a-ba38-7a008ce837ec",
+      "type": "similarity",
+      "weight": 0.19999999999999998,
+      "created": "2026-06-16T06:38:03.168Z"
+    },
+    {
+      "source": "2abe5215-7cf1-4bcc-a90f-2d85d53ff21e",
+      "target": "c1ed0590-4b3f-4439-9217-e5f236cd8736",
+      "type": "similarity",
+      "weight": 0.33999999999999997,
+      "created": "2026-06-16T06:38:03.495Z"
+    },
+    {
+      "source": "2abe5215-7cf1-4bcc-a90f-2d85d53ff21e",
+      "target": "8bb6f30f-1afb-4fc5-998e-08d1e81e18ed",
+      "type": "similarity",
+      "weight": 0.33999999999999997,
+      "created": "2026-06-16T06:38:03.495Z"
+    },
+    {
+      "source": "2abe5215-7cf1-4bcc-a90f-2d85d53ff21e",
+      "target": "1d390a21-dbd1-460b-8397-a4d67a36a6e9",
+      "type": "similarity",
+      "weight": 0.33999999999999997,
+      "created": "2026-06-16T06:38:03.495Z"
+    },
+    {
+      "source": "2abe5215-7cf1-4bcc-a90f-2d85d53ff21e",
+      "target": "11fa3c8b-7b3e-4b86-b48f-653da1d04ca4",
+      "type": "similarity",
+      "weight": 0.33999999999999997,
+      "created": "2026-06-16T06:38:03.495Z"
+    },
+    {
+      "source": "2abe5215-7cf1-4bcc-a90f-2d85d53ff21e",
+      "target": "be84916a-a866-475c-9410-173813b2b659",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-16T06:38:03.495Z"
+    },
+    {
+      "source": "84940753-5fa8-492e-943b-34bbd6958382",
+      "target": "c1ed0590-4b3f-4439-9217-e5f236cd8736",
+      "type": "similarity",
+      "weight": 0.33999999999999997,
+      "created": "2026-06-16T06:38:03.829Z"
+    },
+    {
+      "source": "84940753-5fa8-492e-943b-34bbd6958382",
+      "target": "8bb6f30f-1afb-4fc5-998e-08d1e81e18ed",
+      "type": "similarity",
+      "weight": 0.33999999999999997,
+      "created": "2026-06-16T06:38:03.830Z"
+    },
+    {
+      "source": "84940753-5fa8-492e-943b-34bbd6958382",
+      "target": "1d390a21-dbd1-460b-8397-a4d67a36a6e9",
+      "type": "similarity",
+      "weight": 0.33999999999999997,
+      "created": "2026-06-16T06:38:03.830Z"
+    },
+    {
+      "source": "84940753-5fa8-492e-943b-34bbd6958382",
+      "target": "11fa3c8b-7b3e-4b86-b48f-653da1d04ca4",
+      "type": "similarity",
+      "weight": 0.33999999999999997,
+      "created": "2026-06-16T06:38:03.830Z"
+    },
+    {
+      "source": "84940753-5fa8-492e-943b-34bbd6958382",
+      "target": "2abe5215-7cf1-4bcc-a90f-2d85d53ff21e",
+      "type": "similarity",
+      "weight": 0.3,
+      "created": "2026-06-16T06:38:03.830Z"
+    },
+    {
+      "source": "eedfbc40-4e1f-4237-ae47-f9d8c4c1c2ca",
+      "target": "c1ed0590-4b3f-4439-9217-e5f236cd8736",
+      "type": "similarity",
+      "weight": 0.33999999999999997,
+      "created": "2026-06-16T06:38:04.159Z"
+    },
+    {
+      "source": "eedfbc40-4e1f-4237-ae47-f9d8c4c1c2ca",
+      "target": "8bb6f30f-1afb-4fc5-998e-08d1e81e18ed",
+      "type": "similarity",
+      "weight": 0.33999999999999997,
+      "created": "2026-06-16T06:38:04.159Z"
+    },
+    {
+      "source": "eedfbc40-4e1f-4237-ae47-f9d8c4c1c2ca",
+      "target": "1d390a21-dbd1-460b-8397-a4d67a36a6e9",
+      "type": "similarity",
+      "weight": 0.33999999999999997,
+      "created": "2026-06-16T06:38:04.159Z"
+    },
+    {
+      "source": "eedfbc40-4e1f-4237-ae47-f9d8c4c1c2ca",
+      "target": "11fa3c8b-7b3e-4b86-b48f-653da1d04ca4",
+      "type": "similarity",
+      "weight": 0.33999999999999997,
+      "created": "2026-06-16T06:38:04.159Z"
+    },
+    {
+      "source": "eedfbc40-4e1f-4237-ae47-f9d8c4c1c2ca",
+      "target": "84940753-5fa8-492e-943b-34bbd6958382",
+      "type": "similarity",
+      "weight": 0.33999999999999997,
+      "created": "2026-06-16T06:38:04.159Z"
+    },
+    {
+      "source": "5b822f72-f0af-4024-b241-48467a9eccbc",
+      "target": "0f40005a-c3f2-4c56-b906-8006a603e009",
+      "type": "similarity",
+      "weight": 0.32499999999999996,
+      "created": "2026-06-16T06:38:04.492Z"
+    },
+    {
+      "source": "5b822f72-f0af-4024-b241-48467a9eccbc",
+      "target": "b91c0598-5550-47d7-bb19-20474335c4f5",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-16T06:38:04.492Z"
+    },
+    {
+      "source": "5b822f72-f0af-4024-b241-48467a9eccbc",
+      "target": "993c8e0d-7f51-4c36-a80b-578d0ca35790",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-16T06:38:04.492Z"
+    },
+    {
+      "source": "5b822f72-f0af-4024-b241-48467a9eccbc",
+      "target": "7db0e7b5-c481-4a8a-b063-2b755325c74e",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-16T06:38:04.492Z"
+    },
+    {
+      "source": "5b822f72-f0af-4024-b241-48467a9eccbc",
+      "target": "384a043f-8779-4372-adbc-8cbb9889ce37",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-16T06:38:04.492Z"
+    },
+    {
+      "source": "ae3db904-263f-48d1-b7ee-e00356b8011e",
+      "target": "fb28d42f-af49-442e-9fe8-39d91cf2bbe3",
+      "type": "similarity",
+      "weight": 0.22857142857142856,
+      "created": "2026-06-16T06:38:04.817Z"
+    },
+    {
+      "source": "ae3db904-263f-48d1-b7ee-e00356b8011e",
+      "target": "b91c0598-5550-47d7-bb19-20474335c4f5",
+      "type": "similarity",
+      "weight": 0.22499999999999998,
+      "created": "2026-06-16T06:38:04.817Z"
+    },
+    {
+      "source": "ae3db904-263f-48d1-b7ee-e00356b8011e",
+      "target": "5b822f72-f0af-4024-b241-48467a9eccbc",
+      "type": "similarity",
+      "weight": 0.22499999999999998,
+      "created": "2026-06-16T06:38:04.817Z"
+    },
+    {
+      "source": "ae3db904-263f-48d1-b7ee-e00356b8011e",
+      "target": "b4c7f076-d797-465c-b526-0a6234e4973c",
+      "type": "similarity",
+      "weight": 0.18571428571428572,
+      "created": "2026-06-16T06:38:04.817Z"
+    },
+    {
+      "source": "ae3db904-263f-48d1-b7ee-e00356b8011e",
+      "target": "d9c19569-5026-4b9b-b411-73c9bc2c2a05",
+      "type": "similarity",
+      "weight": 0.18571428571428572,
+      "created": "2026-06-16T06:38:04.817Z"
+    },
+    {
+      "source": "ed7650fe-08d8-4208-8cfb-f6d9917736fa",
+      "target": "fb28d42f-af49-442e-9fe8-39d91cf2bbe3",
+      "type": "similarity",
+      "weight": 0.3142857142857143,
+      "created": "2026-06-16T06:38:05.148Z"
+    },
+    {
+      "source": "ed7650fe-08d8-4208-8cfb-f6d9917736fa",
+      "target": "0772747c-28ea-4c7a-a74b-3bdfffc55f8e",
+      "type": "similarity",
+      "weight": 0.2714285714285714,
+      "created": "2026-06-16T06:38:05.148Z"
+    },
+    {
+      "source": "ed7650fe-08d8-4208-8cfb-f6d9917736fa",
+      "target": "ae3db904-263f-48d1-b7ee-e00356b8011e",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-16T06:38:05.148Z"
+    },
+    {
+      "source": "ed7650fe-08d8-4208-8cfb-f6d9917736fa",
+      "target": "a34504c4-d1ca-4ea2-846b-5c88fcd0e596",
+      "type": "similarity",
+      "weight": 0.22857142857142856,
+      "created": "2026-06-16T06:38:05.148Z"
+    },
+    {
+      "source": "ed7650fe-08d8-4208-8cfb-f6d9917736fa",
+      "target": "0790605d-0bde-486e-86cf-a44be229816a",
+      "type": "similarity",
+      "weight": 0.22857142857142856,
+      "created": "2026-06-16T06:38:05.149Z"
+    },
+    {
+      "source": "f1cbfa24-f7ed-4e24-866d-7af27ccf844d",
+      "target": "be84916a-a866-475c-9410-173813b2b659",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-16T06:38:05.507Z"
+    },
+    {
+      "source": "f1cbfa24-f7ed-4e24-866d-7af27ccf844d",
+      "target": "169c0e2c-3d67-4b2c-94ce-cce4db844dea",
+      "type": "similarity",
+      "weight": 0.19999999999999998,
+      "created": "2026-06-16T06:38:05.507Z"
+    },
+    {
+      "source": "f1cbfa24-f7ed-4e24-866d-7af27ccf844d",
+      "target": "c1ed0590-4b3f-4439-9217-e5f236cd8736",
+      "type": "similarity",
+      "weight": 0.16,
+      "created": "2026-06-16T06:38:05.507Z"
+    },
+    {
+      "source": "f1cbfa24-f7ed-4e24-866d-7af27ccf844d",
+      "target": "8bb6f30f-1afb-4fc5-998e-08d1e81e18ed",
+      "type": "similarity",
+      "weight": 0.16,
+      "created": "2026-06-16T06:38:05.507Z"
+    },
+    {
+      "source": "f1cbfa24-f7ed-4e24-866d-7af27ccf844d",
+      "target": "1d390a21-dbd1-460b-8397-a4d67a36a6e9",
+      "type": "similarity",
+      "weight": 0.16,
+      "created": "2026-06-16T06:38:05.507Z"
+    },
+    {
+      "source": "64f5bef6-f092-43ce-ae3a-bbe25de208ff",
+      "target": "7db0e7b5-c481-4a8a-b063-2b755325c74e",
+      "type": "similarity",
+      "weight": 0.32499999999999996,
+      "created": "2026-06-16T06:38:05.838Z"
+    },
+    {
+      "source": "64f5bef6-f092-43ce-ae3a-bbe25de208ff",
+      "target": "5b822f72-f0af-4024-b241-48467a9eccbc",
+      "type": "similarity",
+      "weight": 0.32499999999999996,
+      "created": "2026-06-16T06:38:05.838Z"
+    },
+    {
+      "source": "64f5bef6-f092-43ce-ae3a-bbe25de208ff",
+      "target": "0f40005a-c3f2-4c56-b906-8006a603e009",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-16T06:38:05.838Z"
+    },
+    {
+      "source": "64f5bef6-f092-43ce-ae3a-bbe25de208ff",
+      "target": "b91c0598-5550-47d7-bb19-20474335c4f5",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-16T06:38:05.838Z"
+    },
+    {
+      "source": "64f5bef6-f092-43ce-ae3a-bbe25de208ff",
+      "target": "993c8e0d-7f51-4c36-a80b-578d0ca35790",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-16T06:38:05.838Z"
+    },
+    {
+      "source": "2254922b-2858-434f-a5d9-a499d4d2907c",
+      "target": "384a043f-8779-4372-adbc-8cbb9889ce37",
+      "type": "similarity",
+      "weight": 0.32499999999999996,
+      "created": "2026-06-16T06:38:06.182Z"
+    },
+    {
+      "source": "2254922b-2858-434f-a5d9-a499d4d2907c",
+      "target": "5b822f72-f0af-4024-b241-48467a9eccbc",
+      "type": "similarity",
+      "weight": 0.32499999999999996,
+      "created": "2026-06-16T06:38:06.182Z"
+    },
+    {
+      "source": "2254922b-2858-434f-a5d9-a499d4d2907c",
+      "target": "0f40005a-c3f2-4c56-b906-8006a603e009",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-16T06:38:06.182Z"
+    },
+    {
+      "source": "2254922b-2858-434f-a5d9-a499d4d2907c",
+      "target": "b91c0598-5550-47d7-bb19-20474335c4f5",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-16T06:38:06.182Z"
+    },
+    {
+      "source": "2254922b-2858-434f-a5d9-a499d4d2907c",
+      "target": "993c8e0d-7f51-4c36-a80b-578d0ca35790",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-16T06:38:06.182Z"
+    },
+    {
+      "source": "c76ddd09-93b4-495e-b61c-7155687ed920",
+      "target": "c1ed0590-4b3f-4439-9217-e5f236cd8736",
+      "type": "similarity",
+      "weight": 0.33999999999999997,
+      "created": "2026-06-16T06:38:06.522Z"
+    },
+    {
+      "source": "c76ddd09-93b4-495e-b61c-7155687ed920",
+      "target": "8bb6f30f-1afb-4fc5-998e-08d1e81e18ed",
+      "type": "similarity",
+      "weight": 0.33999999999999997,
+      "created": "2026-06-16T06:38:06.522Z"
+    },
+    {
+      "source": "c76ddd09-93b4-495e-b61c-7155687ed920",
+      "target": "1d390a21-dbd1-460b-8397-a4d67a36a6e9",
+      "type": "similarity",
+      "weight": 0.33999999999999997,
+      "created": "2026-06-16T06:38:06.522Z"
+    },
+    {
+      "source": "c76ddd09-93b4-495e-b61c-7155687ed920",
+      "target": "11fa3c8b-7b3e-4b86-b48f-653da1d04ca4",
+      "type": "similarity",
+      "weight": 0.33999999999999997,
+      "created": "2026-06-16T06:38:06.522Z"
+    },
+    {
+      "source": "c76ddd09-93b4-495e-b61c-7155687ed920",
+      "target": "84940753-5fa8-492e-943b-34bbd6958382",
+      "type": "similarity",
+      "weight": 0.33999999999999997,
+      "created": "2026-06-16T06:38:06.522Z"
+    },
+    {
+      "source": "dfca348a-6246-412b-95d7-700b1a640a16",
+      "target": "9f26bab4-779b-4217-97be-c62ba09b7db0",
+      "type": "similarity",
+      "weight": 0.32499999999999996,
+      "created": "2026-06-16T06:38:06.860Z"
+    },
+    {
+      "source": "dfca348a-6246-412b-95d7-700b1a640a16",
+      "target": "5b822f72-f0af-4024-b241-48467a9eccbc",
+      "type": "similarity",
+      "weight": 0.32499999999999996,
+      "created": "2026-06-16T06:38:06.860Z"
+    },
+    {
+      "source": "dfca348a-6246-412b-95d7-700b1a640a16",
+      "target": "161cff5d-c1d0-4710-bfad-159962d012d3",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-16T06:38:06.860Z"
+    },
+    {
+      "source": "dfca348a-6246-412b-95d7-700b1a640a16",
+      "target": "af3cd229-9069-4950-bc06-2c6c867588a3",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-16T06:38:06.860Z"
+    },
+    {
+      "source": "dfca348a-6246-412b-95d7-700b1a640a16",
+      "target": "989e3cec-6839-48c3-a8cd-bc3594511d08",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-16T06:38:06.860Z"
+    },
+    {
+      "source": "03ff1072-be96-4370-ae36-3cefa422b247",
+      "target": "dfca348a-6246-412b-95d7-700b1a640a16",
+      "type": "similarity",
+      "weight": 0.33999999999999997,
+      "created": "2026-06-16T06:38:07.198Z"
+    },
+    {
+      "source": "03ff1072-be96-4370-ae36-3cefa422b247",
+      "target": "993c8e0d-7f51-4c36-a80b-578d0ca35790",
+      "type": "similarity",
+      "weight": 0.32499999999999996,
+      "created": "2026-06-16T06:38:07.198Z"
+    },
+    {
+      "source": "03ff1072-be96-4370-ae36-3cefa422b247",
+      "target": "5b822f72-f0af-4024-b241-48467a9eccbc",
+      "type": "similarity",
+      "weight": 0.32499999999999996,
+      "created": "2026-06-16T06:38:07.198Z"
+    },
+    {
+      "source": "03ff1072-be96-4370-ae36-3cefa422b247",
+      "target": "0f40005a-c3f2-4c56-b906-8006a603e009",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-16T06:38:07.198Z"
+    },
+    {
+      "source": "03ff1072-be96-4370-ae36-3cefa422b247",
+      "target": "b91c0598-5550-47d7-bb19-20474335c4f5",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-16T06:38:07.198Z"
+    },
+    {
+      "source": "4a84a428-7e6c-4f91-bd69-158a9286a7b8",
+      "target": "af3cd229-9069-4950-bc06-2c6c867588a3",
+      "type": "similarity",
+      "weight": 0.32499999999999996,
+      "created": "2026-06-16T06:38:07.551Z"
+    },
+    {
+      "source": "4a84a428-7e6c-4f91-bd69-158a9286a7b8",
+      "target": "5b822f72-f0af-4024-b241-48467a9eccbc",
+      "type": "similarity",
+      "weight": 0.32499999999999996,
+      "created": "2026-06-16T06:38:07.551Z"
+    },
+    {
+      "source": "4a84a428-7e6c-4f91-bd69-158a9286a7b8",
+      "target": "161cff5d-c1d0-4710-bfad-159962d012d3",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-16T06:38:07.551Z"
+    },
+    {
+      "source": "4a84a428-7e6c-4f91-bd69-158a9286a7b8",
+      "target": "989e3cec-6839-48c3-a8cd-bc3594511d08",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-16T06:38:07.551Z"
+    },
+    {
+      "source": "4a84a428-7e6c-4f91-bd69-158a9286a7b8",
+      "target": "9f26bab4-779b-4217-97be-c62ba09b7db0",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-16T06:38:07.551Z"
+    },
+    {
+      "source": "bc1069c3-f49a-44be-a164-8128d93b7a90",
+      "target": "50301eab-54ed-416f-9892-ef1c3b2dc0a4",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-16T06:38:07.882Z"
+    },
+    {
+      "source": "bc1069c3-f49a-44be-a164-8128d93b7a90",
+      "target": "f1cbfa24-f7ed-4e24-866d-7af27ccf844d",
+      "type": "similarity",
+      "weight": 0.24,
+      "created": "2026-06-16T06:38:07.882Z"
+    },
+    {
+      "source": "bc1069c3-f49a-44be-a164-8128d93b7a90",
+      "target": "0eff37d9-92c3-4be7-963d-4b3b6ea31478",
+      "type": "similarity",
+      "weight": 0.22499999999999998,
+      "created": "2026-06-16T06:38:07.882Z"
+    },
+    {
+      "source": "bc1069c3-f49a-44be-a164-8128d93b7a90",
+      "target": "16fbdb1e-e246-4651-b202-10535a3f2213",
+      "type": "similarity",
+      "weight": 0.175,
+      "created": "2026-06-16T06:38:07.882Z"
+    },
+    {
+      "source": "bc1069c3-f49a-44be-a164-8128d93b7a90",
+      "target": "ed7650fe-08d8-4208-8cfb-f6d9917736fa",
+      "type": "similarity",
+      "weight": 0.1714285714285714,
+      "created": "2026-06-16T06:38:07.882Z"
+    },
+    {
+      "source": "de16629d-b0cc-434d-805f-61dd997794a6",
+      "target": "161cff5d-c1d0-4710-bfad-159962d012d3",
+      "type": "similarity",
+      "weight": 0.22499999999999998,
+      "created": "2026-06-16T06:38:08.220Z"
+    },
+    {
+      "source": "de16629d-b0cc-434d-805f-61dd997794a6",
+      "target": "bc1069c3-f49a-44be-a164-8128d93b7a90",
+      "type": "similarity",
+      "weight": 0.2,
+      "created": "2026-06-16T06:38:08.220Z"
+    },
+    {
+      "source": "de16629d-b0cc-434d-805f-61dd997794a6",
+      "target": "8bb6f30f-1afb-4fc5-998e-08d1e81e18ed",
+      "type": "similarity",
+      "weight": 0.18,
+      "created": "2026-06-16T06:38:08.220Z"
+    },
+    {
+      "source": "de16629d-b0cc-434d-805f-61dd997794a6",
+      "target": "f1cbfa24-f7ed-4e24-866d-7af27ccf844d",
+      "type": "similarity",
+      "weight": 0.18,
+      "created": "2026-06-16T06:38:08.220Z"
+    },
+    {
+      "source": "de16629d-b0cc-434d-805f-61dd997794a6",
+      "target": "50301eab-54ed-416f-9892-ef1c3b2dc0a4",
+      "type": "similarity",
+      "weight": 0.175,
+      "created": "2026-06-16T06:38:08.220Z"
+    },
+    {
+      "source": "f378e032-2c29-4f63-9bb3-f6e1dc150bc7",
+      "target": "5b822f72-f0af-4024-b241-48467a9eccbc",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-16T06:38:08.612Z"
+    },
+    {
+      "source": "f378e032-2c29-4f63-9bb3-f6e1dc150bc7",
+      "target": "56943d0a-5970-4446-afe8-7891054a65b9",
+      "type": "similarity",
+      "weight": 0.22857142857142856,
+      "created": "2026-06-16T06:38:08.612Z"
+    },
+    {
+      "source": "f378e032-2c29-4f63-9bb3-f6e1dc150bc7",
+      "target": "203f26f6-8566-4f07-8862-d3175c683f88",
+      "type": "similarity",
+      "weight": 0.22857142857142856,
+      "created": "2026-06-16T06:38:08.612Z"
+    },
+    {
+      "source": "f378e032-2c29-4f63-9bb3-f6e1dc150bc7",
+      "target": "be84916a-a866-475c-9410-173813b2b659",
+      "type": "similarity",
+      "weight": 0.19999999999999998,
+      "created": "2026-06-16T06:38:08.612Z"
+    },
+    {
+      "source": "f378e032-2c29-4f63-9bb3-f6e1dc150bc7",
+      "target": "c1ed0590-4b3f-4439-9217-e5f236cd8736",
+      "type": "similarity",
+      "weight": 0.18,
+      "created": "2026-06-16T06:38:08.612Z"
     }
   ]
 }
