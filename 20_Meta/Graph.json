@@ -1134,6 +1134,215 @@
       "created": "2026-06-16T06:38:08.612Z",
       "lastUpdated": "2026-06-16T06:38:08.612Z",
       "accessCount": 0
+    },
+    "3beed00f-0d91-467c-b54f-aa52e6ece799": {
+      "title": "QR_코드_이미지_분석_및_기본_구조_이해",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\💡 Topics\\QR_코드_이미지_분석_및_기본_구조_이해.md",
+      "category": "💡 Topics",
+      "tags": [
+        "topics",
+        "코딩",
+        "기술",
+        "정의",
+        "qr",
+        "코드",
+        "이미지"
+      ],
+      "confidence": 0.42,
+      "created": "2026-06-19T07:21:58.681Z",
+      "lastUpdated": "2026-06-19T07:21:58.681Z",
+      "accessCount": 0
+    },
+    "cd7a1298-b5a3-42d9-84ef-af045dac84c4": {
+      "title": "QR코드_내용_분석_지식_문서화_예시",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\💡 Topics\\QR코드_내용_분석_지식_문서화_예시.md",
+      "category": "💡 Topics",
+      "tags": [
+        "topics",
+        "코딩",
+        "원리",
+        "ai",
+        "qr코드",
+        "내용",
+        "분석"
+      ],
+      "confidence": 0.41,
+      "created": "2026-06-19T07:21:58.845Z",
+      "lastUpdated": "2026-06-19T07:21:58.845Z",
+      "accessCount": 0
+    },
+    "adef4019-dfc8-48fe-9931-0a8c28f8c1ea": {
+      "title": "SK하이닉스_새마을금고_금융서비스_종합가이드",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\⚖️ Decisions\\SK하이닉스_새마을금고_금융서비스_종합가이드.md",
+      "category": "⚖️ Decisions",
+      "tags": [
+        "decisions",
+        "선택",
+        "비교",
+        "전략",
+        "sk하이닉스",
+        "새마을금고",
+        "금융서비스"
+      ],
+      "confidence": 0.56,
+      "created": "2026-06-19T07:21:59.001Z",
+      "lastUpdated": "2026-06-19T07:21:59.001Z",
+      "accessCount": 0
+    },
+    "396cecf2-6c51-4761-b72b-6043d8f9e362": {
+      "title": "구글_홈페이지_접속_QR코드_분석",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\💡 Topics\\구글_홈페이지_접속_QR코드_분석.md",
+      "category": "💡 Topics",
+      "tags": [
+        "topics",
+        "개념",
+        "원리",
+        "코딩",
+        "구글",
+        "홈페이지",
+        "접속"
+      ],
+      "confidence": 0.41,
+      "created": "2026-06-19T07:21:59.154Z",
+      "lastUpdated": "2026-06-19T07:21:59.154Z",
+      "accessCount": 0
+    },
+    "a95b94bd-7996-4766-aeaa-19068d103de3": {
+      "title": "수시_개설_의미와_활용",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\💡 Topics\\수시_개설_의미와_활용.md",
+      "category": "💡 Topics",
+      "tags": [
+        "topics",
+        "개념",
+        "정의",
+        "ai",
+        "수시",
+        "개설",
+        "의미와"
+      ],
+      "confidence": 0.47,
+      "created": "2026-06-19T07:21:59.284Z",
+      "lastUpdated": "2026-06-19T07:21:59.284Z",
+      "accessCount": 0
+    },
+    "803a46c8-0348-4e6d-a01e-4f663fb91166": {
+      "title": "퇴직_금융상품_지급조건_시기",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\💡 Topics\\퇴직_금융상품_지급조건_시기.md",
+      "category": "💡 Topics",
+      "tags": [
+        "topics",
+        "ai",
+        "퇴직",
+        "금융상품",
+        "지급조건"
+      ],
+      "confidence": 0.33,
+      "created": "2026-06-19T07:21:59.413Z",
+      "lastUpdated": "2026-06-19T07:21:59.413Z",
+      "accessCount": 0
+    },
+    "242c13cf-39a4-4082-b9c8-1cd0903a210f": {
+      "title": "필수_개설_요건_단편",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\⚖️ Decisions\\필수_개설_요건_단편.md",
+      "category": "⚖️ Decisions",
+      "tags": [
+        "decisions",
+        "이유",
+        "분석",
+        "필수",
+        "개설",
+        "요건"
+      ],
+      "confidence": 0.41,
+      "created": "2026-06-19T07:21:59.573Z",
+      "lastUpdated": "2026-06-19T07:21:59.573Z",
+      "accessCount": 0
+    },
+    "e0d51ce2-ada7-4fb6-91de-b400d5b46721": {
+      "title": "필수_개설_요구사항",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\⚖️ Decisions\\필수_개설_요구사항.md",
+      "category": "⚖️ Decisions",
+      "tags": [
+        "decisions",
+        "결론",
+        "선택",
+        "필수",
+        "개설",
+        "요구사항"
+      ],
+      "confidence": 0.38,
+      "created": "2026-06-19T07:21:59.717Z",
+      "lastUpdated": "2026-06-19T07:21:59.717Z",
+      "accessCount": 0
+    },
+    "46f8c758-ba78-4df0-89ed-3a8a521290d2": {
+      "title": "필수_배당_및_계좌_개설_안내_단편",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\💡 Topics\\필수_배당_및_계좌_개설_안내_단편.md",
+      "category": "💡 Topics",
+      "tags": [
+        "topics",
+        "ai",
+        "필수",
+        "배당",
+        "계좌"
+      ],
+      "confidence": 0.45,
+      "created": "2026-06-19T07:21:59.857Z",
+      "lastUpdated": "2026-06-19T07:21:59.857Z",
+      "accessCount": 0
+    },
+    "946ad04b-73ba-4c41-a00e-ab6d9ff8da55": {
+      "title": "필수_설명_및_개설_요구사항",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\🛠️ Projects\\필수_설명_및_개설_요구사항.md",
+      "category": "🛠️ Projects",
+      "tags": [
+        "projects",
+        "프로젝트",
+        "진행",
+        "계획",
+        "필수",
+        "설명",
+        "개설"
+      ],
+      "confidence": 0.65,
+      "created": "2026-06-19T07:22:00.000Z",
+      "lastUpdated": "2026-06-19T07:22:00.000Z",
+      "accessCount": 0
+    },
+    "c36f864b-70cd-4018-aff4-65577946b2a9": {
+      "title": "한국어_부사_반드시_의미와_활용",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\💡 Topics\\한국어_부사_반드시_의미와_활용.md",
+      "category": "💡 Topics",
+      "tags": [
+        "topics",
+        "정의",
+        "ai",
+        "한국어",
+        "부사",
+        "반드시"
+      ],
+      "confidence": 0.58,
+      "created": "2026-06-19T07:22:00.148Z",
+      "lastUpdated": "2026-06-19T07:22:00.148Z",
+      "accessCount": 0
+    },
+    "38457c9c-d072-4afd-b53a-68d24b8b8ed6": {
+      "title": "2026-06-19_행복이_Firebase웹앱_구글인증_Firestore_깃허브Pages배포",
+      "path": "C:\\Users\\YS\\Desktop\\안티그래피티\\위키에이전트\\10_Wiki\\⚖️ Decisions\\2026-06-19_행복이_Firebase웹앱_구글인증_Firestore_깃허브Pages배포.md",
+      "category": "⚖️ Decisions",
+      "tags": [
+        "decisions",
+        "이유",
+        "선택",
+        "why",
+        "2026",
+        "06",
+        "19"
+      ],
+      "confidence": 0.35,
+      "created": "2026-06-19T07:22:00.307Z",
+      "lastUpdated": "2026-06-19T07:22:00.307Z",
+      "accessCount": 0
     }
   },
   "edges": [
@@ -3299,6 +3508,426 @@
       "type": "similarity",
       "weight": 0.18,
       "created": "2026-06-16T06:38:08.612Z"
+    },
+    {
+      "source": "3beed00f-0d91-467c-b54f-aa52e6ece799",
+      "target": "be84916a-a866-475c-9410-173813b2b659",
+      "type": "similarity",
+      "weight": 0.35,
+      "created": "2026-06-19T07:21:58.683Z"
+    },
+    {
+      "source": "3beed00f-0d91-467c-b54f-aa52e6ece799",
+      "target": "f1cbfa24-f7ed-4e24-866d-7af27ccf844d",
+      "type": "similarity",
+      "weight": 0.33999999999999997,
+      "created": "2026-06-19T07:21:58.683Z"
+    },
+    {
+      "source": "3beed00f-0d91-467c-b54f-aa52e6ece799",
+      "target": "cd160fe7-7201-46f9-a5d1-9ed32656ac6b",
+      "type": "similarity",
+      "weight": 0.2714285714285714,
+      "created": "2026-06-19T07:21:58.683Z"
+    },
+    {
+      "source": "3beed00f-0d91-467c-b54f-aa52e6ece799",
+      "target": "2abe5215-7cf1-4bcc-a90f-2d85d53ff21e",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-19T07:21:58.683Z"
+    },
+    {
+      "source": "3beed00f-0d91-467c-b54f-aa52e6ece799",
+      "target": "a71aaec1-b5d6-49f5-bad3-17dbce2c168b",
+      "type": "similarity",
+      "weight": 0.22499999999999998,
+      "created": "2026-06-19T07:21:58.683Z"
+    },
+    {
+      "source": "cd7a1298-b5a3-42d9-84ef-af045dac84c4",
+      "target": "cd160fe7-7201-46f9-a5d1-9ed32656ac6b",
+      "type": "similarity",
+      "weight": 0.3142857142857143,
+      "created": "2026-06-19T07:21:58.845Z"
+    },
+    {
+      "source": "cd7a1298-b5a3-42d9-84ef-af045dac84c4",
+      "target": "be84916a-a866-475c-9410-173813b2b659",
+      "type": "similarity",
+      "weight": 0.3,
+      "created": "2026-06-19T07:21:58.845Z"
+    },
+    {
+      "source": "cd7a1298-b5a3-42d9-84ef-af045dac84c4",
+      "target": "f1cbfa24-f7ed-4e24-866d-7af27ccf844d",
+      "type": "similarity",
+      "weight": 0.28,
+      "created": "2026-06-19T07:21:58.845Z"
+    },
+    {
+      "source": "cd7a1298-b5a3-42d9-84ef-af045dac84c4",
+      "target": "3beed00f-0d91-467c-b54f-aa52e6ece799",
+      "type": "similarity",
+      "weight": 0.2714285714285714,
+      "created": "2026-06-19T07:21:58.845Z"
+    },
+    {
+      "source": "cd7a1298-b5a3-42d9-84ef-af045dac84c4",
+      "target": "ce4e8cfa-c5b9-4eb5-b56b-f6a12183647c",
+      "type": "similarity",
+      "weight": 0.22499999999999998,
+      "created": "2026-06-19T07:21:58.845Z"
+    },
+    {
+      "source": "adef4019-dfc8-48fe-9931-0a8c28f8c1ea",
+      "target": "e9fdda55-c942-425b-a6fb-5b07c52765df",
+      "type": "similarity",
+      "weight": 0.33999999999999997,
+      "created": "2026-06-19T07:21:59.001Z"
+    },
+    {
+      "source": "adef4019-dfc8-48fe-9931-0a8c28f8c1ea",
+      "target": "75d231f3-1934-4cc0-b4dc-6f461d4d4a50",
+      "type": "similarity",
+      "weight": 0.28,
+      "created": "2026-06-19T07:21:59.001Z"
+    },
+    {
+      "source": "adef4019-dfc8-48fe-9931-0a8c28f8c1ea",
+      "target": "56943d0a-5970-4446-afe8-7891054a65b9",
+      "type": "similarity",
+      "weight": 0.2714285714285714,
+      "created": "2026-06-19T07:21:59.001Z"
+    },
+    {
+      "source": "adef4019-dfc8-48fe-9931-0a8c28f8c1ea",
+      "target": "c0a0d220-2bca-4d25-a9b3-848e1f690bea",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-19T07:21:59.001Z"
+    },
+    {
+      "source": "adef4019-dfc8-48fe-9931-0a8c28f8c1ea",
+      "target": "5b822f72-f0af-4024-b241-48467a9eccbc",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-19T07:21:59.001Z"
+    },
+    {
+      "source": "396cecf2-6c51-4761-b72b-6043d8f9e362",
+      "target": "cd7a1298-b5a3-42d9-84ef-af045dac84c4",
+      "type": "similarity",
+      "weight": 0.3571428571428571,
+      "created": "2026-06-19T07:21:59.154Z"
+    },
+    {
+      "source": "396cecf2-6c51-4761-b72b-6043d8f9e362",
+      "target": "cd160fe7-7201-46f9-a5d1-9ed32656ac6b",
+      "type": "similarity",
+      "weight": 0.3142857142857143,
+      "created": "2026-06-19T07:21:59.154Z"
+    },
+    {
+      "source": "396cecf2-6c51-4761-b72b-6043d8f9e362",
+      "target": "be84916a-a866-475c-9410-173813b2b659",
+      "type": "similarity",
+      "weight": 0.3,
+      "created": "2026-06-19T07:21:59.154Z"
+    },
+    {
+      "source": "396cecf2-6c51-4761-b72b-6043d8f9e362",
+      "target": "3beed00f-0d91-467c-b54f-aa52e6ece799",
+      "type": "similarity",
+      "weight": 0.2714285714285714,
+      "created": "2026-06-19T07:21:59.154Z"
+    },
+    {
+      "source": "396cecf2-6c51-4761-b72b-6043d8f9e362",
+      "target": "1dd279d7-b66c-4155-8d61-cb8b74534ed3",
+      "type": "similarity",
+      "weight": 0.22499999999999998,
+      "created": "2026-06-19T07:21:59.154Z"
+    },
+    {
+      "source": "a95b94bd-7996-4766-aeaa-19068d103de3",
+      "target": "f1cbfa24-f7ed-4e24-866d-7af27ccf844d",
+      "type": "similarity",
+      "weight": 0.28,
+      "created": "2026-06-19T07:21:59.284Z"
+    },
+    {
+      "source": "a95b94bd-7996-4766-aeaa-19068d103de3",
+      "target": "be84916a-a866-475c-9410-173813b2b659",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-19T07:21:59.284Z"
+    },
+    {
+      "source": "a95b94bd-7996-4766-aeaa-19068d103de3",
+      "target": "8bb6f30f-1afb-4fc5-998e-08d1e81e18ed",
+      "type": "similarity",
+      "weight": 0.22,
+      "created": "2026-06-19T07:21:59.284Z"
+    },
+    {
+      "source": "a95b94bd-7996-4766-aeaa-19068d103de3",
+      "target": "c76ddd09-93b4-495e-b61c-7155687ed920",
+      "type": "similarity",
+      "weight": 0.22,
+      "created": "2026-06-19T07:21:59.284Z"
+    },
+    {
+      "source": "a95b94bd-7996-4766-aeaa-19068d103de3",
+      "target": "2abe5215-7cf1-4bcc-a90f-2d85d53ff21e",
+      "type": "similarity",
+      "weight": 0.2,
+      "created": "2026-06-19T07:21:59.284Z"
+    },
+    {
+      "source": "803a46c8-0348-4e6d-a01e-4f663fb91166",
+      "target": "c76ddd09-93b4-495e-b61c-7155687ed920",
+      "type": "similarity",
+      "weight": 0.33999999999999997,
+      "created": "2026-06-19T07:21:59.413Z"
+    },
+    {
+      "source": "803a46c8-0348-4e6d-a01e-4f663fb91166",
+      "target": "be84916a-a866-475c-9410-173813b2b659",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-19T07:21:59.413Z"
+    },
+    {
+      "source": "803a46c8-0348-4e6d-a01e-4f663fb91166",
+      "target": "19580b24-1dba-41e3-b474-4a44b83e307a",
+      "type": "similarity",
+      "weight": 0.22499999999999998,
+      "created": "2026-06-19T07:21:59.413Z"
+    },
+    {
+      "source": "803a46c8-0348-4e6d-a01e-4f663fb91166",
+      "target": "11fa3c8b-7b3e-4b86-b48f-653da1d04ca4",
+      "type": "similarity",
+      "weight": 0.22,
+      "created": "2026-06-19T07:21:59.413Z"
+    },
+    {
+      "source": "803a46c8-0348-4e6d-a01e-4f663fb91166",
+      "target": "f1cbfa24-f7ed-4e24-866d-7af27ccf844d",
+      "type": "similarity",
+      "weight": 0.22,
+      "created": "2026-06-19T07:21:59.413Z"
+    },
+    {
+      "source": "242c13cf-39a4-4082-b9c8-1cd0903a210f",
+      "target": "5b822f72-f0af-4024-b241-48467a9eccbc",
+      "type": "similarity",
+      "weight": 0.32499999999999996,
+      "created": "2026-06-19T07:21:59.574Z"
+    },
+    {
+      "source": "242c13cf-39a4-4082-b9c8-1cd0903a210f",
+      "target": "50bfb9fc-a0b1-439a-95e1-5ebe60d01a4d",
+      "type": "similarity",
+      "weight": 0.3,
+      "created": "2026-06-19T07:21:59.574Z"
+    },
+    {
+      "source": "242c13cf-39a4-4082-b9c8-1cd0903a210f",
+      "target": "bdab3bd8-c100-40f7-9ad7-7f1a7fdc4508",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-19T07:21:59.574Z"
+    },
+    {
+      "source": "242c13cf-39a4-4082-b9c8-1cd0903a210f",
+      "target": "046274c9-2b02-4d3e-9331-56b550ede0a7",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-19T07:21:59.574Z"
+    },
+    {
+      "source": "242c13cf-39a4-4082-b9c8-1cd0903a210f",
+      "target": "c0a0d220-2bca-4d25-a9b3-848e1f690bea",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-19T07:21:59.574Z"
+    },
+    {
+      "source": "e0d51ce2-ada7-4fb6-91de-b400d5b46721",
+      "target": "fbbddaa2-e3ed-44b8-a131-8dfae7121a21",
+      "type": "similarity",
+      "weight": 0.3,
+      "created": "2026-06-19T07:21:59.717Z"
+    },
+    {
+      "source": "e0d51ce2-ada7-4fb6-91de-b400d5b46721",
+      "target": "c0a0d220-2bca-4d25-a9b3-848e1f690bea",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-19T07:21:59.717Z"
+    },
+    {
+      "source": "e0d51ce2-ada7-4fb6-91de-b400d5b46721",
+      "target": "5b822f72-f0af-4024-b241-48467a9eccbc",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-19T07:21:59.717Z"
+    },
+    {
+      "source": "e0d51ce2-ada7-4fb6-91de-b400d5b46721",
+      "target": "56943d0a-5970-4446-afe8-7891054a65b9",
+      "type": "similarity",
+      "weight": 0.22857142857142856,
+      "created": "2026-06-19T07:21:59.717Z"
+    },
+    {
+      "source": "e0d51ce2-ada7-4fb6-91de-b400d5b46721",
+      "target": "203f26f6-8566-4f07-8862-d3175c683f88",
+      "type": "similarity",
+      "weight": 0.22857142857142856,
+      "created": "2026-06-19T07:21:59.717Z"
+    },
+    {
+      "source": "46f8c758-ba78-4df0-89ed-3a8a521290d2",
+      "target": "8bb6f30f-1afb-4fc5-998e-08d1e81e18ed",
+      "type": "similarity",
+      "weight": 0.33999999999999997,
+      "created": "2026-06-19T07:21:59.857Z"
+    },
+    {
+      "source": "46f8c758-ba78-4df0-89ed-3a8a521290d2",
+      "target": "2abe5215-7cf1-4bcc-a90f-2d85d53ff21e",
+      "type": "similarity",
+      "weight": 0.3,
+      "created": "2026-06-19T07:21:59.857Z"
+    },
+    {
+      "source": "46f8c758-ba78-4df0-89ed-3a8a521290d2",
+      "target": "c1ed0590-4b3f-4439-9217-e5f236cd8736",
+      "type": "similarity",
+      "weight": 0.28,
+      "created": "2026-06-19T07:21:59.857Z"
+    },
+    {
+      "source": "46f8c758-ba78-4df0-89ed-3a8a521290d2",
+      "target": "1d390a21-dbd1-460b-8397-a4d67a36a6e9",
+      "type": "similarity",
+      "weight": 0.28,
+      "created": "2026-06-19T07:21:59.857Z"
+    },
+    {
+      "source": "46f8c758-ba78-4df0-89ed-3a8a521290d2",
+      "target": "11fa3c8b-7b3e-4b86-b48f-653da1d04ca4",
+      "type": "similarity",
+      "weight": 0.28,
+      "created": "2026-06-19T07:21:59.857Z"
+    },
+    {
+      "source": "946ad04b-73ba-4c41-a00e-ab6d9ff8da55",
+      "target": "de16629d-b0cc-434d-805f-61dd997794a6",
+      "type": "similarity",
+      "weight": 0.2714285714285714,
+      "created": "2026-06-19T07:22:00.001Z"
+    },
+    {
+      "source": "946ad04b-73ba-4c41-a00e-ab6d9ff8da55",
+      "target": "bc1069c3-f49a-44be-a164-8128d93b7a90",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-19T07:22:00.001Z"
+    },
+    {
+      "source": "946ad04b-73ba-4c41-a00e-ab6d9ff8da55",
+      "target": "50301eab-54ed-416f-9892-ef1c3b2dc0a4",
+      "type": "similarity",
+      "weight": 0.2125,
+      "created": "2026-06-19T07:22:00.001Z"
+    },
+    {
+      "source": "946ad04b-73ba-4c41-a00e-ab6d9ff8da55",
+      "target": "2f4db302-c156-4286-b359-8ee7f33b1ad5",
+      "type": "similarity",
+      "weight": 0.19999999999999998,
+      "created": "2026-06-19T07:22:00.001Z"
+    },
+    {
+      "source": "946ad04b-73ba-4c41-a00e-ab6d9ff8da55",
+      "target": "8bb6f30f-1afb-4fc5-998e-08d1e81e18ed",
+      "type": "similarity",
+      "weight": 0.18,
+      "created": "2026-06-19T07:22:00.001Z"
+    },
+    {
+      "source": "c36f864b-70cd-4018-aff4-65577946b2a9",
+      "target": "be84916a-a866-475c-9410-173813b2b659",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-19T07:22:00.148Z"
+    },
+    {
+      "source": "c36f864b-70cd-4018-aff4-65577946b2a9",
+      "target": "2abe5215-7cf1-4bcc-a90f-2d85d53ff21e",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-19T07:22:00.148Z"
+    },
+    {
+      "source": "c36f864b-70cd-4018-aff4-65577946b2a9",
+      "target": "a95b94bd-7996-4766-aeaa-19068d103de3",
+      "type": "similarity",
+      "weight": 0.22857142857142856,
+      "created": "2026-06-19T07:22:00.148Z"
+    },
+    {
+      "source": "c36f864b-70cd-4018-aff4-65577946b2a9",
+      "target": "046274c9-2b02-4d3e-9331-56b550ede0a7",
+      "type": "similarity",
+      "weight": 0.22499999999999998,
+      "created": "2026-06-19T07:22:00.148Z"
+    },
+    {
+      "source": "c36f864b-70cd-4018-aff4-65577946b2a9",
+      "target": "8bb6f30f-1afb-4fc5-998e-08d1e81e18ed",
+      "type": "similarity",
+      "weight": 0.22,
+      "created": "2026-06-19T07:22:00.148Z"
+    },
+    {
+      "source": "38457c9c-d072-4afd-b53a-68d24b8b8ed6",
+      "target": "203f26f6-8566-4f07-8862-d3175c683f88",
+      "type": "similarity",
+      "weight": 0.3142857142857143,
+      "created": "2026-06-19T07:22:00.308Z"
+    },
+    {
+      "source": "38457c9c-d072-4afd-b53a-68d24b8b8ed6",
+      "target": "56943d0a-5970-4446-afe8-7891054a65b9",
+      "type": "similarity",
+      "weight": 0.2714285714285714,
+      "created": "2026-06-19T07:22:00.308Z"
+    },
+    {
+      "source": "38457c9c-d072-4afd-b53a-68d24b8b8ed6",
+      "target": "be84916a-a866-475c-9410-173813b2b659",
+      "type": "similarity",
+      "weight": 0.25,
+      "created": "2026-06-19T07:22:00.308Z"
+    },
+    {
+      "source": "38457c9c-d072-4afd-b53a-68d24b8b8ed6",
+      "target": "3beed00f-0d91-467c-b54f-aa52e6ece799",
+      "type": "similarity",
+      "weight": 0.21428571428571427,
+      "created": "2026-06-19T07:22:00.308Z"
+    },
+    {
+      "source": "38457c9c-d072-4afd-b53a-68d24b8b8ed6",
+      "target": "e0d51ce2-ada7-4fb6-91de-b400d5b46721",
+      "type": "similarity",
+      "weight": 0.2,
+      "created": "2026-06-19T07:22:00.308Z"
     }
   ]
 }

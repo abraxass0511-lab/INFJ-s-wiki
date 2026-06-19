@@ -96,7 +96,7 @@ export async function processDocument(filePath) {
 
     // ── 캘린더 카테고리 자동 분류 ──
     const calendarCat = classifyCalendarCategory(fileName, rawContent);
-    await updateCalendarCategories(fileName + '.md', calendarCat);
+    await updateCalendarCategories(fileName + '.md', calendarCat, filePath);
     console.log(`  📅 캘린더 카테고리: ${calendarCat}`);
 
     // ── 보상 점수 계산 ──
@@ -342,7 +342,7 @@ function classifyCalendarCategory(title, content) {
 /**
  * _categories.json에 파일의 캘린더 카테고리 기록
  */
-async function updateCalendarCategories(fileName, calendarCategory) {
+async function updateCalendarCategories(fileName, calendarCategory, originalFilePath) {
   const catPath = path.join(CONFIG.PATHS.RAW, '_categories.json');
   let catData = {};
 
@@ -351,9 +351,18 @@ async function updateCalendarCategories(fileName, calendarCategory) {
     if (raw) catData = JSON.parse(raw);
   } catch { /* 파일 없으면 새로 생성 */ }
 
-  // 파일명에서 날짜 추출 (YYYY-MM-DD)
+  // 날짜 결정: 파일명 → 부모 폴더명 → today() 순서로 폴백
   const dateMatch = fileName.match(/^(\d{4}-\d{2}-\d{2})/);
-  const dateKey = dateMatch ? dateMatch[1] : today();
+  let dateKey;
+  if (dateMatch) {
+    dateKey = dateMatch[1];
+  } else if (originalFilePath) {
+    const parentDir = path.basename(path.dirname(originalFilePath));
+    const parentDateMatch = parentDir.match(/^(\d{4}-\d{2}-\d{2})$/);
+    dateKey = parentDateMatch ? parentDateMatch[1] : today();
+  } else {
+    dateKey = today();
+  }
 
   if (!catData[dateKey]) catData[dateKey] = {};
 
